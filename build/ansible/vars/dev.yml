@@ -1,0 +1,44 @@
+hostname: yii2advanced.local
+is_production: false
+yii_debug: true
+
+php_error_reporting: E_ALL
+php_display_errors: On
+php_upload_max_filesize: 60M
+php_post_max_size: 60M
+php_max_execution_time: 30
+php_memory_limit: 128M
+php_file_uploads: On
+php_max_file_uploads: 60
+
+ssl_certs_files: [
+]
+
+nginx_run_user: 'www-data'
+nginx_vhosts: [
+    { server_name: 'frontend.191.0.10.10.xip.io', root: '/var/www/yii2-advanced/frontend/web', template: 'yii'},
+    { server_name: 'backend.191.0.10.10.xip.io', root: '/var/www/yii2-advanced/backend/web', template: 'yii'},
+    { server_name: 'adminer.191.0.10.10.xip.io', root: '/usr/share/adminer', template: 'php'},
+    { server_name: 'db.191.0.10.10.xip.io', root: '/usr/share/phpmyadmin', template: 'php'}
+]
+nginx_ssl_vhosts: []
+
+frontendDomain: frontend.191.0.10.10.xip.io
+backendDomain: backend.191.0.10.10.xip.io
+
+mysql_bind_address: 127.0.0.1
+mysql_root_pass: yii2
+
+mysql_app_user: yii2advanced
+mysql_app_pass: yii2advanced
+sql_dump_route: /var/www/yii2-advanced/common/data
+
+mysql_databases: [
+  yii2advanced,
+]
+
+workspace: /root
+
+host_name: "yii2advanced"
+
+git_clone_folder: "/var/www/yii2-advanced"

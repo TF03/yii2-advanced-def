@@ -1,0 +1,4 @@
+- name: Setup migrate
+  shell: cd {{ git_clone_folder }} &&
+    php yiic.php migrate --interactive=0
+  ignore_errors: yes

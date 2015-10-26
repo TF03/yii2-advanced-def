@@ -1,0 +1,20 @@
+- hosts: dev
+  sudo: true
+  gather_facts: true
+  vars_files:
+    - "vars/dev.yml"
+  roles:
+    - initial
+    - common
+    - ntpd
+    - php-ubuntu
+    - nginx
+    - phpredis
+    - redis
+    - memcached
+    - mysql
+    - phpmyadmin
+    - adminer
+    #- update_config
+    #- migrate
+    - after_update

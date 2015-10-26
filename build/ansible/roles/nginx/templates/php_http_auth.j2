@@ -1,0 +1,27 @@
+server
+{
+    include     ports/http.conf;
+    server_name www.{{ item.server_name }};
+    return      301 http://{{ item.server_name }}$request_uri;
+}
+server
+{
+    server_name {{ item.server_name }};
+    root        {{ item.root }};
+
+    auth_basic "Unauthorized";
+    auth_basic_user_file {{ git_clone_folder }}/.htpasswd;
+
+    include         ports/http.conf;
+    include         limits/methods.conf;
+    include         locations/favicon.conf;
+    include         locations/favicon_apple.conf;
+	include         locations/static.conf;
+    include         locations/php.conf;
+
+    ########## Your custom locations & settings ##########
+    location / {
+        index index.php;
+    }
+}
+

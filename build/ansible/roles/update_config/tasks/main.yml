@@ -1,0 +1,19 @@
+- name: Replace config
+  shell: cd {{ git_clone_folder_new }}/common/config &&
+      perl -pi -w -e "s/'username'\x20=>\x20'[\w]+'/'username'\x20=>\x20'{{ mysql_app_user }}'/g;" main.php &&
+      perl -pi -w -e "s/'password'\x20=>\x20'[\w]+'/'password'\x20=>\x20'{{ mysql_app_pass }}'/g;" main.php
+
+- name: Replace HOST frontend
+  lineinfile: dest={{ git_clone_folder_new }}/common/config/params.php regexp="'frontendDomain'" line="'frontendDomain' => 'http://{{ frontendDomain }}',"
+
+- name: Replace HOST baackend
+  lineinfile: dest={{ git_clone_folder_new }}/common/config/params.php regexp="'backendDomain'" line="'backendDomain' => 'http://{{ backendDomain }}',"
+
+- name: Off YII_DEBUG
+  shell: cd {{ git_clone_folder_new }}/frontend/www &&
+      perl -pi -w -e "s/define\('YII_DEBUG', [\w]+\)/define\('YII_DEBUG', {{ yii_debug }}\)/g;" bootstrap.php
+
+- name: Add folder in resources/images
+  shell: cd {{ git_clone_folder }}/resources/images &&
+      mkdir origin_img
+  ignore_errors: yes

@@ -1,0 +1,32 @@
+- name: ensure MySQL is installed
+  action: apt pkg={{ item }} state=present
+  with_items:
+      - mysql-client
+      - mysql-server
+  notify : restart mysql
+
+- name: service MySQL
+  service: name=mysql state=started enabled=yes
+
+- name: copy MySQL config
+  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root mode=0644
+
+- name: set mysql root password
+  command: /usr/bin/mysqladmin -u root password '{{ mysql_root_pass }}'
+  ignore_errors: yes
+
+- name: add mysql app user
+  mysql_user: name={{ mysql_app_user }} password={{ mysql_app_pass }} priv=*.*:ALL state=present  login_user=root login_password={{ mysql_root_pass }}
+
+- mysql_db: name={{ item }} state=present  login_user={{ mysql_app_user }} login_password={{ mysql_app_pass }}
+  with_items: mysql_databases
+  register: dbExists
+
+#- mysql_db: login_user={{ mysql_app_user }} login_password={{ mysql_app_pass }} name={{ item.item }} state=import target={{ sql_dump_route }}/{{ item.item }}.sql
+#  with_items: dbExists.results
+#  when: item.changed == True
+
+
+
+
+

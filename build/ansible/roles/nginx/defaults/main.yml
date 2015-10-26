@@ -1,0 +1,20 @@
+ssl_certs_folder: '/etc/nginx/certs/'
+ssl_certs_files: [
+      certs/server.cer,
+      certs/server.csr,
+      certs/server.key,
+      certs/CA_bundle.pem
+]
+
+ssl_certificate_file: 'server.cer'
+ssl_certificate_key_file: 'server.key'
+nginx_run_user: 'www-data'
+
+nginx_vhosts: [
+    { server_name: '_', root: '/var/www', template: 'php'},
+    { server_name: 'db.local', root: '/usr/share/phpmyadmin', template: 'php'}
+]
+
+nginx_ssl_vhosts: [
+
+]

@@ -1,0 +1,26 @@
+- name: remove development files
+  command: rm {{ git_clone_folder_new }}/{{item}} -Rf
+  with_items:
+    - 'nbproject'
+    - 'build'
+    - '.gitignore'
+    - '.git/'
+    - '.idea'
+    - '.vagrant'
+    - 'composer.phar'
+    - 'README.md'
+    - 'Vagrantfile'
+  #delegate_to: 127.0.0.1
+  ignore_errors: yes
+
+- name: Rename new and old project
+  shell: mv {{ git_clone_folder }} {{ git_clone_folder }}-old &&
+    mv {{ git_clone_folder_new }} {{ git_clone_folder }}
+
+- name: Delete old folder
+  shell: rm {{ git_clone_folder }}-old -Rf &&
+    cd {{ git_clone_folder }}/../ &&
+    rm {{ host_name }}-full.tar.gz
+
+- name: set permissions to folders
+  shell: chown {{nginx_run_user}}:{{nginx_run_user}} {{ git_clone_folder }} -Rf && chmod 764 {{ git_clone_folder }} -Rf

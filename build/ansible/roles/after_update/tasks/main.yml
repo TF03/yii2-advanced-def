@@ -1,0 +1,12 @@
+- name: service php5-fpm restart
+  service: name=php5-fpm state=restarted
+
+- name: service nginx restart
+  service: name=nginx state=restarted
+
+- name: service mysql restart
+  service: name=mysql state=restarted
+
+- name: Clear redis cache
+  sudo: yes
+  shell: redis-cli flushall

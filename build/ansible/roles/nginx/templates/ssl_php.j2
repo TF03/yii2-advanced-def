@@ -1,0 +1,47 @@
+server
+{
+    include     ports/http.conf;
+    server_name {{ item.server_name }};
+    return      301 https://{{ item.server_name }}$request_uri;
+}
+server
+{
+    include     ports/http.conf;
+    server_name www.{{ item.server_name }};
+    return      301 https://{{ item.server_name }}$request_uri;
+}
+server
+{
+    server_name www.{{ item.server_name }};
+
+	ssl_certificate    {{ ssl_certs_folder }}{{ ssl_certificate_file }};
+	ssl_certificate_key {{ ssl_certs_folder }}{{ ssl_certificate_key_file }};
+	ssl_protocols       SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+	ssl_ciphers         HIGH:!aNULL:!MD5;
+
+    include     ports/ssl.conf;
+    return      301 https://{{ item.server_name }}$request_uri;
+}
+server
+{
+    server_name {{ item.server_name }};
+    root        {{ item.root }};
+
+	ssl_certificate    {{ ssl_certs_folder }}{{ ssl_certificate_file }};
+	ssl_certificate_key {{ ssl_certs_folder }}{{ ssl_certificate_key_file }};
+	ssl_protocols       SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+	ssl_ciphers         HIGH:!aNULL:!MD5;
+
+    include         ports/ssl.conf;
+    include         limits/methods.conf;
+    include         locations/favicon.conf;
+    include         locations/favicon_apple.conf;
+	include         locations/static.conf;
+    include         locations/php.conf;
+
+    ########## Your custom locations & settings ##########
+    location / {
+        index index.php;
+    }
+}
+

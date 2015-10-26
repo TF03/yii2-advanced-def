@@ -1,0 +1,42 @@
+- name: add nginx signing key
+  apt_key: url='http://nginx.org/keys/nginx_signing.key' state=present
+  ignore_errors: yes
+
+- name: add nginx deb repository
+  apt_repository: repo='deb http://nginx.org/packages/ubuntu/ trusty nginx' state=present
+
+- name: add nginx deb-src repository
+  apt_repository: repo='deb-src http://nginx.org/packages/ubuntu/ trusty nginx' state=present update_cache=yes
+
+- name: install nginx
+  apt: pkg=nginx state=latest
+
+- name: copy nginx configs
+  synchronize: src=config/ dest=/etc/nginx/ delete=yes recursive=yes
+
+- name: make sure ssl certs directory exists
+  shell: creates={{ssl_certs_folder}} mkdir {{ssl_certs_folder}} -p
+
+- name: copy certs to remote host
+  copy: src={{ item }} dest={{ ssl_certs_folder }}
+  with_items: ssl_certs_files
+
+- name: set correct permissions to certs
+  shell: chmod 600 {{ssl_certs_folder}} -Rf
+
+- name: make sure sites directory exists
+  shell: creates=/etc/nginx/sites-enabled/ mkdir /etc/nginx/sites-enabled/ -p
+
+- name: remove old virtual hosts
+  shell: rm /etc/nginx/sites-enabled/* -Rf
+
+- name: configure nginx virtual hosts
+  template: src={{ item.template }}.j2 dest=/etc/nginx/sites-enabled/{{ item.server_name }}.conf
+  with_items: nginx_vhosts
+
+- name: configure nginx SSL virtual hosts
+  template: src={{ item.template }}.j2 dest=/etc/nginx/sites-enabled/ssl_{{ item.server_name }}.conf
+  with_items: nginx_ssl_vhosts
+
+  notify:
+    - restart nginx
