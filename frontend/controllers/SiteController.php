@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use frontend\models\User;
@@ -89,7 +90,7 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect(['user-panel/settings']);
         }
 
         $serviceName = Yii::$app->getRequest()->getQueryParam('service');
@@ -121,7 +122,7 @@ class SiteController extends Controller
 
                 // close popup window and redirect to cancelUrl
                 // $eauth->cancel();
-                $eauth->redirect($eauth->getCancelUrl());
+                $this->redirect($eauth->getCancelUrl());
             }
         }
         else {
