@@ -28,7 +28,7 @@ class m151030_151643_fill_table_category_test_data extends Migration
 
     public function down()
     {
-        $this->dropTable(self::TABLE);
+        $this->truncateTable(self::TABLE);
         return true;
     }
 }

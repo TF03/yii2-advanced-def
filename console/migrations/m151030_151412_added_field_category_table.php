@@ -9,12 +9,12 @@ class m151030_151412_added_field_category_table extends Migration
 
     public function up()
     {
-        $this->addColumn(self::TABLE,'basic',Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0');
+        $this->addColumn(self::TABLE, 'basic', Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0');
     }
 
     public function down()
     {
-        $this->dropColumn(self::TABLE,'basic',Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0');
+        $this->dropColumn(self::TABLE, 'basic');
 
         return false;
     }
