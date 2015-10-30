@@ -43,15 +43,17 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'Счета', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Счета', 'url' => ['/site/signup']];
         $menuItems[] = [
-            'label' => 'User Panel',
+            'label' => Yii::$app->user->identity->username,
             'items' => [
                 [
-                    'label' => 'Settings',
+                    'label' => 'Профиль',
                     'url' => ['/user-panel/settings']
                 ],
                 [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                    'label' => 'Выход',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ],
