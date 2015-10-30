@@ -25,6 +25,9 @@ return [
                 ],
             ],
         ],
+        'urlManager' => [
+            'rules' => require(__DIR__ . '/urlManagerRules.php'),
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
