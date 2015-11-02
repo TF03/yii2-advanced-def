@@ -21,7 +21,7 @@ return [
         // (optionally) you can configure pretty urls
         'urlManager' => [
             'enablePrettyUrl' => true,
-            //'showScriptName' => false,
+            'showScriptName' => false,
             'rules' => [
                 'login/<service:google|facebook|etc>' => 'site/login',
             ],

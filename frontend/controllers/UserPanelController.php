@@ -2,13 +2,12 @@
 
 namespace frontend\controllers;
 
-use yii\web\Controller;
-use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 /**
  * User Panel controller
  */
-class UserPanelController extends Controller
+class UserPanelController extends FrontendController
 {
     /**
      * @inheritdoc
@@ -16,15 +15,10 @@ class UserPanelController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['settings'],
-                'rules' => [
-                    [
-                        'actions' => ['settings'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
                 ],
             ],
         ];
