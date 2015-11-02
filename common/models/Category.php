@@ -2,52 +2,30 @@
 
 namespace common\models;
 
+use common\models\gii\CategoryGii;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "category".
+ * @inheritdoc
  *
- * @property integer $id
- * @property string $title
- * @property integer $user_id
- * @property integer $base_category_id
- * @property integer $status
+ * @property User $owner
+ * @property CategoryBase $baseCategory
  */
-class Category extends ActiveRecord
+class Category extends CategoryGii
 {
     /**
-     * @inheritdoc
+     * @return \yii\db\ActiveQuery
      */
-    public static function tableName()
+    public function getOwner()
     {
-        return 'category';
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**
-     * @inheritdoc
+     * @return \yii\db\ActiveQuery
      */
-    public function rules()
+    public function getBaseCategory()
     {
-        return [
-            [['title', 'user_id'], 'required'],
-            [['user_id', 'base_category_id', 'status'], 'integer'],
-            [['title'], 'string', 'max' => 255],
-            [['title', 'user_id'], 'unique', 'targetAttribute' => ['title', 'user_id'], 'message' => 'The combination of Title and User ID has already been taken.']
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'user_id' => 'User ID',
-            'base_category_id' => 'Base Category ID',
-            'status' => 'Status',
-        ];
+        return $this->hasOne(CategoryBase::className(), ['id' => 'base_category_id']);
     }
 }

@@ -32,6 +32,13 @@ class CategoryController extends Controller
      */
     public function actionIndex()
     {
+        $idCategory = Yii::$app->request->post('Category');
+        if ($idCategory) {
+            $model = $this->findModel($idCategory['id']);
+            $model->status = $model->getValueSaveStatus($idCategory['status']);
+            $model->save();
+        }
+
         $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -42,61 +49,50 @@ class CategoryController extends Controller
     }
 
     /**
-     * Displays a single Category model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new Category model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the 'index' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionNew()
     {
         $model = new Category();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
-            return $this->render('create', [
+            return $this->render('new', [
                 'model' => $model,
             ]);
         }
     }
 
     /**
-     * Updates an existing Category model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * Edits an existing Category model.
+     * If edit is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionEdit($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
-            return $this->render('update', [
+            return $this->render('edit', [
                 'model' => $model,
             ]);
         }
     }
 
     /**
-     * Deletes an existing Category model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Removes an existing Category model.
+     * If remove is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionRemove($id)
     {
         $this->findModel($id)->delete();
 
@@ -112,10 +108,11 @@ class CategoryController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Category::findOne($id)) !== null) {
+        $model = Category::find()->andWhere(['id' => $id])->one();
+        if ( $model !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('Данная страница не найдена.');
         }
     }
 }

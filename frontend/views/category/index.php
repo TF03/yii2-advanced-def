@@ -7,13 +7,13 @@ use yii\widgets\ListView;
 /* @var $searchModel frontend\models\search\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Categories';
+$this->title = 'Категории';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">
 
     <p>
-        <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать новую категорию', ['new'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= ListView::widget([

@@ -64,6 +64,8 @@ class CategorySearch extends Category
 
         $query->andFilterWhere(['like', 'title', $this->title]);
 
+        $query->orderBy(['id' => SORT_DESC]);
+
         return $dataProvider;
     }
 }

@@ -27,7 +27,7 @@ return [
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            //'showScriptName' => false,
             'rules' => require(__DIR__ . '/urlManagerRules.php'),
         ],
         'errorHandler' => [
