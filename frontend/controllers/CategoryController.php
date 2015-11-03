@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\helper\StatusHelper;
 use Yii;
 use frontend\models\Category;
 use frontend\models\search\CategorySearch;
@@ -94,7 +95,15 @@ class CategoryController extends Controller
      */
     public function actionRemove($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = StatusHelper::STATUS_DELETE;
+
+        if ($model->save()) {
+            Yii::$app->getSession()->setFlash('success', 'Категория удалена.');
+        }
+        else {
+            Yii::$app->getSession()->setFlash('error', 'При удалении произошла ошибка.');
+        }
 
         return $this->redirect(['index']);
     }

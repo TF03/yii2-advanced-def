@@ -42,7 +42,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = ['label' => 'Счета', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Счета', 'url' => ['/accounts']];
         $menuItems[] = ['label' => 'Категории', 'url' => ['/category']];
         $menuItems[] = [
             'label' => Yii::$app->user->identity->username,
@@ -84,6 +84,7 @@ AppAsset::register($this);
     </div>
 </footer>
 
+<div class="spinner"></div>
 <?php $this->endBody() ?>
 </body>
 </html>

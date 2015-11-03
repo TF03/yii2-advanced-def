@@ -13,14 +13,18 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="category-index">
 
     <p>
-        <?= Html::a('Создать новую категорию', ['new'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Новая категория', ['new'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
         'itemOptions' => ['class' => 'item'],
         'itemView' => function ($model, $key, $index, $widget) {
-            //return Html::a(Html::encode($model->title), ['view', 'id' => $model->id]);
+            /*return Html::a(Html::encode($model->title), ['view', 'id' => $model->id]);
+                $key - id model
+                $index - $i
+                $widget - model ListView
+            */
             return $this->render('_view',['model' => $model]);
         },
     ]) ?>
