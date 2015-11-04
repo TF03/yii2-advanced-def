@@ -18,11 +18,22 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
-        'css/main.css',
+        'css/bootstrap.min.css',
+        'css/budget.css',
+        'font-awesome/css/font-awesome.min.css',
+        'http://fonts.googleapis.com/css?family=Montserrat:400,700',
+        'http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic',
+        //'css/main.css',
     ];
     public $js = [
         'js/global_ajax_spinner.js',
+        'js/jquery.js',
+        'http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js',
+        'js/classie.js',
+        'js/cbpAnimatedHeader.js',
+        'js/jqBootstrapValidation.js',
+        'js/contact_me.js',
+        'js/budget.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
