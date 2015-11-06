@@ -1,11 +1,9 @@
 <?php
 
+use kartik\sortable\Sortable;
 use yii\helpers\Html;
-use yii\widgets\ListView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel frontend\models\search\CategorySearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $modelAll frontend\models\Category */
 
 $this->title = 'Категории';
 $this->params['breadcrumbs'][] = $this->title;
@@ -16,17 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Новая категория', ['new'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= ListView::widget([
-        'dataProvider' => $dataProvider,
-        'itemOptions' => ['class' => 'item'],
-        'itemView' => function ($model, $key, $index, $widget) {
-            /*return Html::a(Html::encode($model->title), ['view', 'id' => $model->id]);
-                $key - id model
-                $index - $i
-                $widget - model ListView
-            */
-            return $this->render('_view',['model' => $model]);
-        },
-    ]) ?>
+    <?= Sortable::widget([
+        'items' => $modelAll
+    ]);
+    ?>
 
 </div>

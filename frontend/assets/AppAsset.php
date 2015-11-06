@@ -27,7 +27,6 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/global_ajax_spinner.js',
-        'js/jquery.js',
         'http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js',
         'js/classie.js',
         'js/cbpAnimatedHeader.js',
@@ -36,6 +35,7 @@ class AppAsset extends AssetBundle
         'js/budget.js',
     ];
     public $depends = [
+        'yii\web\JqueryAsset',
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];

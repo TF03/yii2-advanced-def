@@ -15,6 +15,22 @@ class Category extends \common\models\Category
         ]);
     }
 
+    public static function getAllList()
+    {
+        $models = self::find()->all();
+        $result = [];
+
+        if ($models) {
+            /** @var \common\models\Category $model */
+            foreach ($models as $model) {
+                //$result[] = ['content' => $model->title];
+                $result[$model->id] = $model->title;
+            }
+        }
+
+        return $result;
+    }
+
     public function isShowItem()
     {
         if ($this->status == StatusHelper::STATUS_AVAILABLE) {

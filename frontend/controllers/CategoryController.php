@@ -40,12 +40,10 @@ class CategoryController extends Controller
             $model->save();
         }
 
-        $searchModel = new CategorySearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $modelAll = Category::getAllList();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'modelAll' => $modelAll,
         ]);
     }
 
