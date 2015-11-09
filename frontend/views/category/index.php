@@ -10,12 +10,22 @@ $this->title = 'Категории';
 $this->params['breadcrumbs'][] = $this->title;
 
 $list = [];
+//http://demos.krajee.com/widget-details/switchinput
+$switch = \kartik\switchinput\SwitchInput::widget([
+                                'name' => 'status',
+                                //'pjax' => true,
+                                'pluginOptions' => [
+                                    'onText' => 'Отображать',
+                                    'offText' => 'Скрыть',
+                                ],
+                                'pluginEvents' => [
+                                    "switchChange.bootstrapSwitch" => 'function() { console.log("switchChange"); }',
+                                ]
+                              ]);
+
 foreach ($modelAll as $id => $title) {
     $list[] = [
-        'content' => '<div>' . $title . '</div>' . Html::checkbox('status', true, [
-                'title' => 'Отображать',
-                'pjax' => true
-            ]) . Html::a('Удалить', Yii::$app->urlManager->createUrl('category/index', ['id' => $id])),
+        'content' => '<div>' . $title . '</div>' . $switch . Html::a('Удалить', Yii::$app->urlManager->createUrl('category/index', ['id' => $id])),
         'options' => [
             'data-iCat' => $id
         ]
@@ -45,6 +55,6 @@ foreach ($modelAll as $id => $title) {
 
 </div>
 
-<?= Html::a('Mark All As Read', ['/notification/default/mark-as-read'], [
+<?php /*Html::a('Mark All As Read', ['/notification/default/mark-as-read'], [
     'class' => 'btn btn-default btn-text-upper btn-mark',
-]); ?>
+]);*/ ?>
