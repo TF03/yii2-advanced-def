@@ -23,7 +23,6 @@ class Category extends \common\models\Category
         if ($models) {
             /** @var \common\models\Category $model */
             foreach ($models as $model) {
-                //$result[] = ['content' => $model->title];
                 $result[$model->id] = $model->title;
             }
         }
