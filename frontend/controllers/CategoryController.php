@@ -40,7 +40,7 @@ class CategoryController extends Controller
             $model->save();
         }
 
-        $modelAll = Category::getAllList();
+        $modelAll = Category::find()->all();
 
         return $this->render('index', [
             'modelAll' => $modelAll,
@@ -104,6 +104,15 @@ class CategoryController extends Controller
         }
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHiddenCategory($id)
+    {
+
     }
 
     /**

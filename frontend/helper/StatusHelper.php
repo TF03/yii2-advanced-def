@@ -25,4 +25,12 @@ class StatusHelper
 
         return isset($sNames[$key]) ? $sNames[$key] : $key;
     }
+
+    public static function getValueForHtml($key)
+    {
+        if (self::STATUS_AVAILABLE == $key)
+            return 1;
+        else
+            return 0;
+    }
 }

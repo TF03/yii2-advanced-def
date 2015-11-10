@@ -94,12 +94,13 @@ AppAsset::register($this);
     <!-- /.container-fluid -->
 </nav>
 
-<?= Alert::widget() ?>
-
 <div class="main-container container">
     <?= Breadcrumbs::widget([
                                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                             ]) ?>
+
+    <?= Alert::widget() ?>
+
     <?= $content ?>
 </div>
 

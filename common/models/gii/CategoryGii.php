@@ -32,6 +32,7 @@ class CategoryGii extends ActiveRecord
         return [
             [['title', 'user_id'], 'required'],
             [['user_id', 'base_category_id', 'status'], 'integer'],
+            ['status', 'in', 'range' => [1, 2, 3]],
             [['title'], 'string', 'max' => 255],
             [['title', 'user_id'], 'unique', 'targetAttribute' => ['title', 'user_id'], 'message' => 'Категория с таким название уже есть.']
         ];

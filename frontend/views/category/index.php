@@ -1,7 +1,10 @@
 <?php
 
+use frontend\helper\StatusHelper;
 use kartik\sortable\Sortable;
+use kartik\switchinput\SwitchInput;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\Pjax;
 
 /* @var $modelAll frontend\models\Category */
@@ -10,24 +13,50 @@ $this->title = 'Категории';
 $this->params['breadcrumbs'][] = $this->title;
 
 $list = [];
-//http://demos.krajee.com/widget-details/switchinput
-$switch = \kartik\switchinput\SwitchInput::widget([
-                                'name' => 'status',
-                                //'pjax' => true,
-                                'pluginOptions' => [
-                                    'onText' => 'Отображать',
-                                    'offText' => 'Скрыть',
-                                ],
-                                'pluginEvents' => [
-                                    "switchChange.bootstrapSwitch" => 'function() { console.log("switchChange"); }',
-                                ]
-                              ]);
 
-foreach ($modelAll as $id => $title) {
+/** @var \frontend\models\Category $model */
+foreach ($modelAll as $model) {
+    $switch = SwitchInput::widget([
+          'name' => 'status_' . $model->id,
+          'value' => StatusHelper::getValueForHtml($model->status),
+          'pluginOptions' => [
+              'onText' => 'Отображать',
+              'offText' => 'Скрыть',
+              'onColor' => 'success',
+              'offColor' => 'danger',
+              'size' => 'small'
+          ],
+          'pluginEvents' => [
+              "switchChange.bootstrapSwitch" => 'function(event, state) {
+                                                    $.ajax({
+                                                            url: "' . Url::toRoute(["hiddenCategory", 'id' => 0]) . '",
+                                                            type: "post",
+                                                            data: {"value": +state},
+                                                            cache: false,
+                                                            success: function(data) {}
+                                                    });
+                                                }',
+          ]
+    ]);
     $list[] = [
-        'content' => '<div>' . $title . '</div>' . $switch . Html::a('Удалить', Yii::$app->urlManager->createUrl('category/index', ['id' => $id])),
+        'content' => '
+                        <div class="col-md-8">' . $model->title . '</div>
+                        <div class="col-md-2">' . $switch . '</div>
+                        <div class="col-md-2">' .
+                                Html::a('', Yii::$app->urlManager->createUrl(['category/edit', 'id' => $model->id]), [
+                                    'class' => 'btn btn-info glyphicon glyphicon-pencil management-help',
+                                    'pjax' => false
+                                ]) .
+                                Html::a('', Yii::$app->urlManager->createUrl(['category/remove', 'id' => $model->id]), [
+                                    'class' => 'btn btn-danger glyphicon glyphicon-remove management-help',
+                                    'data' => [
+                                        'confirm' => 'Are you sure you want to delete this item?',
+                                        'method' => 'post',
+                                    ]
+                                ]) .
+                        '</div>',
         'options' => [
-            'data-iCat' => $id
+            'data-iCat' => $model->id
         ]
     ];
 }
@@ -45,6 +74,9 @@ foreach ($modelAll as $id => $title) {
 
         <?= Sortable::widget([
             'items' => $list,
+            'options' => [
+                'class' => 'category-sortable'
+            ],
             'pluginEvents' => [
 
             ]
