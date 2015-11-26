@@ -31,7 +31,7 @@ class AppAsset extends AssetBundle
         'js/classie.js',
         'js/cbpAnimatedHeader.js',
         'js/jqBootstrapValidation.js',
-        'js/contact_me.js',
+        //'js/contact_me.js',
         'js/budget.js',
     ];
     public $depends = [

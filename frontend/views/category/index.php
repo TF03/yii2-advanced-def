@@ -29,7 +29,7 @@ foreach ($modelAll as $model) {
           'pluginEvents' => [
               "switchChange.bootstrapSwitch" => 'function(event, state) {
                                                     $.ajax({
-                                                            url: "' . Url::toRoute(["hiddenCategory", 'id' => 0]) . '",
+                                                            url: "' . Yii::$app->urlManager->createUrl(["category/hidden-category", 'id' => $model->id]) . '",
                                                             type: "post",
                                                             data: {"value": +state},
                                                             cache: false,
@@ -52,7 +52,8 @@ foreach ($modelAll as $model) {
                                     'data' => [
                                         'confirm' => 'Are you sure you want to delete this item?',
                                         'method' => 'post',
-                                    ]
+                                    ],
+                                    'pjax' => true
                                 ]) .
                         '</div>',
         'options' => [
@@ -86,7 +87,3 @@ foreach ($modelAll as $model) {
     <?php Pjax::end(); ?>
 
 </div>
-
-<?php /*Html::a('Mark All As Read', ['/notification/default/mark-as-read'], [
-    'class' => 'btn btn-default btn-text-upper btn-mark',
-]);*/ ?>

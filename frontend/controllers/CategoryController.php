@@ -6,6 +6,7 @@ use frontend\helper\StatusHelper;
 use Yii;
 use frontend\models\Category;
 use frontend\models\search\CategorySearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -13,11 +14,22 @@ use yii\filters\VerbFilter;
 /**
  * CategoryController implements the CRUD actions for Category model.
  */
-class CategoryController extends Controller
+class CategoryController extends FrontendController
 {
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'new', 'remove', 'edit', 'hiddenCategory'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'new', 'remove', 'edit', 'hiddenCategory'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -94,6 +106,13 @@ class CategoryController extends Controller
     public function actionRemove($id)
     {
         $model = $this->findModel($id);
+
+        if ( isset($model->base_category_id) ) {
+            Yii::$app->getSession()->setFlash('error', 'Эта категория не может быть удалена.');
+
+            return $this->redirect(['index']);
+        }
+
         $model->status = StatusHelper::STATUS_DELETE;
 
         if ($model->save()) {
@@ -112,7 +131,15 @@ class CategoryController extends Controller
      */
     public function actionHiddenCategory($id)
     {
+        $model = $this->findModel($id);
+        $model->status = StatusHelper::getChangeStatus($model->status);
 
+        if ($model->save()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     /**
