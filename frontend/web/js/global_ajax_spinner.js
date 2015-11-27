@@ -32,5 +32,8 @@ $(function () {
     });
     $(document).on('pjax:end', function () {
         $('.spinner').hide();
+        var $switchInput = $('.switchInputCategory');
+        var opts = window[$switchInput.attr('data-krajee-bootstrapSwitch')];
+        $switchInput.bootstrapSwitch(opts);
     });
 });

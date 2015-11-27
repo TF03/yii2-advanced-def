@@ -109,20 +109,23 @@ class CategoryController extends FrontendController
 
         if ( isset($model->base_category_id) ) {
             Yii::$app->getSession()->setFlash('error', 'Эта категория не может быть удалена.');
-
-            return $this->redirect(['index']);
-        }
-
-        $model->status = StatusHelper::STATUS_DELETE;
-
-        if ($model->save()) {
-            Yii::$app->getSession()->setFlash('success', 'Категория удалена.');
         }
         else {
-            Yii::$app->getSession()->setFlash('error', 'При удалении произошла ошибка.');
+            $model->status = StatusHelper::STATUS_DELETE;
+
+            if ($model->save()) {
+                Yii::$app->getSession()->setFlash('success', 'Категория удалена.');
+            } else {
+                Yii::$app->getSession()->setFlash('error', 'При удалении произошла ошибка.');
+            }
         }
 
-        return $this->redirect(['index']);
+        $modelAll = Category::find()->all();
+
+        return $this->render('index', [
+            'modelAll' => $modelAll,
+        ]);
+        //return $this->redirect(['index']);
     }
 
     /**
@@ -133,6 +136,23 @@ class CategoryController extends FrontendController
     {
         $model = $this->findModel($id);
         $model->status = StatusHelper::getChangeStatus($model->status);
+
+        if ($model->save()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionSortCategory($id)
+    {
+        $model = $this->findModel($id);
+        //$model->status = StatusHelper::getChangeStatus($model->status);
 
         if ($model->save()) {
             return true;

@@ -13,6 +13,7 @@ use yii\db\ActiveRecord;
  * @property integer $user_id
  * @property integer $base_category_id
  * @property integer $status
+ * @property integer $position
  */
 class CategoryGii extends ActiveRecord
 {
@@ -31,7 +32,7 @@ class CategoryGii extends ActiveRecord
     {
         return [
             [['title', 'user_id'], 'required'],
-            [['user_id', 'base_category_id', 'status'], 'integer'],
+            [['user_id', 'base_category_id', 'status', 'position'], 'integer'],
             ['status', 'in', 'range' => [1, 2, 3]],
             [['title'], 'string', 'max' => 255],
             [['title', 'user_id'], 'unique', 'targetAttribute' => ['title', 'user_id'], 'message' => 'Категория с таким название уже есть.']
@@ -49,6 +50,7 @@ class CategoryGii extends ActiveRecord
             'user_id' => 'User ID',
             'base_category_id' => 'Base Category ID',
             'status' => 'Status',
+            'position' => 'Position',
         ];
     }
 }

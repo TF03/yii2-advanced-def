@@ -1,10 +1,10 @@
 <?php
 
+use common\widgets\Alert;
 use frontend\helper\StatusHelper;
 use kartik\sortable\Sortable;
 use kartik\switchinput\SwitchInput;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\Pjax;
 
 /* @var $modelAll frontend\models\Category */
@@ -19,6 +19,9 @@ foreach ($modelAll as $model) {
     $switch = SwitchInput::widget([
           'name' => 'status_' . $model->id,
           'value' => StatusHelper::getValueForHtml($model->status),
+          'options' => [
+              'class' => 'switchInputCategory'
+          ],
           'pluginOptions' => [
               'onText' => 'Отображать',
               'offText' => 'Скрыть',
@@ -49,41 +52,57 @@ foreach ($modelAll as $model) {
                                 ]) .
                                 Html::a('', Yii::$app->urlManager->createUrl(['category/remove', 'id' => $model->id]), [
                                     'class' => 'btn btn-danger glyphicon glyphicon-remove management-help',
-                                    'data' => [
+                                    /*'data' => [
                                         'confirm' => 'Are you sure you want to delete this item?',
                                         'method' => 'post',
-                                    ],
+                                    ],*/
                                     'pjax' => true
                                 ]) .
                         '</div>',
         'options' => [
-            'data-iCat' => $model->id
+            'data-icat' => $model->position
         ]
     ];
 }
 
 ?>
-<div class="category-index">
 
-    <p>
-        <?= Html::a('Новая категория', ['new'], ['class' => 'btn btn-success']) ?>
-    </p>
+<?php Pjax::begin([
+    'enablePushState' => false
+]); ?>
 
-    <?php Pjax::begin([
-        'enablePushState' => false
-      ]); ?>
+<?= Alert::widget() ?>
 
-        <?= Sortable::widget([
-            'items' => $list,
-            'options' => [
-                'class' => 'category-sortable'
-            ],
-            'pluginEvents' => [
+    <div class="category-index">
 
-            ]
-        ]);
-        ?>
+        <p>
+            <?= Html::a('Новая категория', ['new'], ['class' => 'btn btn-success']) ?>
+        </p>
 
-    <?php Pjax::end(); ?>
+            <?= Sortable::widget([
+                'items' => $list,
+                'options' => [
+                    'class' => 'category-sortable'
+                ],
+                'pluginEvents' => [
+                    'sortupdate' => 'function(e, ui) {
+                                                    var item = $(ui.item),
+                                                    data = $(".category-sortable").find("li").map(function (i, n) {
+                                                        return $(n).data("icat");
+                                                    }).get().join(",");
+                                                    //data.prev = ($(item).prev().size() > 0)?$(item).prev().data("icat"):0;
+                                                    //data.current = $(item).data("icat");console.log(data);
+                                                    $.ajax({
+                                                            url: "' . Yii::$app->urlManager->createUrl(["category/sort-category", 'id' => $model->id]) . '",
+                                                            type: "post",
+                                                            data: {"sort": data},
+                                                            cache: false,
+                                                            success: function(data) {}
+                                                    });}',
+                ]
+            ]);
+            ?>
 
-</div>
+    </div>
+
+<?php Pjax::end(); ?>
