@@ -60,7 +60,7 @@ foreach ($modelAll as $model) {
                                 ]) .
                         '</div>',
         'options' => [
-            'data-icat' => $model->position
+            'data-icat' => $model->id
         ]
     ];
 }
@@ -93,7 +93,7 @@ foreach ($modelAll as $model) {
                                                     //data.prev = ($(item).prev().size() > 0)?$(item).prev().data("icat"):0;
                                                     //data.current = $(item).data("icat");console.log(data);
                                                     $.ajax({
-                                                            url: "' . Yii::$app->urlManager->createUrl(["category/sort-category", 'id' => $model->id]) . '",
+                                                            url: "' . Yii::$app->urlManager->createUrl(["category/sort-category"]) . '",
                                                             type: "post",
                                                             data: {"sort": data},
                                                             cache: false,

@@ -52,11 +52,7 @@ class CategoryController extends FrontendController
             $model->save();
         }
 
-        $modelAll = Category::find()->all();
-
-        return $this->render('index', [
-            'modelAll' => $modelAll,
-        ]);
+        $this->renderIndex();
     }
 
     /**
@@ -120,12 +116,7 @@ class CategoryController extends FrontendController
             }
         }
 
-        $modelAll = Category::find()->all();
-
-        return $this->render('index', [
-            'modelAll' => $modelAll,
-        ]);
-        //return $this->redirect(['index']);
+        $this->renderIndex();
     }
 
     /**
@@ -146,15 +137,32 @@ class CategoryController extends FrontendController
     }
 
     /**
-     * @param integer $id
      * @return mixed
      */
-    public function actionSortCategory($id)
+    public function actionSortCategory()
     {
-        $model = $this->findModel($id);
-        //$model->status = StatusHelper::getChangeStatus($model->status);
+        $sort = Yii::$app->request->post('sort');
 
-        if ($model->save()) {
+        if (isset($sort)) {
+            $i = 1;
+            $sort = explode(',', $sort);
+
+            $models = Category::find()->where(['id' => $sort])
+                ->orderBy(['FIELD (`id`, '.implode(',',$sort).')'=>''])
+                ->all();
+
+            /**
+             * @var $model Category
+             */
+            foreach ($models as $model) {
+                $model->position = $i++;
+                if (!$model->save()) {
+                    Yii::$app->getSession()->setFlash('error', 'Во время сортировки произошла ошибка!');
+
+                    return false;
+                }
+            }
+
             return true;
         }
         else {
@@ -177,5 +185,14 @@ class CategoryController extends FrontendController
         } else {
             throw new NotFoundHttpException('Данная страница не найдена.');
         }
+    }
+
+    protected function renderIndex()
+    {
+        $modelAll = Category::find()->orderBy('position')->all();
+
+        return $this->render('index', [
+            'modelAll' => $modelAll,
+        ]);
     }
 }
