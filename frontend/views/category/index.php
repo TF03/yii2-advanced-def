@@ -41,6 +41,19 @@ foreach ($modelAll as $model) {
                                                 }',
           ]
     ]);
+
+    $remove = '';
+    if (!isset($model->base_category_id)) {
+        $remove = Html::a('', Yii::$app->urlManager->createUrl(['category/remove', 'id' => $model->id]), [
+            'class' => 'btn btn-danger glyphicon glyphicon-remove management-help',
+            /*'data' => [
+                'confirm' => 'Are you sure you want to delete this item?',
+                'method' => 'post',
+            ],*/
+            'pjax' => true
+        ]);
+    }
+
     $list[] = [
         'content' => '
                         <div class="col-md-8">' . $model->title . '</div>
@@ -50,14 +63,7 @@ foreach ($modelAll as $model) {
                                     'class' => 'btn btn-info glyphicon glyphicon-pencil management-help',
                                     'pjax' => false
                                 ]) .
-                                Html::a('', Yii::$app->urlManager->createUrl(['category/remove', 'id' => $model->id]), [
-                                    'class' => 'btn btn-danger glyphicon glyphicon-remove management-help',
-                                    /*'data' => [
-                                        'confirm' => 'Are you sure you want to delete this item?',
-                                        'method' => 'post',
-                                    ],*/
-                                    'pjax' => true
-                                ]) .
+                                $remove .
                         '</div>',
         'options' => [
             'data-icat' => $model->id
@@ -76,7 +82,7 @@ foreach ($modelAll as $model) {
     <div class="category-index">
 
         <p>
-            <?= Html::a('Новая категория', ['new'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Новая категория', ['new'], ['class' => 'btn btn-success', 'pjax' => false]) ?>
         </p>
 
             <?= Sortable::widget([

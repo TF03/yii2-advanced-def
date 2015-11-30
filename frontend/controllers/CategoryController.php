@@ -52,7 +52,7 @@ class CategoryController extends FrontendController
             $model->save();
         }
 
-        $this->renderIndex();
+        return $this->renderIndex();
     }
 
     /**
@@ -116,7 +116,7 @@ class CategoryController extends FrontendController
             }
         }
 
-        $this->renderIndex();
+        return $this->renderIndex();
     }
 
     /**
