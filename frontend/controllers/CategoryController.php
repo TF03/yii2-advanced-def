@@ -107,16 +107,14 @@ class CategoryController extends FrontendController
             Yii::$app->getSession()->setFlash('error', 'Эта категория не может быть удалена.');
         }
         else {
-            $model->status = StatusHelper::STATUS_DELETE;
-
-            if ($model->save()) {
+            if ($model->delete()) {
                 Yii::$app->getSession()->setFlash('success', 'Категория удалена.');
             } else {
                 Yii::$app->getSession()->setFlash('error', 'При удалении произошла ошибка.');
             }
         }
 
-        return $this->renderIndex();
+        return $this->redirect('/category');
     }
 
     /**

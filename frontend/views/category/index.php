@@ -46,11 +46,11 @@ foreach ($modelAll as $model) {
     if (!isset($model->base_category_id)) {
         $remove = Html::a('', Yii::$app->urlManager->createUrl(['category/remove', 'id' => $model->id]), [
             'class' => 'btn btn-danger glyphicon glyphicon-remove management-help',
-            /*'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+            'data-pjax' => 'false',
+            'data' => [
+                'confirm' => 'Вы уверены, что хотите удалить категорию? Тогда все записи связанные с категорией будут удалены.',
                 'method' => 'post',
-            ],*/
-            'pjax' => true
+            ]
         ]);
     }
 
@@ -61,7 +61,7 @@ foreach ($modelAll as $model) {
                         <div class="col-md-2">' .
                                 Html::a('', Yii::$app->urlManager->createUrl(['category/edit', 'id' => $model->id]), [
                                     'class' => 'btn btn-info glyphicon glyphicon-pencil management-help',
-                                    'pjax' => false
+                                    'data-pjax' => 'false'
                                 ]) .
                                 $remove .
                         '</div>',
@@ -82,7 +82,7 @@ foreach ($modelAll as $model) {
     <div class="category-index">
 
         <p>
-            <?= Html::a('Новая категория', ['new'], ['class' => 'btn btn-success', 'pjax' => false]) ?>
+            <?= Html::a('Новая категория', ['new'], ['class' => 'btn btn-success', 'data-pjax' => 'false']) ?>
         </p>
 
             <?= Sortable::widget([
@@ -96,8 +96,6 @@ foreach ($modelAll as $model) {
                                                     data = $(".category-sortable").find("li").map(function (i, n) {
                                                         return $(n).data("icat");
                                                     }).get().join(",");
-                                                    //data.prev = ($(item).prev().size() > 0)?$(item).prev().data("icat"):0;
-                                                    //data.current = $(item).data("icat");console.log(data);
                                                     $.ajax({
                                                             url: "' . Yii::$app->urlManager->createUrl(["category/sort-category"]) . '",
                                                             type: "post",
