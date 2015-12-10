@@ -1,6 +1,6 @@
 <?php
-namespace frontend\assets;
 
+namespace frontend\assets;
 
 use yii\web\AssetBundle;
 use Yii;
@@ -19,14 +19,17 @@ class ConfirmAlertAsset extends AssetBundle
     public function init()
     {
         parent::init();
-        $this->overrideSystemConfirm();
     }
 
-
-    private function overrideSystemConfirm()
+    public static function overrideSystemConfirm()
     {
         Yii::$app->view->registerJs('
             yii.confirm = function(message, ok, cancel) {
+                bootbox.confirm(message, function(result) {
+                    if (result) { !ok || ok(); } else { !cancel || cancel(); }
+                });
+            }
+            /*yii.confirm = function(message, ok, cancel) {
                 bootbox.confirm({
                     message: message,
                     callback: function(result) {
@@ -46,7 +49,7 @@ class ConfirmAlertAsset extends AssetBundle
                         },
                     }
                 })
-            }
+            }*/
         ');
     }
 }

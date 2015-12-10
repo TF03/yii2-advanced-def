@@ -20,8 +20,7 @@
         "yiisoft/yii2-swiftmailer": "*",
         "nodge/yii2-eauth": "~2.0",
         "kartik-v/yii2-sortable": "*",
-        "kartik-v/yii2-widget-switchinput": "*",
-        "bower-asset/bootbox": ">=4.3.0"
+        "kartik-v/yii2-widget-switchinput": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

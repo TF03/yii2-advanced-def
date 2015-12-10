@@ -7,8 +7,10 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
+use frontend\assets\ConfirmAlertAsset;
 
 AppAsset::register($this);
+//ConfirmAlertAsset::overrideSystemConfirm();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

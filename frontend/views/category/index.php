@@ -47,10 +47,10 @@ foreach ($modelAll as $model) {
         $remove = Html::a('', Yii::$app->urlManager->createUrl(['category/remove', 'id' => $model->id]), [
             'class' => 'btn btn-danger glyphicon glyphicon-remove management-help',
             'data-pjax' => 'false',
-            'data' => [
+            /*'data' => [
                 'confirm' => 'Вы уверены, что хотите удалить категорию? Тогда все записи связанные с категорией будут удалены.',
                 'method' => 'post',
-            ]
+            ]*/
         ]);
     }
 
