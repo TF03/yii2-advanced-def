@@ -22,8 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
                              'dataProvider' => $dataProvider,
                              'filterModel' => $searchModel,
                              'columns' => [
-                                 ['class' => 'yii\grid\SerialColumn'],
-
                                  'id',
                                  'name',
                                  [
@@ -41,9 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                          return \frontend\helper\StatusHelper::getStatusName($model->status);
                                      },
                                  ],
-                                 // 'sort',
-
-                                 ['class' => 'yii\grid\ActionColumn'],
                              ],
                          ]); ?>
 
