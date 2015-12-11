@@ -36,3 +36,7 @@
     animation: spinner 0.5s steps(14) infinite;
     -webkit-animation: spinner 0.5s steps(14) infinite;
 }
+#menus-header ul li.active a {
+    color: #18bc9c;
+    background-color: transparent;
+}

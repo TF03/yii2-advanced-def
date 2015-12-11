@@ -4,13 +4,15 @@
 /* @var $content string */
 
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
+use frontend\widgets\menus\MenusWidget;
 use common\widgets\Alert;
 
 AppAsset::register($this);
+
+/** @var yii\web\Controller $controller */
+$controller = $this->context;
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -56,39 +58,7 @@ AppAsset::register($this);
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <?php
-                $menuItems = [];
-                if (Yii::$app->user->isGuest) {
-                    $menuItems[] = ['label' => 'About', 'url' => ['#about'], ['class' => 'page-scroll']];
-                    $menuItems[] = ['label' => 'Contact', 'url' => ['#contact']];
-                    $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-                    $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-                } else {
-                    $menuItems[] = ['label' => 'Счета', 'url' => ['/accounts']];
-                    $menuItems[] = ['label' => 'Категории', 'url' => ['/category']];
-                    $menuItems[] = [
-                        'label' => Yii::$app->user->identity->username,
-                        'items' => [
-                            [
-                                'label' => 'Профиль',
-                                'url' => ['/user-panel/settings']
-                            ],
-                            [
-                                'label' => 'Выход',
-                                'url' => ['/site/logout'],
-                                'linkOptions' => ['data-method' => 'post']
-                            ],
-                        ]
-
-                    ];
-                }
-                echo Nav::widget([
-                                     'options' => ['class' => 'nav navbar-nav navbar-right'],
-                                     'items' => $menuItems,
-                                 ]);
-                ?>
-            </div>
+            <?= MenusWidget::widget(['controller' => $controller]); ?>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
