@@ -17,6 +17,8 @@ return array(
     'nodge\\eauth\\' => array($vendorDir . '/nodge/yii2-eauth/src'),
     'kartik\\switchinput\\' => array($vendorDir . '/kartik-v/yii2-widget-switchinput'),
     'kartik\\sortable\\' => array($vendorDir . '/kartik-v/yii2-sortable'),
+    'kartik\\nav\\' => array($vendorDir . '/kartik-v/yii2-nav-x'),
+    'kartik\\dropdown\\' => array($vendorDir . '/kartik-v/yii2-dropdown-x'),
     'kartik\\base\\' => array($vendorDir . '/kartik-v/yii2-krajee-base'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),

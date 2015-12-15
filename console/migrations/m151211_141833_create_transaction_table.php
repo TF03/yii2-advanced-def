@@ -11,16 +11,15 @@ class m151211_141833_create_transaction_table extends Migration
     {
         $this->createTable(self::TABLE,[
             'id' => Schema::TYPE_PK,
-            'name' => Schema::TYPE_STRING . ' NOT NULL',
-            'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'valuta' => Schema::TYPE_STRING . '(64) NOT NULL',
-            'color' => Schema::TYPE_STRING . '(64) NOT NULL',
-            'sort' => Schema::TYPE_INTEGER . ' NULL',
+            'comment' => Schema::TYPE_STRING . ' NOT NULL',
             'amount' => Schema::TYPE_DECIMAL . '(10, 2) NOT NULL DEFAULT 0.00',
+            'accounts' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'type_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'category_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'status' => Schema::TYPE_SMALLINT . '(1) NULL DEFAULT 1',
+            'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
         ], 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB');
-
-        $this->createIndex('user_valuta_accounts', self::TABLE, [ 'name', 'user_id' ], true);
     }
 
     public function down()
