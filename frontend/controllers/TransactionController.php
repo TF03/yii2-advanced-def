@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Accounts;
 use frontend\models\Transaction;
 use Yii;
 use yii\web\Controller;

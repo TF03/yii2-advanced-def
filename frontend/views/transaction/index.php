@@ -18,25 +18,25 @@ use yii\bootstrap\ButtonDropdown;
                 <?=
                 ButtonDropdown::widget([
                     'label' => 'Новый расход',
-                    //'label' => '<a href="http://mybudget.ws/transactions/new">Новый Расход</a>',
-                    //'encodeLabel' => false,
+                    'tagName' => 'a',
                     'options' => [
-                        'class' => 'btn btn-success'
+                        'class' => 'btn-sm btn-success',
+                        'href' => Yii::$app->urlManager->createUrl(['transaction/new']),
                     ],
                     'split'=>true,
                     'dropdown' => [
                         'items' => [
                             [
                                 'label' => 'Новый расход',
-                                'url' => '#'
+                                'url' => Yii::$app->urlManager->createUrl(['transaction/new'])
                             ],
                             [
                                 'label' => 'Новый доход',
-                                'url' => '#'
+                                'url' => Yii::$app->urlManager->createUrl(['transaction/new', 'type' => 'income'])
                             ],
                             [
                                 'label' => 'Новый перевод',
-                                'url' => '#'
+                                'url' => Yii::$app->urlManager->createUrl(['transaction/transfer'])
                             ]
                         ]
                     ]
