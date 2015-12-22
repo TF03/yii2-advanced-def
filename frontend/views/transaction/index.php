@@ -1,7 +1,6 @@
 <?php
 
-use yii\bootstrap\Button;
-use yii\bootstrap\ButtonGroup;
+use yii\bootstrap\ButtonDropdown;
 
 /** @var $this yii\web\View */
 
@@ -9,34 +8,41 @@ use yii\bootstrap\ButtonGroup;
 
 ?>
 
-<div class="row transaction">
-    <div class="col-md-2">
-        <?php echo $this->render('_filter', [], true);?>
-    </div>
-    <div class="col-md-10">
-        <div>
-            <?=
-                ButtonGroup::widget([
-                    'encodeLabels' => false,
-                    'buttons' => [
-                        ['label' => 'A'],
-                        ['label' => 'B'],
-                        ['label' => 'C', 'visible' => false],
-                    ],
+<div class="row">
+    <div class="col-md-12 transaction">
+        <div class="col-md-2">
+            <?php echo $this->render('_filter', [], true); ?>
+        </div>
+        <div class="col-md-10">
+            <div>
+                <?=
+                ButtonDropdown::widget([
+                    'label' => 'Новый расход',
+                    //'label' => '<a href="http://mybudget.ws/transactions/new">Новый Расход</a>',
+                    //'encodeLabel' => false,
                     'options' => [
-                        'id' => false,
-                        'title' => 'Новая запись'
+                        'class' => 'btn btn-success'
+                    ],
+                    'split'=>true,
+                    'dropdown' => [
+                        'items' => [
+                            [
+                                'label' => 'Новый расход',
+                                'url' => '#'
+                            ],
+                            [
+                                'label' => 'Новый доход',
+                                'url' => '#'
+                            ],
+                            [
+                                'label' => 'Новый перевод',
+                                'url' => '#'
+                            ]
+                        ]
                     ]
                 ]);
-            ?>
-            <?=
-                ButtonGroup::widget([
-                    'buttons' => [
-                        Button::widget(['label' => 'A']),
-                        ['label' => 'B'],
-                    ]
-                ]);
-            ?>
+                ?>
+            </div>
         </div>
     </div>
 </div>

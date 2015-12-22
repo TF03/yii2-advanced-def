@@ -21,8 +21,7 @@
         "nodge/yii2-eauth": "~2.0",
         "kartik-v/yii2-sortable": "*",
         "kartik-v/yii2-widget-switchinput": "*",
-        "kartik-v/yii2-nav-x": "*",
-        "clevertech/yii-booster": "3.0.0"
+        "kartik-v/yii2-nav-x": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
