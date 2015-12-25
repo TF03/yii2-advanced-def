@@ -1,14 +1,17 @@
 <?php
 
+use yii\helpers\Html;
 use yii\bootstrap\ButtonDropdown;
 
 /** @var $this yii\web\View */
 
-//http://yiibooster.clevertech.biz/widgets/forms_buttons/view/buttongroup.html
+$this->title = 'Операции';
+$this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
 <div class="row">
+
     <div class="col-md-12 transaction">
         <div class="col-md-2">
             <?php echo $this->render('_filter', [], true); ?>

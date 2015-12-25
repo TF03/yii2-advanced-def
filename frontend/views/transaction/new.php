@@ -5,6 +5,10 @@ use yii\bootstrap\ActiveForm;
 /** @var $this yii\web\View */
 /** @var $model \frontend\models\Transaction */
 
+$this->title = 'Новая операция';
+$this->params['breadcrumbs'][] = ['label' => 'Операции', 'url' => ['/transaction']];
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="row">
