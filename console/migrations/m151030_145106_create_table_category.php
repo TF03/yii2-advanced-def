@@ -13,8 +13,6 @@ class m151030_145106_create_table_category extends Migration
             'id' => Schema::TYPE_PK,
             'name' => Schema::TYPE_STRING . ' NOT NULL',
         ], 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB');
-
-        //$this->createIndex('notification_send',self::TABLE,'send');
     }
 
     public function down()
