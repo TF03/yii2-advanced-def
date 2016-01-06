@@ -49,7 +49,7 @@ class TransactionGii extends \yii\db\ActiveRecord
             'id' => 'ID',
             'comment' => 'Примечание',
             'amount' => 'Amount',
-            'accounts' => 'Accounts',
+            'accounts' => 'Счета',
             'user_id' => 'User ID',
             'type_id' => 'Type ID',
             'status' => 'Status',
