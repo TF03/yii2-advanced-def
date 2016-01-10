@@ -551,9 +551,13 @@ a.management-help.danger {
 #transaction2Category {
     padding: 2px 50px;
 }
+#transaction2Category #transaction-transaction2category {
+    padding-top: 6px;
+}
 #transaction2Category .checkbox {
     width: 40%;
     float: left;
+    margin-top: -5px;
 }
 form .form-actions {
     padding: 19px 20px 20px;

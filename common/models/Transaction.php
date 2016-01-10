@@ -2,8 +2,11 @@
 
 namespace common\models;
 
+use common\behaviors\SetPropertyBehavior;
 use common\models\gii\TransactionGii;
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -14,6 +17,22 @@ use yii\helpers\ArrayHelper;
  */
 class Transaction extends TransactionGii
 {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return ArrayHelper::merge(parent::behaviors(),[
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => false,
+                'value' => new Expression('NOW()'),
+            ],
+            SetPropertyBehavior::className(),
+        ]);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

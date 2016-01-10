@@ -33,7 +33,8 @@ class TransactionGii extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['amount', 'comment', 'accounts', 'user_id', 'type_id', 'created_at', 'date'], 'required'],
+            [['amount', 'accounts', 'user_id', 'date'], 'required'],
+            //[['amount', 'accounts', 'user_id', 'type_id', 'created_at', 'date'], 'required'],
             [['amount'], 'number'],
             [['accounts', 'user_id', 'type_id', 'status', 'created_at'], 'integer'],
             [['comment'], 'string', 'max' => 255]

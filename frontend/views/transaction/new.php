@@ -14,13 +14,8 @@ $this->title = 'Новая операция';
 $this->params['breadcrumbs'][] = ['label' => 'Операции', 'url' => ['/transaction']];
 $this->params['breadcrumbs'][] = $this->title;
 
-/** Formatter for date
- * $model->start_date = Yii::$app->getFormatter()->asDatetime($model->start_date, "php:m/d/yy H:i");
- */
-$model->date = '30-12-2015';
-
-$firstValuta = AccountsHelper::getFirstValuta()
-
+$model->date = Yii::$app->getFormatter()->asDate('now', "php:d-m-Y");
+$firstValuta = AccountsHelper::getFirstValuta();
 ?>
 
 <div class="row">
@@ -32,8 +27,8 @@ $firstValuta = AccountsHelper::getFirstValuta()
                                         ]) ?>
 
             <div class="col-md-3">
-                <?= $form->field($model, 'amount')->textInput(['placeholder' => 'Введите число'])->label('Величина (' . $firstValuta . ')'); ?>
-                <?= $form->field($model, 'date')->widget(DatePicker::className(),
+                <?= $form->field($model, 'amount')->textInput(['placeholder' => 'Введите число'])->label('Величина (' . $firstValuta . ')*'); ?>
+                <?= $form->field($model, 'date')->label($model->getAttributeLabel('date') . '*')->widget(DatePicker::className(),
                                                          [
                                                              'type' => DatePicker::TYPE_INPUT,
                                                              'pluginOptions' => [
