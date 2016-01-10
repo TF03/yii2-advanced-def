@@ -555,3 +555,13 @@ a.management-help.danger {
     width: 40%;
     float: left;
 }
+form .form-actions {
+    padding: 19px 20px 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-top: 1px solid #e5e5e5;
+}
+form .form-actions button,
+form .form-actions a {
+    margin-right: 10px;
+}

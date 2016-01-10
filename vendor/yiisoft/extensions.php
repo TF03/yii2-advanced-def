@@ -57,16 +57,6 @@ return array (
       '@yii/faker' => $vendorDir . '/yiisoft/yii2-faker',
     ),
   ),
-  'nodge/yii2-eauth' => 
-  array (
-    'name' => 'nodge/yii2-eauth',
-    'version' => '2.3.0.0',
-    'alias' => 
-    array (
-      '@nodge/eauth' => $vendorDir . '/nodge/yii2-eauth/src',
-    ),
-    'bootstrap' => 'nodge\\eauth\\Bootstrap',
-  ),
   'kartik-v/yii2-sortable' => 
   array (
     'name' => 'kartik-v/yii2-sortable',
@@ -120,5 +110,15 @@ return array (
     array (
       '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
     ),
+  ),
+  'nodge/yii2-eauth' => 
+  array (
+    'name' => 'nodge/yii2-eauth',
+    'version' => '2.4.0.0',
+    'alias' => 
+    array (
+      '@nodge/eauth' => $vendorDir . '/nodge/yii2-eauth/src',
+    ),
+    'bootstrap' => 'nodge\\eauth\\Bootstrap',
   ),
 );

@@ -10,9 +10,6 @@
 namespace nodge\eauth\oauth;
 
 use Yii;
-use OAuth\Common\Http\Uri\Uri;
-use OAuth\Common\Http\Client\ClientInterface;
-use OAuth\Common\Token\TokenInterface;
 use OAuth\Common\Storage\TokenStorageInterface;
 use nodge\eauth\EAuth;
 use nodge\eauth\IAuthService;
@@ -44,19 +41,9 @@ abstract class ServiceBase extends \nodge\eauth\ServiceBase implements IAuthServ
 	protected $tokenStorage;
 
 	/**
-	 * @var array HttpClient class. Null means default value from EAuth component config.
-	 */
-	protected $httpClient;
-
-	/**
 	 * @var TokenStorageInterface
 	 */
 	private $_tokenStorage;
-
-	/**
-	 * @var ClientInterface
-	 */
-	private $_httpClient;
 
 	/**
 	 * Initialize the component.
@@ -125,29 +112,6 @@ abstract class ServiceBase extends \nodge\eauth\ServiceBase implements IAuthServ
 	}
 
 	/**
-	 * @param array $config
-	 */
-	public function setHttpClient(array $config)
-	{
-		$this->httpClient = ArrayHelper::merge($this->httpClient, $config);
-	}
-
-	/**
-	 * @return ClientInterface
-	 */
-	protected function getHttpClient()
-	{
-		if (!isset($this->_httpClient)) {
-			$config = $this->httpClient;
-			if (!isset($config)) {
-				$config = $this->getComponent()->getHttpClient();
-			}
-			$this->_httpClient = Yii::createObject($config);
-		}
-		return $this->_httpClient;
-	}
-
-	/**
 	 * @return int
 	 */
 	public function getTokenDefaultLifetime()
@@ -155,78 +119,63 @@ abstract class ServiceBase extends \nodge\eauth\ServiceBase implements IAuthServ
 		return $this->tokenDefaultLifetime;
 	}
 
-	/**
-	 * Returns the protected resource.
-	 *
-	 * @param string $url url to request.
-	 * @param array $options HTTP request options. Keys: query, data, headers.
-	 * @param boolean $parseResponse Whether to parse response.
-	 * @return mixed the response.
-	 * @throws ErrorException
-	 */
-	public function makeSignedRequest($url, $options = [], $parseResponse = true)
-	{
-		if (!$this->getIsAuthenticated()) {
-			throw new ErrorException(Yii::t('eauth', 'Unable to complete the signed request because the user was not authenticated.'), 401);
-		}
+    /**
+     * Returns the protected resource.
+     *
+     * @param string $url url to request.
+     * @param array $options HTTP request options. Keys: query, data, headers.
+     * @param boolean $parseResponse Whether to parse response.
+     * @return mixed the response.
+     * @throws ErrorException
+     */
+    public function makeSignedRequest($url, $options = [], $parseResponse = true)
+    {
+        if (!$this->getIsAuthenticated()) {
+            throw new ErrorException(Yii::t('eauth', 'Unable to complete the signed request because the user was not authenticated.'), 401);
+        }
 
-		if (stripos($url, 'http') !== 0) {
-			$url = $this->baseApiUrl . $url;
-		}
+        return $this->request($url, $options, $parseResponse, function ($url, $method, $headers, $data) {
+            return $this->getProxy()->request($url, $method, $data, $headers);
+        });
+    }
 
-		$url = new Uri($url);
-		if (isset($options['query'])) {
-			foreach ($options['query'] as $key => $value) {
-				$url->addToQuery($key, $value);
-			}
-		}
+    /**
+     * Returns the public resource.
+     *
+     * @param string $url url to request.
+     * @param array $options HTTP request options. Keys: query, data, headers.
+     * @param boolean $parseResponse Whether to parse response.
+     * @return mixed the response.
+     * @throws ErrorException
+     */
+    public function makeRequest($url, $options = [], $parseResponse = true)
+    {
+        $headers = isset($options['headers']) ? $options['headers'] : [];
+        $options['headers'] = array_merge($this->getExtraApiHeaders(), $headers);
 
-		$data = isset($options['data']) ? $options['data'] : [];
-		$method = !empty($data) ? 'POST' : 'GET';
-		$headers = isset($options['headers']) ? $options['headers'] : [];
+        return $this->request($url, $options, $parseResponse, function ($url, $method, $headers, $data) {
+            return $this->getHttpClient()->retrieveResponse($url, $data, $headers, $method);
+        });
+    }
 
-		$response = $this->getProxy()->request($url, $method, $data, $headers);
+    /**
+     * @param string $url
+     * @param array $options
+     * @param boolean $parseResponse
+     * @param callable $fn
+     * @return mixed
+     * @throws ErrorException
+     */
+    protected function request($url, $options, $parseResponse, $fn)
+    {
+        $response = parent::request($url, $options, $fn);
 
-		if ($parseResponse) {
-			$response = $this->parseResponseInternal($response);
-		}
+        if ($parseResponse) {
+            $response = $this->parseResponseInternal($response);
+        }
 
-		return $response;
-	}
-
-	/**
-	 * Returns the public resource.
-	 *
-	 * @param string $url url to request.
-	 * @param array $options HTTP request options. Keys: query, data, headers.
-	 * @param boolean $parseResponse Whether to parse response.
-	 * @return mixed the response.
-	 */
-	public function makeRequest($url, $options = [], $parseResponse = true) {
-		if (stripos($url, 'http') !== 0) {
-			$url = $this->baseApiUrl . $url;
-		}
-
-		$url = new Uri($url);
-		if (isset($options['query'])) {
-			foreach ($options['query'] as $key => $value) {
-				$url->addToQuery($key, $value);
-			}
-		}
-
-		$data = isset($options['data']) ? $options['data'] : [];
-		$method = !empty($data) ? 'POST' : 'GET';
-
-		$headers = isset($options['headers']) ? $options['headers'] : [];
-		$headers = array_merge($this->getProxy()->getExtraApiHeaders(), $headers);
-
-		$response = $this->getHttpClient()->retrieveResponse($url, $data, $headers, $method);
-		if ($parseResponse) {
-			$response = $this->parseResponseInternal($response);
-		}
-
-		return $response;
-	}
+        return $response;
+    }
 
 	/**
 	 * Parse response and check for errors.
@@ -310,4 +259,14 @@ abstract class ServiceBase extends \nodge\eauth\ServiceBase implements IAuthServ
 	{
 		return isset($data['error']) ? $data['error'] : null;
 	}
+
+    /**
+     * Return any additional headers always needed for this service implementation's API calls.
+     *
+     * @return array
+     */
+    public function getExtraApiHeaders()
+    {
+        return [];
+    }
 }

@@ -22,7 +22,7 @@ use OAuth\OAuth2\Service\ServiceInterface;
 class VKontakteOAuth2Service extends Service
 {
 
-	const SCOPE_FRIENDS = 'friends,offline,notify,email';
+	const SCOPE_FRIENDS = 'friends';
 
 	protected $name = 'vkontakte';
 	protected $title = 'VK.com';

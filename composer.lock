@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3b1e925fff51342be2e805a47b877454",
+    "hash": "fe1305f522b0fda0cfce307e9e6ab00f",
     "content-hash": "26109ab33f85e7b486c883bcb6efbbc4",
     "packages": [
         {
@@ -713,16 +713,16 @@
         },
         {
             "name": "nodge/yii2-eauth",
-            "version": "2.3.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Nodge/yii2-eauth.git",
-                "reference": "25963e78c6083734736187bff992dd9da60fd125"
+                "reference": "c1ad9faa3367de9aa66403ac02088f915900d0b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Nodge/yii2-eauth/zipball/25963e78c6083734736187bff992dd9da60fd125",
-                "reference": "25963e78c6083734736187bff992dd9da60fd125",
+                "url": "https://api.github.com/repos/Nodge/yii2-eauth/zipball/c1ad9faa3367de9aa66403ac02088f915900d0b4",
+                "reference": "c1ad9faa3367de9aa66403ac02088f915900d0b4",
                 "shasum": ""
             },
             "require": {
@@ -762,7 +762,7 @@
                 "oauth",
                 "yii2"
             ],
-            "time": "2015-10-17 16:51:17"
+            "time": "2016-01-03 14:28:41"
         },
         {
             "name": "swiftmailer/swiftmailer",

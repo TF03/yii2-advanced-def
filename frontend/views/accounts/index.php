@@ -2,9 +2,11 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use frontend\models\User;
+use frontend\helper\StatusHelper;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\AccountsSearch */
+/* @var $searchModel frontend\models\search\AccountsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Счета';
@@ -27,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                  [
                                      'attribute' => 'user_id',
                                      'value' => function ($model) {
-                                         return \frontend\models\User::findOne(['id' => $model->id])->username;
+                                         return User::findOne(['id' => $model->id])->username;
                                      },
                                  ],
                                  'valuta',
@@ -36,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                  [
                                      'attribute' => 'status',
                                      'value' => function ($model) {
-                                         return \frontend\helper\StatusHelper::getStatusName($model->status);
+                                         return StatusHelper::getStatusName($model->status);
                                      },
                                  ],
                              ],

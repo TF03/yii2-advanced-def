@@ -808,61 +808,6 @@
         ]
     },
     {
-        "name": "nodge/yii2-eauth",
-        "version": "2.3.0",
-        "version_normalized": "2.3.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Nodge/yii2-eauth.git",
-            "reference": "25963e78c6083734736187bff992dd9da60fd125"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Nodge/yii2-eauth/zipball/25963e78c6083734736187bff992dd9da60fd125",
-            "reference": "25963e78c6083734736187bff992dd9da60fd125",
-            "shasum": ""
-        },
-        "require": {
-            "lib-curl": "*",
-            "lusitanian/oauth": "~0.3.0",
-            "nodge/lightopenid": "~1.1.0",
-            "php": ">=5.4.0",
-            "yiisoft/yii2": "*"
-        },
-        "time": "2015-10-17 16:51:17",
-        "type": "yii2-extension",
-        "extra": {
-            "bootstrap": "nodge\\eauth\\Bootstrap"
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "nodge\\eauth\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "New BSD License"
-        ],
-        "authors": [
-            {
-                "name": "Maxim Zemskov",
-                "email": "nodge@yandex.ru",
-                "homepage": "http://nodge.ru/"
-            }
-        ],
-        "description": "Yii2 EAuth Extension. EAuth allows to authenticate users with accounts on other websites (Google, Facebook, Twitter, etc).",
-        "homepage": "https://github.com/Nodge/yii2-eauth",
-        "keywords": [
-            "Authentication",
-            "OpenId",
-            "eauth",
-            "extension",
-            "oauth",
-            "yii2"
-        ]
-    },
-    {
         "name": "kartik-v/yii2-sortable",
         "version": "v1.2.0",
         "version_normalized": "1.2.0.0",
@@ -1307,6 +1252,109 @@
         ]
     },
     {
+        "name": "kartik-v/yii2-krajee-base",
+        "version": "v1.8.1",
+        "version_normalized": "1.8.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-krajee-base.git",
+            "reference": "9e50c30aa8d6ac56b90250456a951edf32cb7175"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/9e50c30aa8d6ac56b90250456a951edf32cb7175",
+            "reference": "9e50c30aa8d6ac56b90250456a951edf32cb7175",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2-bootstrap": "@dev"
+        },
+        "time": "2015-12-27 15:42:59",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\base\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "Base library and foundation components for all Yii2 Krajee extensions.",
+        "homepage": "https://github.com/kartik-v/yii2-krajee-base",
+        "keywords": [
+            "base",
+            "extension",
+            "foundation",
+            "krajee",
+            "widget",
+            "yii2"
+        ]
+    },
+    {
+        "name": "nodge/yii2-eauth",
+        "version": "2.4.0",
+        "version_normalized": "2.4.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Nodge/yii2-eauth.git",
+            "reference": "c1ad9faa3367de9aa66403ac02088f915900d0b4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Nodge/yii2-eauth/zipball/c1ad9faa3367de9aa66403ac02088f915900d0b4",
+            "reference": "c1ad9faa3367de9aa66403ac02088f915900d0b4",
+            "shasum": ""
+        },
+        "require": {
+            "lib-curl": "*",
+            "lusitanian/oauth": "~0.3.0",
+            "nodge/lightopenid": "~1.1.0",
+            "php": ">=5.4.0",
+            "yiisoft/yii2": "*"
+        },
+        "time": "2016-01-03 14:28:41",
+        "type": "yii2-extension",
+        "extra": {
+            "bootstrap": "nodge\\eauth\\Bootstrap"
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "nodge\\eauth\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "New BSD License"
+        ],
+        "authors": [
+            {
+                "name": "Maxim Zemskov",
+                "email": "nodge@yandex.ru",
+                "homepage": "http://nodge.ru/"
+            }
+        ],
+        "description": "Yii2 EAuth Extension. EAuth allows to authenticate users with accounts on other websites (Google, Facebook, Twitter, etc).",
+        "homepage": "https://github.com/Nodge/yii2-eauth",
+        "keywords": [
+            "Authentication",
+            "OpenId",
+            "eauth",
+            "extension",
+            "oauth",
+            "yii2"
+        ]
+    },
+    {
         "name": "kartik-v/yii2-widget-datepicker",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -1353,54 +1401,6 @@
             "picker",
             "plugin",
             "select2",
-            "widget",
-            "yii2"
-        ]
-    },
-    {
-        "name": "kartik-v/yii2-krajee-base",
-        "version": "v1.8.1",
-        "version_normalized": "1.8.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/kartik-v/yii2-krajee-base.git",
-            "reference": "9e50c30aa8d6ac56b90250456a951edf32cb7175"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/9e50c30aa8d6ac56b90250456a951edf32cb7175",
-            "reference": "9e50c30aa8d6ac56b90250456a951edf32cb7175",
-            "shasum": ""
-        },
-        "require": {
-            "yiisoft/yii2-bootstrap": "@dev"
-        },
-        "time": "2015-12-27 15:42:59",
-        "type": "yii2-extension",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "kartik\\base\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Kartik Visweswaran",
-                "email": "kartikv2@gmail.com",
-                "homepage": "http://www.krajee.com/"
-            }
-        ],
-        "description": "Base library and foundation components for all Yii2 Krajee extensions.",
-        "homepage": "https://github.com/kartik-v/yii2-krajee-base",
-        "keywords": [
-            "base",
-            "extension",
-            "foundation",
-            "krajee",
             "widget",
             "yii2"
         ]
