@@ -7,9 +7,10 @@ use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\menus\MenusWidget;
-use frontend\assets\ConfirmAlertAsset;
+use frontend\assets\BackboneAsset;
 
 AppAsset::register($this);
+BackboneAsset::register($this);
 //ConfirmAlertAsset::overrideSystemConfirm();
 
 /** @var yii\web\Controller $controller */

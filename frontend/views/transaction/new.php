@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $model->date = Yii::$app->getFormatter()->asDate('now', "php:d-m-Y");
 $firstValuta = AccountsHelper::getFirstValuta();
+
+$this->registerJsFile('/js/frontend/views/transaction.js', ['depends' => 'frontend\assets\BackboneAsset']);
 ?>
 
 <div class="row">

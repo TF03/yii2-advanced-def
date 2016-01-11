@@ -7,6 +7,7 @@
 
 namespace frontend\assets;
 
+use yii;
 use yii\web\AssetBundle;
 
 /**
@@ -26,12 +27,13 @@ class AppAsset extends AssetBundle
         //'css/main.css',
     ];
     public $js = [
-        'js/global_ajax_spinner.js',
         'http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js',
-        'js/classie.js',
-        'js/cbpAnimatedHeader.js',
-        'js/jqBootstrapValidation.js',
-        'js/budget.js',
+        'js/libs/classie/classie.js',
+        'js/libs/cbpAnimatedHeader/cbpAnimatedHeader.js',
+        'js/libs/jqBootstrapValidation/jqBootstrapValidation.js',
+
+        'js/frontend/budget.js',
+        'js/frontend/global_ajax_spinner.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',
