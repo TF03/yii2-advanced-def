@@ -572,3 +572,6 @@ form .form-actions a {
 #transaction-accounts label {
     width: 100%;
 }
+.help-block-error {
+    font-size: 14px;
+}

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fe1305f522b0fda0cfce307e9e6ab00f",
+    "hash": "3b1e925fff51342be2e805a47b877454",
     "content-hash": "26109ab33f85e7b486c883bcb6efbbc4",
     "packages": [
         {
@@ -366,16 +366,16 @@
         },
         {
             "name": "kartik-v/yii2-krajee-base",
-            "version": "v1.8.1",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-krajee-base.git",
-                "reference": "9e50c30aa8d6ac56b90250456a951edf32cb7175"
+                "reference": "0c274e31e4392cbafc5fe158eae81738794e02ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/9e50c30aa8d6ac56b90250456a951edf32cb7175",
-                "reference": "9e50c30aa8d6ac56b90250456a951edf32cb7175",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/0c274e31e4392cbafc5fe158eae81738794e02ce",
+                "reference": "0c274e31e4392cbafc5fe158eae81738794e02ce",
                 "shasum": ""
             },
             "require": {
@@ -408,7 +408,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-12-27 15:42:59"
+            "time": "2016-01-10 12:26:29"
         },
         {
             "name": "kartik-v/yii2-nav-x",
@@ -510,12 +510,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-datepicker.git",
-                "reference": "7fc7487d6fbd441d0e02fa09b244135bdfe28847"
+                "reference": "ff5a97576c49a72e0480f135d9e7ce1a18c788e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/7fc7487d6fbd441d0e02fa09b244135bdfe28847",
-                "reference": "7fc7487d6fbd441d0e02fa09b244135bdfe28847",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/ff5a97576c49a72e0480f135d9e7ce1a18c788e6",
+                "reference": "ff5a97576c49a72e0480f135d9e7ce1a18c788e6",
                 "shasum": ""
             },
             "require": {
@@ -551,20 +551,20 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-12-30 16:31:45"
+            "time": "2016-01-10 15:14:17"
         },
         {
             "name": "kartik-v/yii2-widget-switchinput",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-switchinput.git",
-                "reference": "f6fd88e978b526323538b62ffd9d8845a9799758"
+                "reference": "7d8ee999d79bcdc1601da5cd59439ac7eb1f5ea6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-switchinput/zipball/f6fd88e978b526323538b62ffd9d8845a9799758",
-                "reference": "f6fd88e978b526323538b62ffd9d8845a9799758",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-switchinput/zipball/7d8ee999d79bcdc1601da5cd59439ac7eb1f5ea6",
+                "reference": "7d8ee999d79bcdc1601da5cd59439ac7eb1f5ea6",
                 "shasum": ""
             },
             "require": {
@@ -601,7 +601,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-01-14 16:27:26"
+            "time": "2016-01-10 16:47:35"
         },
         {
             "name": "lusitanian/oauth",

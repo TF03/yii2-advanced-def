@@ -66,15 +66,6 @@ return array (
       '@kartik/sortable' => $vendorDir . '/kartik-v/yii2-sortable',
     ),
   ),
-  'kartik-v/yii2-widget-switchinput' => 
-  array (
-    'name' => 'kartik-v/yii2-widget-switchinput',
-    'version' => '1.3.0.0',
-    'alias' => 
-    array (
-      '@kartik/switchinput' => $vendorDir . '/kartik-v/yii2-widget-switchinput',
-    ),
-  ),
   'kartik-v/yii2-dropdown-x' => 
   array (
     'name' => 'kartik-v/yii2-dropdown-x',
@@ -93,24 +84,6 @@ return array (
       '@kartik/nav' => $vendorDir . '/kartik-v/yii2-nav-x',
     ),
   ),
-  'kartik-v/yii2-widget-datepicker' => 
-  array (
-    'name' => 'kartik-v/yii2-widget-datepicker',
-    'version' => '9999999-dev',
-    'alias' => 
-    array (
-      '@kartik/date' => $vendorDir . '/kartik-v/yii2-widget-datepicker',
-    ),
-  ),
-  'kartik-v/yii2-krajee-base' => 
-  array (
-    'name' => 'kartik-v/yii2-krajee-base',
-    'version' => '1.8.1.0',
-    'alias' => 
-    array (
-      '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
-    ),
-  ),
   'nodge/yii2-eauth' => 
   array (
     'name' => 'nodge/yii2-eauth',
@@ -120,5 +93,32 @@ return array (
       '@nodge/eauth' => $vendorDir . '/nodge/yii2-eauth/src',
     ),
     'bootstrap' => 'nodge\\eauth\\Bootstrap',
+  ),
+  'kartik-v/yii2-krajee-base' => 
+  array (
+    'name' => 'kartik-v/yii2-krajee-base',
+    'version' => '1.8.2.0',
+    'alias' => 
+    array (
+      '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
+    ),
+  ),
+  'kartik-v/yii2-widget-switchinput' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-switchinput',
+    'version' => '1.3.1.0',
+    'alias' => 
+    array (
+      '@kartik/switchinput' => $vendorDir . '/kartik-v/yii2-widget-switchinput',
+    ),
+  ),
+  'kartik-v/yii2-widget-datepicker' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-datepicker',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@kartik/date' => $vendorDir . '/kartik-v/yii2-widget-datepicker',
+    ),
   ),
 );
