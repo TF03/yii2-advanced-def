@@ -569,3 +569,6 @@ form .form-actions button,
 form .form-actions a {
     margin-right: 10px;
 }
+#transaction-accounts label {
+    width: 100%;
+}

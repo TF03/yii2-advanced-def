@@ -24,56 +24,60 @@ $this->registerJsFile('/js/frontend/views/transaction.js', ['depends' => 'fronte
     <div class="col-md-12">
 
         <?php $form = ActiveForm::begin([
-                                            //'id' => 'login-form',
+                                            'id' => 'transaction-new',
                                             //'options' => ['class' => 'form-horizontal'],
                                         ]) ?>
 
-            <div class="col-md-3">
-                <?= $form->field($model, 'amount')->textInput(['placeholder' => 'Введите число'])->label('Величина (' . $firstValuta . ')*'); ?>
-                <?= $form->field($model, 'date')->label($model->getAttributeLabel('date') . '*')->widget(DatePicker::className(),
-                                                         [
-                                                             'type' => DatePicker::TYPE_INPUT,
-                                                             'pluginOptions' => [
-                                                                 'autoclose' => true,
-                                                                 'format' => 'dd-mm-yyyy'
-                                                             ]
-                                                         ]
-                ); ?>
-                <?= $form->field($model, 'comment')->textInput([]); ?>
-                <?= $form->field($model, 'accounts', [
-                    'options' => [
-                        'class' => 'form-group'
-                    ],
-                ])->radioList(AccountsHelper::getListAccounts(), [
-                    'item' => function ($index, $label, $name, $checked, $value) {
-                        $label = explode('!!', $label);
-                        $valuta = $label[1];
-                        $label = $label[0];
-                        $check = ($index == 0) ? ' checked="checked"' : '';
-                        return "<label class=\"form__param\">
-                                    <input type=\"radio\" id=\"account_id_$value\" name=\"$name\" value=\"$value\"$check>
+        <div class="col-md-3">
+            <?= $form->field($model, 'amount')
+                ->textInput(['placeholder' => 'Введите число'])
+                ->label('Величина (' . $firstValuta . ')*', [
+                    'id' => 'amountLabel'
+                ]); ?>
+            <?= $form->field($model, 'date')->label($model->getAttributeLabel('date') . '*')->widget(DatePicker::className(),
+                                                                                                     [
+                                                                                                         'type' => DatePicker::TYPE_INPUT,
+                                                                                                         'pluginOptions' => [
+                                                                                                             'autoclose' => true,
+                                                                                                             'format' => 'dd-mm-yyyy'
+                                                                                                         ]
+                                                                                                     ]
+            ); ?>
+            <?= $form->field($model, 'comment')->textInput([]); ?>
+            <?= $form->field($model, 'accounts', [
+                'options' => [
+                    'class' => 'form-group'
+                ],
+            ])->radioList(AccountsHelper::getListAccounts(), [
+                'item' => function ($index, $label, $name, $checked, $value) {
+                    $label = explode('!!', $label);
+                    $valuta = $label[1];
+                    $label = $label[0];
+                    $check = ($index == 0) ? ' checked="checked"' : '';
+                    return "<label class=\"form__param\">
+                                    <input type=\"radio\" class=\"account_id\" id=\"account_id_$value\" name=\"$name\" value=\"$value\"$check>
                                     $label
                                     <input type=\"hidden\" id=\"current_$value\" value=\"$valuta\">
                                 </label>";
-                    }]) ?>
-            </div>
-            <div class="col-md-9">
-                <?= $form->field($model, 'transaction2Category', [
-                    'options' => [
-                        'id' => 'transaction2Category',
-                        'class' => 'form-group'
-                    ],
-                    'inputOptions' => [
-                        'class' => 'form-control custom-class_field1 custom-class_field2'
-                    ],
-                    //'template' => "\n\t<!-- Этикетка, название поля -->\n\t{label}\n\n\t<!-- Поле формы -->\n\t{input}\n\n\t<!-- Блок подсказки - выводится только если есть содержимое-->\n\t{hint}\n\n\t<!-- Блок сообщения об ошибке - появляется/исчезает при наличие ошибок валидации формы -->\n\t{error}"
-                ])->checkboxList(TransactionHelper::getListTransaction()) ?>
-            </div>
+                }]) ?>
+        </div>
+        <div class="col-md-9">
+            <?= $form->field($model, 'transaction2Category', [
+                'options' => [
+                    'id' => 'transaction2Category',
+                    'class' => 'form-group'
+                ],
+                'inputOptions' => [
+                    'class' => 'form-control custom-class_field1 custom-class_field2'
+                ],
+                //'template' => "\n\t<!-- Этикетка, название поля -->\n\t{label}\n\n\t<!-- Поле формы -->\n\t{input}\n\n\t<!-- Блок подсказки - выводится только если есть содержимое-->\n\t{hint}\n\n\t<!-- Блок сообщения об ошибке - появляется/исчезает при наличие ошибок валидации формы -->\n\t{error}"
+            ])->checkboxList(TransactionHelper::getListTransaction()) ?>
+        </div>
 
-            <div class="col-md-12 form-actions">
-                <?= Html::a('Отмена', Url::to(['/transaction']), ['class' => 'btn btn-default']); ?>
-                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']); ?>
-            </div>
+        <div class="col-md-12 form-actions">
+            <?= Html::a('Отмена', Url::to(['/transaction']), ['class' => 'btn btn-default']); ?>
+            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']); ?>
+        </div>
 
         <?php ActiveForm::end() ?>
 

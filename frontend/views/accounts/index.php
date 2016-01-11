@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use frontend\models\User;
+use frontend\helper\UserHelper;
 use frontend\helper\StatusHelper;
 
 /* @var $this yii\web\View */
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                  [
                                      'attribute' => 'user_id',
                                      'value' => function ($model) {
-                                         return User::findOne(['id' => $model->id])->username;
+                                         return UserHelper::getCurrentUserName($model->user_id);
                                      },
                                  ],
                                  'valuta',
