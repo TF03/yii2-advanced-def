@@ -5,9 +5,7 @@ namespace frontend\controllers;
 use frontend\helper\StatusHelper;
 use Yii;
 use frontend\models\Category;
-use frontend\models\search\CategorySearch;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 

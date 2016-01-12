@@ -6,7 +6,7 @@ use frontend\helper\UserHelper;
 use frontend\helper\StatusHelper;
 
 /* @var $this yii\web\View */
-/* @var $searchModel frontend\models\search\AccountsSearch */
+/* @var $searchModel common\models\search\AccountsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Счета';
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                  [
                                      'attribute' => 'status',
                                      'value' => function ($model) {
-                                         return StatusHelper::getStatusName($model->status);
+                                         return StatusHelper::getValue($model->status);
                                      },
                                  ],
                              ],

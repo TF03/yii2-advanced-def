@@ -5,10 +5,31 @@ namespace frontend\helper;
 use common\models\Transaction2Category;
 use frontend\models\Category;
 
-class TransactionHelper
+class TransactionHelper extends BaseHelper
 {
     const TYPE_INCOME = 1;
-    const TYPE_CONSUMPTION = 2;
+    const TYPE_EXPENSE = 2;
+
+    protected static $listNames = [
+        self::TYPE_INCOME => 'Доход',
+        self::TYPE_EXPENSE => 'Расход'
+    ];
+
+    protected static $listClasses = [
+        self::TYPE_INCOME => 'type-income',
+        self::TYPE_EXPENSE => 'type-expense'
+    ];
+
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public static function getClassesForType($key)
+    {
+        $aStatus = static::getValues(self::$listClasses);
+
+        return isset($aStatus[$key]) ? $aStatus[$key] : $key;
+    }
 
     /**
      * @return array

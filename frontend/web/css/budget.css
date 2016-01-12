@@ -575,3 +575,15 @@ form .form-actions a {
 .help-block-error {
     font-size: 14px;
 }
+.field-transaction-type_id {
+    margin-top: -12px;
+}
+.type-id {
+    padding-right: 20px;
+}
+.type-id.type-income {
+    color: #108830;
+}
+.type-id.type-expense {
+    color: #AA4643;
+}

@@ -34,6 +34,20 @@ $this->registerJsFile('/js/frontend/views/transaction.js', ['depends' => 'fronte
                 ->label('Величина (' . $firstValuta . ')*', [
                     'id' => 'amountLabel'
                 ]); ?>
+            <?= $form->field($model, 'type_id', [
+                'options' => [
+                    'class' => 'form-group'
+                ],
+            ])->label(false)
+                ->radioList(TransactionHelper::getValues(), [
+                'item' => function ($index, $label, $name, $checked, $value) {
+                    $check = ($index == 0) ? ' checked="checked"' : '';
+                    $classes = (isset($value)) ? TransactionHelper::getClassesForType($value) : '';
+                    return "<label class=\"form__param type-id $classes\">
+                                    <input type=\"radio\" name=\"$name\" value=\"$value\"$check>
+                                    $label
+                                </label>";
+                }]) ?>
             <?= $form->field($model, 'date')->label($model->getAttributeLabel('date') . '*')->widget(DatePicker::className(),
                                                                                                      [
                                                                                                          'type' => DatePicker::TYPE_INPUT,

@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
 
 /**
- * @var $model \frontend\models\search\CategorySearch
+ * @var $model \common\models\search\CategorySearch
  */
 
 ?>

@@ -1,16 +1,16 @@
 <?php
 
-namespace frontend\models\search;
+namespace common\models\search;
 
-use frontend\models\Accounts;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\Transaction;
 
 /**
- * AccountsSearch represents the model behind the search form about `common\models\Accounts`.
+ * TransactionSearch represents the model behind the search form about `common\models\Transaction`.
  */
-class AccountsSearch extends Accounts
+class TransactionSearch extends Transaction
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class AccountsSearch extends Accounts
     public function rules()
     {
         return [
-            [['id', 'user_id', 'sort', 'status'], 'integer'],
-            [['name', 'valuta', 'color'], 'safe'],
+            [['id', 'accounts', 'user_id', 'type_id', 'status'], 'integer'],
+            [['comment', 'created_at', 'date'], 'safe'],
             [['amount'], 'number'],
         ];
     }
@@ -42,7 +42,7 @@ class AccountsSearch extends Accounts
      */
     public function search($params)
     {
-        $query = Accounts::find();
+        $query = Transaction::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -58,15 +58,16 @@ class AccountsSearch extends Accounts
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'sort' => $this->sort,
             'amount' => $this->amount,
+            'accounts' => $this->accounts,
+            'user_id' => $this->user_id,
+            'type_id' => $this->type_id,
             'status' => $this->status,
+            'created_at' => $this->created_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'valuta', $this->valuta])
-            ->andFilterWhere(['like', 'color', $this->color]);
+        $query->andFilterWhere(['like', 'comment', $this->comment])
+            ->andFilterWhere(['like', 'date', $this->date]);
 
         return $dataProvider;
     }

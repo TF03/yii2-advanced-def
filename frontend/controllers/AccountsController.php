@@ -3,7 +3,7 @@
 namespace frontend\controllers;
 
 use frontend\models\Accounts;
-use frontend\models\search\AccountsSearch;
+use common\models\search\AccountsSearch;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;

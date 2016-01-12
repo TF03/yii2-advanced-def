@@ -5,11 +5,10 @@
         el: '#transaction-new',
         amountLabel: '#amountLabel',
         events: {
-            'change .account_id': 'changeValuta',
+            'change .account_id': 'changeValuta'
         },
 
         initialize: function() {
-            //console.log('test');
         },
 
         changeValuta: function(event) {
@@ -26,7 +25,7 @@
             var valueForLabel = parentBlock.find('#current_' + idAccount).val();
             var amountLabel = $(this.amountLabel);
             var valueAmountLabel = amountLabel.text().split('(')[0];
-            $(this.amountLabel).html(valueAmountLabel + '(' + valueForLabel + ')');
+            $(this.amountLabel).html(valueAmountLabel + '(' + valueForLabel + ')*');
         }
     });
 

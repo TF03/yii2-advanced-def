@@ -1,16 +1,16 @@
 <?php
 
-namespace frontend\models\search;
+namespace common\models\search;
 
+use common\models\Accounts;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Category;
 
 /**
- * CategorySearch represents the model behind the search form about `frontend\models\Category`.
+ * AccountsSearch represents the model behind the search form about `common\models\Accounts`.
  */
-class CategorySearch extends Category
+class AccountsSearch extends Accounts
 {
     /**
      * @inheritdoc
@@ -18,8 +18,9 @@ class CategorySearch extends Category
     public function rules()
     {
         return [
-            [['id', 'user_id', 'base_category_id', 'status'], 'integer'],
-            [['title'], 'safe'],
+            [['id', 'user_id', 'sort', 'status'], 'integer'],
+            [['name', 'valuta', 'color'], 'safe'],
+            [['amount'], 'number'],
         ];
     }
 
@@ -41,7 +42,7 @@ class CategorySearch extends Category
      */
     public function search($params)
     {
-        $query = Category::find();
+        $query = Accounts::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -58,13 +59,14 @@ class CategorySearch extends Category
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'base_category_id' => $this->base_category_id,
+            'sort' => $this->sort,
+            'amount' => $this->amount,
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title]);
-
-        $query->orderBy(['id' => SORT_DESC]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'valuta', $this->valuta])
+            ->andFilterWhere(['like', 'color', $this->color]);
 
         return $dataProvider;
     }
