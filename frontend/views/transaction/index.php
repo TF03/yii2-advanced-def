@@ -53,6 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                          'dataProvider' => $dataProvider,
                                          'filterModel' => $searchModel,
                                          'showOnEmpty' => false,
+                                         'layout' => "{items}\n{pager}",
                                          'columns' => [
                                              ['class' => 'yii\grid\SerialColumn'],
                                              'id',
