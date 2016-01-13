@@ -54,7 +54,7 @@ class TransactionGii extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'type_id' => 'Type ID',
             'status' => 'Status',
-            'created_at' => 'Created At',
+            'created_at' => 'Создана',
             'date' => 'Дата',
         ];
     }

@@ -1,10 +1,13 @@
 <?php
 
-use yii\grid\GridView;
 use yii\bootstrap\ButtonDropdown;
+use yii\bootstrap\Html;
+use yii\grid\ActionColumn;
+use yii\grid\CheckboxColumn;
+use yii\grid\GridView;
+use frontend\helper\TransactionHelper;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\search\TransactionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Операции';
@@ -51,22 +54,67 @@ $this->params['breadcrumbs'][] = $this->title;
             <div>
                 <?= GridView::widget([
                                          'dataProvider' => $dataProvider,
-                                         'filterModel' => $searchModel,
                                          'showOnEmpty' => false,
                                          'layout' => "{items}\n{pager}",
-                                         'columns' => [
-                                             ['class' => 'yii\grid\SerialColumn'],
-                                             'id',
-                                             'comment',
-                                             'amount',
-                                             'accounts',
-                                             'user_id',
-                                             // 'type_id',
-                                             // 'status',
-                                             // 'created_at',
-                                             // 'date',
-                                             ['class' => 'yii\grid\ActionColumn'],
+                                         'tableOptions' => [
+                                             'class' => 'table'
                                          ],
+                                         'columns' => [
+                                             [
+                                                 'class' => CheckboxColumn::className(),
+                                                 'headerOptions' => ['class' => 'check'],
+                                             ],
+                                             [
+                                                 'attribute' => 'date',
+                                                 'headerOptions' => ['width' => '100'],
+                                                 'content' => function($data) {
+                                                     /** @var $data \frontend\models\Transaction  */
+                                                     return TransactionHelper::getFormattedDate($data->date);
+                                                 }
+                                             ],
+                                             [
+                                                 'attribute' => 'amount',
+                                                 'headerOptions' => ['width' => '100'],
+                                                 'content' => function($data) {
+                                                     /** @var $data \frontend\models\Transaction  */
+                                                     return $data->amount;
+                                                 }
+                                             ],
+                                             [
+                                                 'attribute' => '',
+                                                 'headerOptions' => ['width' => '500'],
+                                                 'content' => function($data) {
+                                                     /** @var $data \frontend\models\Transaction  */
+                                                     return TransactionHelper::getAmountValueForGrid($data);
+                                                 }
+                                             ],
+                                             [
+                                                 'attribute' => 'created_at',
+                                                 'headerOptions' => ['width' => '100'],
+                                                 'content' => function($data) {
+                                                     /** @var $data \frontend\models\Transaction  */
+                                                     return TransactionHelper::getFormattedDate($data->created_at);
+                                                 }
+                                             ],
+                                             [
+                                                 'class' => ActionColumn::className(),
+                                                 'header' => '',
+                                                 //'headerOptions' => ['width' => '80'],
+                                                 'template' => '{update} {delete}',
+                                                 'buttons' => [
+                                                     'update' => function ($url,$model) {
+                                                         return Html::a(
+                                                             '<span class="glyphicon glyphicon-pencil"></span>',
+                                                             $url);
+                                                     },
+                                                     'delete' => function ($url,$model,$key) {
+                                                         return Html::a(
+                                                             '<span class="glyphicon glyphicon-remove"></span>',
+                                                             $url);
+                                                     },
+                                                 ]
+                                             ]
+                                         ]
                                      ]); ?>
             </div>
         </div>
