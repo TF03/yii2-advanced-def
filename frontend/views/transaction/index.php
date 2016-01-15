@@ -74,10 +74,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                              ],
                                              [
                                                  'attribute' => 'amount',
-                                                 'headerOptions' => ['width' => '100'],
+                                                 'headerOptions' => [
+                                                     'class' => 'transaction-amount',
+                                                     'width' => '100'
+                                                 ],
+                                                 'contentOptions' => [
+                                                     'class' => 'transaction-amount'
+                                                 ],
                                                  'content' => function($data) {
                                                      /** @var $data \frontend\models\Transaction  */
-                                                     return $data->amount;
+                                                     return TransactionHelper::getFullAmount($data);
                                                  }
                                              ],
                                              [

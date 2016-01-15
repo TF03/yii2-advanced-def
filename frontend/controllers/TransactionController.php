@@ -58,7 +58,9 @@ class TransactionController extends Controller
             }
 
             if ($model->save()) {
-                TransactionHelper::saveTransaction2Category($transaction2Category, $model->id);
+                if (!empty($transaction2Category)) {
+                    TransactionHelper::saveTransaction2Category($transaction2Category, $model->id);
+                }
                 Yii::$app->getSession()->setFlash('success', 'Транзакция создана.');
                 return $this->redirect(['index']);
             }

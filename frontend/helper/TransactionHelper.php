@@ -164,7 +164,7 @@ class TransactionHelper extends BaseHelper
      */
     public static function getCategoryForBlockString(Transaction $model)
     {
-        $result = '';
+        $result = [];
         $transaction2Categories = $model->transaction2Category;
 
         if (!empty($transaction2Categories)) {
@@ -182,5 +182,39 @@ class TransactionHelper extends BaseHelper
         }
 
         return implode(' ', $result);
+    }
+
+    /**
+     * @param $model Transaction
+     *
+     * @return string
+     */
+    public static function getFullAmount(Transaction $model)
+    {
+        $rest = '';
+        $amount = '';
+        $currency = '';
+        /** @var Accounts $account */
+        $account = Accounts::find()->andWhere(['id' => $model->accounts])->one();
+
+        if (isset($account)) {
+            $amount = explode('.', $model->amount);
+
+            $rest = Html::tag(
+                'div',
+                $amount[1],
+                [
+                    'class' => 'transaction-currency-rest'
+                ]);
+            $amount = Html::tag(
+                'div',
+                $amount[0] . '.' . $rest,
+                [
+                    'class' => 'transaction-currency-' . self::getClassesForType($model->type_id)
+                ]);
+            $currency = Html::tag('div', $account->valuta, ['class' => 'unit']);
+        }
+
+        return $amount . $currency;
     }
 }
