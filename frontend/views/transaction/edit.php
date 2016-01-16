@@ -9,13 +9,13 @@ use yii\helpers\Url;
 
 /** @var $this yii\web\View */
 /** @var $model \frontend\models\Transaction */
+/** @var $account \frontend\models\Accounts */
 
-$this->title = 'Новая операция';
+$this->title = 'Редактирование операции';
 $this->params['breadcrumbs'][] = ['label' => 'Операции', 'url' => ['/transaction']];
 $this->params['breadcrumbs'][] = $this->title;
 
-$model->date = Yii::$app->getFormatter()->asDate('now', "php:d-m-Y");
-$firstValuta = AccountsHelper::getFirstValuta();
+$firstValuta = $account->valuta;
 
 $this->registerJsFile('/js/frontend/views/transaction.js', ['depends' => 'frontend\assets\BackboneAsset']);
 ?>
@@ -25,7 +25,6 @@ $this->registerJsFile('/js/frontend/views/transaction.js', ['depends' => 'fronte
 
         <?php $form = ActiveForm::begin([
                                             'id' => 'transaction-new',
-                                            //'options' => ['class' => 'form-horizontal'],
                                         ]) ?>
 
         <div class="col-md-3">
@@ -40,14 +39,14 @@ $this->registerJsFile('/js/frontend/views/transaction.js', ['depends' => 'fronte
                 ],
             ])->label(false)
                 ->radioList(TransactionHelper::getValues(), [
-                'item' => function ($index, $label, $name, $checked, $value) {
-                    $check = ($checked) ? ' checked="checked"' : '';
-                    $classes = (isset($value)) ? TransactionHelper::getClassesForType($value) : '';
-                    return "<label class=\"form__param type-id $classes\">
+                    'item' => function ($index, $label, $name, $checked, $value) {
+                        $check = ($checked) ? ' checked="checked"' : '';
+                        $classes = (isset($value)) ? TransactionHelper::getClassesForType($value) : '';
+                        return "<label class=\"form__param type-id $classes\">
                                     <input type=\"radio\" name=\"$name\" value=\"$value\"$check>
                                     $label
                                 </label>";
-                }]) ?>
+                    }]) ?>
             <?= $form->field($model, 'date')->label($model->getAttributeLabel('date') . '*')->widget(DatePicker::className(),
                                                                                                      [
                                                                                                          'type' => DatePicker::TYPE_INPUT,
@@ -67,7 +66,8 @@ $this->registerJsFile('/js/frontend/views/transaction.js', ['depends' => 'fronte
                     $label = explode('!!', $label);
                     $valuta = $label[1];
                     $label = $label[0];
-                    $check = ($index == 0) ? ' checked="checked"' : '';
+                    $check = ($checked) ? ' checked="checked"' : '';
+
                     return "<label class=\"form__param\">
                                     <input type=\"radio\" class=\"account_id\" id=\"account_id_$value\" name=\"$name\" value=\"$value\"$check>
                                     $label

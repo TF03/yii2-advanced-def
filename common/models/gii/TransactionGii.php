@@ -34,10 +34,10 @@ class TransactionGii extends \yii\db\ActiveRecord
     {
         return [
             [['amount', 'accounts', 'user_id', 'date'], 'required'],
-            //[['amount', 'accounts', 'user_id', 'type_id', 'created_at', 'date'], 'required'],
             [['amount'], 'number'],
-            [['accounts', 'user_id', 'type_id', 'status', 'created_at'], 'integer'],
-            [['comment'], 'string', 'max' => 255]
+            [['accounts', 'user_id', 'type_id', 'status'], 'integer'],
+            [['comment'], 'string', 'max' => 255],
+            [['created_at'], 'safe']
         ];
     }
 

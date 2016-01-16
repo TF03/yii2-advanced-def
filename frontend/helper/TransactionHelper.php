@@ -69,6 +69,8 @@ class TransactionHelper extends BaseHelper
      */
     public static function saveTransaction2Category($transaction2Category, $transactionId)
     {
+        self::deleteTransaction2CategoryByTransactionId($transactionId);
+
         foreach($transaction2Category as $idCategory) {
             $model = Category::find()->andWhere(['id' => $idCategory])->one();
             if ($model) {
@@ -80,6 +82,16 @@ class TransactionHelper extends BaseHelper
         }
 
         return true;
+    }
+
+    /**
+     * @param integer $transactionId
+     *
+     * @return boolean
+     */
+    public static function deleteTransaction2CategoryByTransactionId($transactionId)
+    {
+        return Transaction2Category::deleteAll('transaction_id = :transaction_id', [':transaction_id' => $transactionId]);
     }
 
     /**
@@ -151,7 +163,7 @@ class TransactionHelper extends BaseHelper
             $result = Html::a(
                 $accounts->name,
                 Yii::$app->urlManager->createUrl(['transaction']),
-                [ 'class' => 'tag tag-blue' ]);
+                [ 'class' => 'tag' ]);
         }
 
         return $result;
@@ -176,7 +188,7 @@ class TransactionHelper extends BaseHelper
                     $result[] = Html::a(
                         $category->title,
                         Yii::$app->urlManager->createUrl(['transaction']),
-                        [ 'class' => 'tag' ]);
+                        [ 'class' => 'tag tag-blue' ]);
                 }
             }
         }
@@ -191,7 +203,6 @@ class TransactionHelper extends BaseHelper
      */
     public static function getFullAmount(Transaction $model)
     {
-        $rest = '';
         $amount = '';
         $currency = '';
         /** @var Accounts $account */

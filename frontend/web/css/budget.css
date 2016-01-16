@@ -647,6 +647,7 @@ form .form-actions a {
     width: 10px;
 }
 
+.table th.transaction-amount,
 .table td.transaction-amount {
     text-align: right;
 }
@@ -655,6 +656,11 @@ form .form-actions a {
     color: #999;
     margin-left: 4px;
     display: inline-block;
+}
+
+.table td.button-group a {
+    padding-right: 10px;
+    text-decoration: none;
 }
 
 .transaction-currency-type-income:before {

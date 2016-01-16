@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                  'attribute' => 'amount',
                                                  'headerOptions' => [
                                                      'class' => 'transaction-amount',
-                                                     'width' => '100'
+                                                     'min-width' => '100'
                                                  ],
                                                  'contentOptions' => [
                                                      'class' => 'transaction-amount'
@@ -105,18 +105,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                              [
                                                  'class' => ActionColumn::className(),
                                                  'header' => '',
-                                                 //'headerOptions' => ['width' => '80'],
-                                                 'template' => '{update} {delete}',
+                                                 'contentOptions' => [
+                                                     'class' => 'button-group'
+                                                 ],
+                                                 'template' => '{edit} {remove}',
                                                  'buttons' => [
-                                                     'update' => function ($url,$model) {
+                                                     'edit' => function ($url) {
                                                          return Html::a(
                                                              '<span class="glyphicon glyphicon-pencil"></span>',
                                                              $url);
                                                      },
-                                                     'delete' => function ($url,$model,$key) {
-                                                         return Html::a(
-                                                             '<span class="glyphicon glyphicon-remove"></span>',
-                                                             $url);
+                                                     'remove' => function ($url) {
+                                                         return Html::a('', $url, [
+                                                             'class' => 'glyphicon glyphicon-remove',
+                                                             'data-pjax' => 'false',
+                                                             'data' => [
+                                                                 'confirm' => 'Вы уверены, что хотите удалить транзакцию?',
+                                                                 'method' => 'post',
+                                                             ]
+                                                         ]);
                                                      },
                                                  ]
                                              ]

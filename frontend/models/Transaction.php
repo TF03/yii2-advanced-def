@@ -10,4 +10,11 @@ use Yii;
  */
 class Transaction extends \common\models\Transaction
 {
+    public static function find()
+    {
+        return parent::find()
+            ->andWhere([
+                           'user_id' => Yii::$app->getUser()->id
+                       ]);
+    }
 }

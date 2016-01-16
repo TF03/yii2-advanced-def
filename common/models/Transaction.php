@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\behaviors\ChangeTransactionBehavior;
 use common\behaviors\SetPropertyBehavior;
 use common\models\gii\TransactionGii;
 use Yii;
@@ -13,10 +14,13 @@ use yii\helpers\ArrayHelper;
  * @inheritdoc
  *
  * @property User $owner
+ * @property array $categoryIds
  * @property Transaction2Category $transaction2Category
  */
 class Transaction extends TransactionGii
 {
+    public $categoryIds = [];
+
     /**
      * @inheritdoc
      */
@@ -30,6 +34,7 @@ class Transaction extends TransactionGii
                 'value' => new Expression('NOW()'),
             ],
             SetPropertyBehavior::className(),
+            ChangeTransactionBehavior::className(),
         ]);
     }
 
@@ -50,12 +55,30 @@ class Transaction extends TransactionGii
     }
 
     /**
+     * @return array
+     */
+    public function getTransaction2CategoryList()
+    {
+        $result = [];
+        $transaction2Categories = $this->transaction2Category;
+
+        if (!empty($transaction2Categories)) {
+            /** @var Transaction2Category $transaction2Category */
+            foreach ($transaction2Categories as $transaction2Category) {
+                $result[] = $transaction2Category->category_id;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * @inheritdoc
      */
     public function attributeLabels()
     {
         return ArrayHelper::merge(parent::attributeLabels(),[
-            'transaction2Category' => 'Категории',
+            'categoryIds' => 'Категории',
         ]);
     }
 }

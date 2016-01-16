@@ -31,7 +31,7 @@ class CategoryController extends FrontendController
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'remove' => ['post'],
                 ],
             ],
         ];

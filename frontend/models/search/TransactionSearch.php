@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models\search;
+namespace frontend\models\search;
 
 use Yii;
 use yii\base\Model;
@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use frontend\models\Transaction;
 
 /**
- * TransactionSearch represents the model behind the search form about `common\models\Transaction`.
+ * TransactionSearch represents the model behind the search form about `frontend\models\Transaction`.
  */
 class TransactionSearch extends Transaction
 {
@@ -45,8 +45,8 @@ class TransactionSearch extends Transaction
         $query = Transaction::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+                                                   'query' => $query,
+                                               ]);
 
         $this->load($params);
 
@@ -57,17 +57,21 @@ class TransactionSearch extends Transaction
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
-            'amount' => $this->amount,
-            'accounts' => $this->accounts,
-            'user_id' => $this->user_id,
-            'type_id' => $this->type_id,
-            'status' => $this->status,
-            'created_at' => $this->created_at,
-        ]);
+                                   'id' => $this->id,
+                                   'amount' => $this->amount,
+                                   'accounts' => $this->accounts,
+                                   'user_id' => $this->user_id,
+                                   'type_id' => $this->type_id,
+                                   'status' => $this->status,
+                                   'created_at' => $this->created_at,
+                               ]);
 
         $query->andFilterWhere(['like', 'comment', $this->comment])
             ->andFilterWhere(['like', 'date', $this->date]);
+        $query->orderBy([
+                            'date' => SORT_DESC,
+                            'id' => SORT_DESC
+                        ]);
 
         return $dataProvider;
     }

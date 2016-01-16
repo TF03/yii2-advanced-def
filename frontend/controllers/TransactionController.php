@@ -2,10 +2,12 @@
 
 namespace frontend\controllers;
 
-use common\models\search\TransactionSearch;
+use frontend\models\search\TransactionSearch;
 use frontend\helper\TransactionHelper;
+use frontend\models\Accounts;
 use frontend\models\Transaction;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
@@ -18,10 +20,21 @@ class TransactionController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'new', 'remove', 'edit'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'new', 'remove', 'edit'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'remove' => ['post'],
                 ],
             ],
         ];
@@ -53,8 +66,8 @@ class TransactionController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $transaction2Category = '';
-            if (isset(Yii::$app->request->post('Transaction')['transaction2Category'])) {
-                $transaction2Category = Yii::$app->request->post('Transaction')['transaction2Category'];
+            if (isset(Yii::$app->request->post('Transaction')['categoryIds'])) {
+                $transaction2Category = Yii::$app->request->post('Transaction')['categoryIds'];
             }
 
             if ($model->save()) {
@@ -66,8 +79,65 @@ class TransactionController extends Controller
             }
         }
 
+        $model->type_id = TransactionHelper::TYPE_EXPENSE;
+
         return $this->render('new', [
             'model' => $model,
+        ]);
+    }
+
+    /**
+     * Removes an existing Transaction model.
+     * If remove is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionRemove($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->delete()) {
+            Yii::$app->getSession()->setFlash('success', 'Транзакция удалена.');
+        } else {
+            Yii::$app->getSession()->setFlash('error', 'При удалении произошла ошибка.');
+        }
+
+        return $this->redirect('/transaction');
+    }
+
+    /**
+     * Edits an existing Transaction model.
+     * If edit is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionEdit($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $transaction2Category = '';
+            if (isset(Yii::$app->request->post('Transaction')['categoryIds'])) {
+                $transaction2Category = Yii::$app->request->post('Transaction')['categoryIds'];
+            }
+
+            if ($model->save()) {
+                if (!empty($transaction2Category)) {
+                    TransactionHelper::saveTransaction2Category($transaction2Category, $model->id);
+                }
+                Yii::$app->getSession()->setFlash('success', 'Транзакция изменена.');
+                return $this->redirect(['/transaction']);
+            }
+        }
+
+        $account = Accounts::find()->andWhere(['id' => $model->accounts])->one();
+        $model->categoryIds = $model->getTransaction2CategoryList();
+
+        return $this->render('edit', [
+            'model' => $model,
+            'account' => $account,
         ]);
     }
 
