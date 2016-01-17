@@ -639,6 +639,10 @@ form .form-actions a {
     text-align: center;
 }
 
+.table tr {
+    border-bottom: 1px solid #C1BEBE;
+}
+
 .table td {
     text-align: left;
 }

@@ -8,6 +8,7 @@ use yii;
 use yii\base\Behavior;
 use yii\db\AfterSaveEvent;
 use yii\db\BaseActiveRecord;
+use stdClass;
 
 /**
  * Class ChangeTransactionBehavior
@@ -53,23 +54,57 @@ class ChangeTransactionBehavior extends Behavior
         $account = Accounts::find()->andWhere(['id' => $model->accounts])->one();
 
         if ($account) {
-            switch ($model->type_id) {
-                case TransactionHelper::TYPE_EXPENSE:
-                    $account->amount = bcsub($account->amount, $model->amount, 2);
-                    break;
-                case TransactionHelper::TYPE_INCOME:
-                    $account->amount = bcadd($account->amount, $model->amount, 2);
-                    break;
-            }
+            $params = new stdClass();
+            $params->type_id = $model->type_id;
+            $params->accountAmount = $account->amount;
+            $params->transactionAmount = $model->amount;
+
+            $account->amount = $this->_getAccountAmount($params);
             $account->save();
         }
     }
 
     /**
-     *
+     * @param AfterSaveEvent $event
      */
-    public function recalculateAmountForAccountAfterUpdate()
-    {}
+    public function recalculateAmountForAccountAfterUpdate(AfterSaveEvent $event)
+    {
+        /** @var \common\models\Transaction $model */
+        $model = $this->owner;
+
+        $oldTransactionAmount = isset($event->changedAttributes['amount']) ? $event->changedAttributes['amount'] : $model->amount;
+        $newTransactionAmount = $model->amount;
+        /** @var Accounts $account */
+        $account = Accounts::find()->andWhere(['id' => $model->accounts])->one();
+
+        if ($account) {
+            if (isset($event->changedAttributes['type_id'])) {
+                $params = new stdClass();
+
+                $params->type_id = $event->changedAttributes['type_id'];
+                $params->accountAmount = $account->amount;
+                $params->transactionAmount = $oldTransactionAmount;
+                $account->amount = $this->_getAccountAmount($params, true);
+
+                $params->type_id = $model->type_id;
+                $params->accountAmount = $account->amount;
+                $params->transactionAmount = $newTransactionAmount;
+                $account->amount = $this->_getAccountAmount($params);
+            } else {
+                switch ($model->type_id) {
+                    case TransactionHelper::TYPE_EXPENSE:
+                        $account->amount = bcadd($account->amount, $oldTransactionAmount, 2);
+                        $account->amount = bcsub($account->amount, $newTransactionAmount, 2);
+                        break;
+                    case TransactionHelper::TYPE_INCOME:
+                        $account->amount = bcsub($account->amount, $oldTransactionAmount, 2);
+                        $account->amount = bcadd($account->amount, $newTransactionAmount, 2);
+                        break;
+                }
+            }
+            $account->save();
+        }
+    }
 
     /**
      * @param $model \common\models\Transaction
@@ -80,15 +115,68 @@ class ChangeTransactionBehavior extends Behavior
         $account = Accounts::find()->andWhere(['id' => $model->accounts])->one();
 
         if ($account) {
-            switch ($model->type_id) {
-                case TransactionHelper::TYPE_EXPENSE:
-                    $account->amount = bcadd($account->amount, $model->amount, 2);
-                    break;
-                case TransactionHelper::TYPE_INCOME:
-                    $account->amount = bcsub($account->amount, $model->amount, 2);
-                    break;
-            }
+            $params = new stdClass();
+            $params->type_id = $model->type_id;
+            $params->accountAmount = $account->amount;
+            $params->transactionAmount = $model->amount;
+
+            $account->amount = $this->_getAccountAmount($params, true);
             $account->save();
+        }
+    }
+
+    /**
+     * Calculate account amount
+     *
+     * @param $params stdClass
+     * @param $reverse boolean
+     *
+     * @return float
+     */
+    private function _getAccountAmount($params, $reverse = false)
+    {
+        if ($reverse) {
+            return $this->_reverseCalculate($params);
+        } else {
+            return $this->_normalCalculate($params);
+        }
+    }
+
+    /**
+     * Reverse calculate
+     *
+     * @param $params stdClass
+     *
+     * @return float
+     */
+    private function _reverseCalculate($params)
+    {
+        switch ($params->type_id) {
+            case TransactionHelper::TYPE_EXPENSE:
+                return bcadd($params->accountAmount, $params->transactionAmount, 2);
+            case TransactionHelper::TYPE_INCOME:
+                return bcsub($params->accountAmount, $params->transactionAmount, 2);
+            default:
+                return $params->accountAmount;
+        }
+    }
+
+    /**
+     * Reverse calculate
+     *
+     * @param $params stdClass
+     *
+     * @return float
+     */
+    private function _normalCalculate($params)
+    {
+        switch ($params->type_id) {
+            case TransactionHelper::TYPE_EXPENSE:
+                return bcsub($params->accountAmount, $params->transactionAmount, 2);
+            case TransactionHelper::TYPE_INCOME:
+                return bcadd($params->accountAmount, $params->transactionAmount, 2);
+            default:
+                return $params->accountAmount;
         }
     }
 
