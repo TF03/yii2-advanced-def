@@ -2,7 +2,7 @@
 
 namespace common\models\search;
 
-use common\models\Accounts;
+use frontend\models\Accounts;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;

@@ -9,7 +9,7 @@
             //'useStreamsFallback' => true,
         ],
         'services' => [ // You can change the providers and their classes.
-            'google' => [
+            /*'google' => [
                 // register your app here: https://code.google.com/apis/console/
                 'class' => 'nodge\eauth\services\GoogleOAuth2Service',
                 'clientId' => '...',
@@ -95,6 +95,6 @@
                 'clientSecret' => '...',
                 'clientPublic' => '...',
                 'title' => 'Odnoklas.',
-            ],
+            ],*/
         ],
     ];

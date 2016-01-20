@@ -10,4 +10,10 @@ use Yii;
  */
 class Accounts extends \common\models\Accounts
 {
+    public static function find()
+    {
+        return parent::find()->andWhere([
+            'user_id' => Yii::$app->getUser()->id,
+        ]);
+    }
 }

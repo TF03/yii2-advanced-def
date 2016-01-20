@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use frontend\models\Accounts;
 use common\models\search\AccountsSearch;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 
@@ -16,6 +17,17 @@ class AccountsController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'new'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'new', 'remove', 'edit'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
