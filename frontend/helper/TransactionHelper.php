@@ -43,6 +43,26 @@ class TransactionHelper extends BaseHelper
         return isset($aStatus[$key]) ? $aStatus[$key] : $key;
     }
 
+    public static function getTypesWithKey()
+    {
+        return [
+            'income' => self::TYPE_INCOME,
+            'expense' => self::TYPE_EXPENSE
+        ];
+    }
+
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public static function getTypeByKey($key)
+    {
+        $key = strtolower($key);
+        $types = static::getTypesWithKey();
+
+        return isset($types[$key]) ? $types[$key] : null;
+    }
+
     /**
      * @return array
      */
@@ -50,7 +70,7 @@ class TransactionHelper extends BaseHelper
     {
         $result = [];
 
-        $categories = Category::find()->all();
+        $categories = Category::findActual()->all();
         if (isset($categories)) {
             foreach ($categories as $category) {
                 /** @var $category Category */
@@ -209,7 +229,7 @@ class TransactionHelper extends BaseHelper
         $account = Accounts::find()->andWhere(['id' => $model->accounts])->one();
 
         if (isset($account)) {
-            $amount = explode('.', $model->amount);
+            $amount = explode('.', $model->total);
 
             $rest = Html::tag(
                 'div',

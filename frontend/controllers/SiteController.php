@@ -4,11 +4,12 @@ namespace frontend\controllers;
 
 use frontend\models\User;
 use Yii;
-use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
+use common\models\forms\LoginForm;
+use frontend\models\forms\PasswordResetRequestForm;
+use frontend\models\forms\ResetPasswordForm;
+use frontend\models\forms\SignupForm;
+use frontend\models\forms\ContactForm;
+use nodge\eauth\openid\ControllerBehavior;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -50,7 +51,7 @@ class SiteController extends Controller
             ],
             'eauth' => [
                 // required to disable csrf validation on OpenID requests
-                'class' => \nodge\eauth\openid\ControllerBehavior::className(),
+                'class' => ControllerBehavior::className(),
                 'only' => ['login'],
             ],
         ];

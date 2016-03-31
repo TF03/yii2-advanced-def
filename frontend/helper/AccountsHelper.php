@@ -19,6 +19,19 @@ class AccountsHelper
 
         return false;
     }
+    /**
+     * @return array|boolean
+     */
+    public static function getFirstAccountId()
+    {
+        /** @var $account Accounts */
+        $account = Accounts::find()->one();
+        if (isset($account)) {
+            return $account->id;
+        }
+
+        return false;
+    }
 
     /**
      * @return array
@@ -31,7 +44,7 @@ class AccountsHelper
         if (isset($accounts)) {
             foreach ($accounts as $account) {
                 /** @var $account Accounts */
-                $result[$account->id] = $account->name . '!!' . $account->valuta;
+                $result[$account->id] = $account->name . ' (' . $account->valuta . ')';
             }
         }
 

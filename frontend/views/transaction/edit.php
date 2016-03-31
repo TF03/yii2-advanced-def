@@ -9,27 +9,27 @@ use yii\helpers\Url;
 
 /** @var $this yii\web\View */
 /** @var $model \frontend\models\Transaction */
-/** @var $account \frontend\models\Accounts */
 
-$this->title = 'Редактирование операции';
+$this->title = empty($model->id) ? 'Новая операция' : 'Редактирование операции';
 $this->params['breadcrumbs'][] = ['label' => 'Операции', 'url' => ['/transaction']];
 $this->params['breadcrumbs'][] = $this->title;
 
-$firstValuta = $account->valuta;
+$model->date = empty($model->date) ? Yii::$app->getFormatter()->asDate('now', "php:d-m-Y") : $model->date;
+$firstValuta = AccountsHelper::getFirstValuta();
 
-$this->registerJsFile('/js/frontend/views/transaction.js', ['depends' => 'frontend\assets\BackboneAsset']);
+$this->registerJsFile('/js/frontend/views/transaction/transaction.js', ['depends' => 'frontend\assets\BackboneAsset']);
 ?>
 
 <div class="row">
     <div class="col-md-12">
 
         <?php $form = ActiveForm::begin([
-                                            'id' => 'transaction-new',
-                                        ]) ?>
+            'id' => 'transaction-new',
+        ]) ?>
 
         <div class="col-md-3">
             <?= $form->field($model, 'amount')
-                ->textInput(['placeholder' => 'Введите число'])
+                ->textInput(['placeholder' => 'Пример: (2+7)*2'])
                 ->label('Величина (' . $firstValuta . ')*', [
                     'id' => 'amountLabel'
                 ]); ?>
@@ -48,13 +48,13 @@ $this->registerJsFile('/js/frontend/views/transaction.js', ['depends' => 'fronte
                                 </label>";
                     }]) ?>
             <?= $form->field($model, 'date')->label($model->getAttributeLabel('date') . '*')->widget(DatePicker::className(),
-                                                                                                     [
-                                                                                                         'type' => DatePicker::TYPE_INPUT,
-                                                                                                         'pluginOptions' => [
-                                                                                                             'autoclose' => true,
-                                                                                                             'format' => 'dd-mm-yyyy'
-                                                                                                         ]
-                                                                                                     ]
+                [
+                    'type' => DatePicker::TYPE_INPUT,
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'format' => 'dd-mm-yyyy'
+                    ]
+                ]
             ); ?>
             <?= $form->field($model, 'comment')->textInput([]); ?>
             <?= $form->field($model, 'accounts', [
@@ -67,7 +67,6 @@ $this->registerJsFile('/js/frontend/views/transaction.js', ['depends' => 'fronte
                     $valuta = $label[1];
                     $label = $label[0];
                     $check = ($checked) ? ' checked="checked"' : '';
-
                     return "<label class=\"form__param\">
                                     <input type=\"radio\" class=\"account_id\" id=\"account_id_$value\" name=\"$name\" value=\"$value\"$check>
                                     $label

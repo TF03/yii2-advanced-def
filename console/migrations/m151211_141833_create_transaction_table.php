@@ -12,7 +12,7 @@ class m151211_141833_create_transaction_table extends Migration
         $this->createTable(self::TABLE,[
             'id' => Schema::TYPE_PK,
             'comment' => Schema::TYPE_STRING . ' NOT NULL',
-            'amount' => Schema::TYPE_DECIMAL . '(10, 2) NOT NULL DEFAULT 0.00',
+            'amount' => Schema::TYPE_STRING . ' NOT NULL',
             'accounts' => Schema::TYPE_INTEGER . ' NOT NULL',
             'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'type_id' => Schema::TYPE_INTEGER . ' NOT NULL',

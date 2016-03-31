@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\forms\TransferForm;
 use frontend\models\search\TransactionSearch;
 use frontend\helper\TransactionHelper;
 use frontend\models\Accounts;
@@ -22,10 +23,24 @@ class TransactionController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'new', 'remove', 'edit'],
+                'only' => [
+                    'index',
+                    'new',
+                    'new-income',
+                    'transfer',
+                    'remove',
+                    'edit'
+                ],
                 'rules' => [
                     [
-                        'actions' => ['index', 'new', 'remove', 'edit'],
+                        'actions' => [
+                            'index',
+                            'new',
+                            'new-income',
+                            'transfer',
+                            'remove',
+                            'edit'
+                        ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -62,7 +77,37 @@ class TransactionController extends Controller
     public function actionNew()
     {
         $model = new Transaction();
+        $this->saveModel($model);
+        $model->type_id = TransactionHelper::TYPE_EXPENSE;
 
+        return $this->render('edit', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Creates a new Transaction model.
+     * If creation is successful, the browser will be redirected to the 'index' page.
+     * @return mixed
+     */
+    public function actionNewIncome()
+    {
+        $model = new Transaction();
+        $this->saveModel($model);
+        $model->type_id = TransactionHelper::TYPE_INCOME;
+
+        return $this->render('edit', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param Transaction $model
+     *
+     * @return \yii\web\Response
+     */
+    protected function saveModel($model)
+    {
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $transaction2Category = '';
@@ -78,12 +123,6 @@ class TransactionController extends Controller
                 return $this->redirect(['index']);
             }
         }
-
-        $model->type_id = TransactionHelper::TYPE_EXPENSE;
-
-        return $this->render('new', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -139,6 +178,61 @@ class TransactionController extends Controller
             'model' => $model,
             'account' => $account,
         ]);
+    }
+
+    public function actionTransfer()
+    {
+        $model = new TransferForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->fromAccountId != $model->toAccountId
+                && $this->saveFromTransaction($model)
+                && $this->saveToTransaction($model)) {
+
+                Yii::$app->getSession()->setFlash('success', 'Перевод был произведен.');
+                return $this->redirect(['/transaction']);
+            } else {
+                die;
+            }
+        }
+
+        return $this->render('transfer', [
+            'model' => $model,
+        ]);
+    }
+
+    protected function saveFromTransaction($model)
+    {
+        $fromTransaction = new Transaction();
+        $fromTransaction->setAttributes($model->attributes);
+        $fromTransaction->accounts = $model->fromAccountId;
+        $fromTransaction->amount = $model->fromAmount + (float) $model->commission;
+        $fromTransaction->total = $model->fromTotal + (float) $model->commission;
+        $fromTransaction->type_id = TransactionHelper::TYPE_EXPENSE;
+
+        if ($fromTransaction->save()) {
+            return true;
+        } else {
+            print_r($fromTransaction);
+            return false;
+        }
+    }
+
+    protected function saveToTransaction($model)
+    {
+        $toTransaction = new Transaction();
+        $toTransaction->setAttributes($model->attributes);
+        $toTransaction->accounts = $model->toAccountId;
+        $toTransaction->amount = $model->toAmount;
+        $toTransaction->total = $model->toTotal;
+        $toTransaction->type_id = TransactionHelper::TYPE_INCOME;
+
+        if ($toTransaction->save()) {
+            return true;
+        } else {
+            print_r($toTransaction);
+            return false;
+        }
     }
 
     /**

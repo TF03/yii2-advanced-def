@@ -14,8 +14,9 @@ use Yii;
  * @property integer $user_id
  * @property integer $type_id
  * @property integer $status
- * @property integer $created_at
+ * @property string $created_at
  * @property string $date
+ * @property string $total
  */
 class TransactionGii extends \yii\db\ActiveRecord
 {
@@ -33,11 +34,11 @@ class TransactionGii extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['amount', 'accounts', 'user_id', 'date'], 'required'],
-            [['amount'], 'number'],
+            [['amount', 'accounts', 'user_id', 'type_id', 'date'], 'required'],
             [['accounts', 'user_id', 'type_id', 'status'], 'integer'],
-            [['comment'], 'string', 'max' => 255],
-            [['created_at'], 'safe']
+            [['created_at'], 'safe'],
+            [['comment', 'amount'], 'string', 'max' => 255],
+            [['date'], 'string', 'max' => 16]
         ];
     }
 
@@ -56,6 +57,7 @@ class TransactionGii extends \yii\db\ActiveRecord
             'status' => 'Status',
             'created_at' => 'Создана',
             'date' => 'Дата',
+            'total' => 'Total',
         ];
     }
 }

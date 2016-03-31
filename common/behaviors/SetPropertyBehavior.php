@@ -26,5 +26,6 @@ class SetPropertyBehavior extends Behavior
         /** @var \common\models\Transaction $model */
         $model = $this->owner;
         $model->user_id = Yii::$app->getUser()->id;
+        $model->amount = (string) $model->amount;
     }
 }

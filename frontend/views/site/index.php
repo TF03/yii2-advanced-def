@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'Real MyBudget';
 ?>
 
 <!-- Header -->
@@ -15,7 +15,7 @@ $this->title = 'My Yii Application';
                 <div class="intro-text">
                     <span class="name">MyBudget</span>
                     <hr class="star-light">
-                    <span class="skills">Web Developer - Graphic Artist - User Experience Designer</span>
+                    <span class="skills">The best project about Budget</span>
                 </div>
             </div>
         </div>
@@ -45,17 +45,16 @@ $this->title = 'My Yii Application';
         </div>
         <div class="row">
             <div class="col-lg-4 col-lg-offset-2">
-                <p>Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete
-                    source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy
-                    customization.</p>
+                <p>The best project about Budget. The best project about Budget. The best project about Budget.
+                    The best project about Budget. The best project about Budget. The best project about Budget.</p>
             </div>
             <div class="col-lg-4">
-                <p>Whether you're a student looking to showcase your work, a professional looking to attract clients, or
-                    a graphic artist looking to share your projects, this template is the perfect starting point!</p>
+                <p>The best project about Budget. The best project about Budget. The best project about Budget.
+                    The best project about Budget. The best project about Budget. The best project about Budget!</p>
             </div>
             <div class="col-lg-8 col-lg-offset-2 text-center">
                 <a href="#" class="btn btn-lg btn-outline">
-                    <i class="fa fa-download"></i> Download Theme
+                    <i class="fa fa-download"></i> Start working with us
                 </a>
             </div>
         </div>
@@ -133,8 +132,7 @@ $this->title = 'My Yii Application';
             <div class="row">
                 <div class="footer-col col-md-4">
                     <h3>Location</h3>
-
-                    <p>Ukraine<br> USA</p>
+                    <p>Ukraine</p>
                 </div>
                 <div class="footer-col col-md-4">
                     <h3>Around the Web</h3>
@@ -167,7 +165,7 @@ $this->title = 'My Yii Application';
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <?= Yii::powered(); ?> <?= date('Y'); ?>
+                    Budget Corporation <?= date('Y'); ?>
                 </div>
             </div>
         </div>

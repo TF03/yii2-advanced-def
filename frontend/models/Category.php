@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use frontend\helper\StatusHelper;
 use Yii;
+use yii\db\ActiveQuery;
 
 class Category extends \common\models\Category
 {
@@ -12,6 +13,17 @@ class Category extends \common\models\Category
         return parent::find()->andWhere([
             'user_id' => Yii::$app->getUser()->id,
             'status' => [StatusHelper::STATUS_AVAILABLE, StatusHelper::STATUS_HIDDEN]
+        ]);
+    }
+
+    /**
+     * @return ActiveQuery the newly created [[ActiveQuery]] instance.
+     */
+    public static function findActual()
+    {
+        return parent::find()->andWhere([
+            'user_id' => Yii::$app->getUser()->id,
+            'status' => StatusHelper::STATUS_AVAILABLE
         ]);
     }
 

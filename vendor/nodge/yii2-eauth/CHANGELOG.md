@@ -1,6 +1,10 @@
 Yii2 EAuth Change Log
 =====================
 
+### 2.4.1 (13.01.2016)
+* Move response parsing from oauth to base service (#71)
+* Get user profile from Steam API (#70)
+
 ### 2.4.0 (03.01.2016)
 * Fixed error param names for Facebook (#63)
 * Use the latest Graph Api v2.5 for Facebook (#65)

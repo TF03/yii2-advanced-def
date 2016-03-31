@@ -57,7 +57,7 @@ class ChangeTransactionBehavior extends Behavior
             $params = new stdClass();
             $params->type_id = $model->type_id;
             $params->accountAmount = $account->amount;
-            $params->transactionAmount = $model->amount;
+            $params->transactionAmount = $model->total;
 
             $account->amount = $this->_getAccountAmount($params);
             $account->save();
@@ -72,8 +72,8 @@ class ChangeTransactionBehavior extends Behavior
         /** @var \common\models\Transaction $model */
         $model = $this->owner;
 
-        $oldTransactionAmount = isset($event->changedAttributes['amount']) ? $event->changedAttributes['amount'] : $model->amount;
-        $newTransactionAmount = $model->amount;
+        $oldTransactionAmount = isset($event->changedAttributes['total']) ? $event->changedAttributes['total'] : $model->total;
+        $newTransactionAmount = $model->total;
         /** @var Accounts $account */
         $account = Accounts::find()->andWhere(['id' => $model->accounts])->one();
 
@@ -118,7 +118,7 @@ class ChangeTransactionBehavior extends Behavior
             $params = new stdClass();
             $params->type_id = $model->type_id;
             $params->accountAmount = $account->amount;
-            $params->transactionAmount = $model->amount;
+            $params->transactionAmount = $model->total;
 
             $account->amount = $this->_getAccountAmount($params, true);
             $account->save();

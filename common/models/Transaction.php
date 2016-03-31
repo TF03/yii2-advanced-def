@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\behaviors\ChangeTransactionBehavior;
 use common\behaviors\SetPropertyBehavior;
+use common\extensions\calculator\CalcValidator;
 use common\models\gii\TransactionGii;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -24,9 +25,19 @@ class Transaction extends TransactionGii
     /**
      * @inheritdoc
      */
+    public function rules()
+    {
+        return ArrayHelper::merge(parent::rules(), [
+            ['amount', CalcValidator::className(), 'resultAttribute' => 'total'],
+        ]);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
-        return ArrayHelper::merge(parent::behaviors(),[
+        return ArrayHelper::merge(parent::behaviors(), [
             [
                 'class' => TimestampBehavior::className(),
                 'createdAtAttribute' => 'created_at',
@@ -77,7 +88,7 @@ class Transaction extends TransactionGii
      */
     public function attributeLabels()
     {
-        return ArrayHelper::merge(parent::attributeLabels(),[
+        return ArrayHelper::merge(parent::attributeLabels(), [
             'categoryIds' => 'Категории',
         ]);
     }
