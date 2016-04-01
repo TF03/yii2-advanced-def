@@ -57,7 +57,7 @@ class TransactionGii extends \yii\db\ActiveRecord
             'status' => 'Status',
             'created_at' => 'Создана',
             'date' => 'Дата',
-            'total' => 'Total',
+            'total' => 'Операция',
         ];
     }
 }

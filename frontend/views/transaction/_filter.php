@@ -3,14 +3,28 @@
 use kartik\nav\NavX;
 
 /** @var $this yii\web\View */
+/** @var $activeIncome boolean */
+/** @var $activeExpense boolean */
 
 
 echo NavX::widget([
     'options' => ['class' => 'nav nav-pills'],
     'items' => [
-        ['label' => 'Все операции', 'active' => true, 'url' => Yii::$app->urlManager->createUrl(['transaction'])],
-        ['label' => 'Доходы', 'url' => Yii::$app->urlManager->createUrl(['transaction/income'])],
-        ['label' => 'Расходы', 'url' => Yii::$app->urlManager->createUrl(['transaction/expense'])],
-        ['label' => 'Переводы', 'url' => Yii::$app->urlManager->createUrl(['transaction/transfer'])],
+        [
+            'label' => 'Все операции',
+            'url' => Yii::$app->urlManager->createUrl(['transaction']),
+            'active' => (!$activeIncome && !$activeExpense) ? true : false
+        ],
+        [
+            'label' => 'Доходы',
+            'url' => Yii::$app->urlManager->createUrl(['transaction/filter/income']),
+            'active' => $activeIncome ? true : false
+        ],
+        [
+            'label' => 'Расходы',
+            'url' => Yii::$app->urlManager->createUrl(['transaction/filter/expense']),
+            'active' => $activeExpense ? true : false
+        ],
+        //['label' => 'Переводы', 'url' => Yii::$app->urlManager->createUrl(['transaction/transfer'])],
     ]
 ]);

@@ -11,8 +11,6 @@ use yii\helpers\Url;
 /** @var $model \frontend\models\forms\TransferForm */
 
 $this->title = 'Новый перевод';
-$this->params['breadcrumbs'][] = ['label' => 'Операции', 'url' => ['/transaction']];
-$this->params['breadcrumbs'][] = $this->title;
 
 $model->date = Yii::$app->getFormatter()->asDate('now', "php:d-m-Y");
 $firstValuta = AccountsHelper::getFirstValuta();
@@ -23,6 +21,7 @@ $model->toAccountId = $model->fromAccountId = AccountsHelper::getFirstAccountId(
 
 <?php $form = ActiveForm::begin([
     'id' => 'transaction-transfer',
+    'action' => '/transaction/transfer'
 ]) ?>
 
 <div class="row">
@@ -101,7 +100,7 @@ $model->toAccountId = $model->fromAccountId = AccountsHelper::getFirstAccountId(
     </div>
 </div>
 
-<div class="row transfer-button-block">
+<div class="row transfer-button-block form-actions">
     <div class="col-md-12">
 
         <?= Html::a('Отмена', Url::to(['/transaction']), ['class' => 'btn btn-default']); ?>

@@ -2,10 +2,13 @@
 
 namespace frontend\models\search;
 
+use common\models\Transaction2Category;
+use frontend\helper\TransactionHelper;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Transaction;
+use yii\db\Query;
 
 /**
  * TransactionSearch represents the model behind the search form about `frontend\models\Transaction`.
@@ -45,8 +48,11 @@ class TransactionSearch extends Transaction
         $query = Transaction::find();
 
         $dataProvider = new ActiveDataProvider([
-                                                   'query' => $query,
-                                               ]);
+            'query' => $query,
+            /*'pagination' => [
+                'pageSize' => 15,
+            ],*/
+        ]);
 
         $this->load($params);
 
@@ -57,22 +63,57 @@ class TransactionSearch extends Transaction
         }
 
         $query->andFilterWhere([
-                                   'id' => $this->id,
-                                   'amount' => $this->amount,
-                                   'accounts' => $this->accounts,
-                                   'user_id' => $this->user_id,
-                                   'type_id' => $this->type_id,
-                                   'status' => $this->status,
-                                   'created_at' => $this->created_at,
-                               ]);
+            'id' => $this->id,
+            'amount' => $this->amount,
+            'accounts' => $this->accounts,
+            'user_id' => $this->user_id,
+            'type_id' => $this->type_id,
+            'status' => $this->status,
+            'created_at' => $this->created_at,
+        ]);
 
         $query->andFilterWhere(['like', 'comment', $this->comment])
             ->andFilterWhere(['like', 'date', $this->date]);
-        $query->orderBy([
-                            'date' => SORT_DESC,
-                            'id' => SORT_DESC
-                        ]);
+
+        $query = $this->additionalFilter($query, $params);
 
         return $dataProvider;
+    }
+
+    /**
+     * @param Query $query
+     * @param array $params
+     * @return mixed
+     */
+    protected function additionalFilter($query, $params)
+    {
+        if (!isset($params['sort'])) {
+            $query->orderBy([
+                'date' => SORT_DESC,
+                'created_at' => SORT_DESC,
+                'id' => SORT_DESC
+            ]);
+        } else {
+            switch ($params['sort']) {
+                case 'total':
+                    $query->orderBy([
+                        'type_id' => SORT_DESC,
+                        'total' => SORT_ASC
+                    ]);
+                    break;
+                case '-total':
+                    $query->orderBy([
+                        'type_id' => SORT_ASC,
+                        'total' => SORT_DESC
+                    ]);
+                    break;
+            }
+        }
+
+        if (isset($params['category'])) {
+            $query->leftJoin(Transaction2Category::tableName(),'transaction_id = id');
+            $query->andWhere(['transaction2category.category_id' => $params['category']]);
+        }
+        return $query;
     }
 }

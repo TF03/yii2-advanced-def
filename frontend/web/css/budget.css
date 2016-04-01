@@ -712,3 +712,67 @@ form .form-actions a {
 #transaction-transfer .transfer-button-block > div {
     padding-left: 60px;
 }
+
+.grid-view > ul.pagination > li:first-child > a,
+.grid-view > ul.pagination > li:first-child > span {
+    border-left-width: 1px;
+    -webkit-border-top-left-radius: 4px;
+    -moz-border-radius-topleft: 4px;
+    border-top-left-radius: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.grid-view > ul.pagination > li.disabled > span,
+.grid-view > ul.pagination > li.disabled > a,
+.grid-view > ul.pagination > li.disabled > span:hover,
+.grid-view > ul.pagination > li.disabled > a:hover {
+    color: #999;
+    background-color: transparent;
+    cursor: not-allowed;
+    border: 1px solid #ddd;
+}
+
+.grid-view > ul.pagination > li.active > a {
+    color: #999;
+    cursor: default;
+    background-color: #f5f5f5;
+}
+
+.grid-view > ul.pagination > li > a,
+.grid-view > ul.pagination > li > span {
+    float: left;
+    line-height: 20px;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    color: #18bc9c;
+    padding: 4px 12px;
+}
+
+.grid-view > ul.pagination > li > a:hover {
+    background-color: #f5f5f5;
+    color: #18bc9c;
+    border: 1px solid #ddd;
+}
+
+.grid-view > ul.pagination > li.active > a:hover {
+    background-color: #f5f5f5;
+    color: #999;
+    border: 1px solid #ddd;
+}
+
+.clear-filter {
+    font-size: 14px;
+    color: #999;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 8px 0 0 2px;
+    display: inline-block;
+}
+
+.clear-filter:hover {
+    color: #666;
+    text-decoration: none;
+}

@@ -1,25 +1,34 @@
 <?php
 
+use common\widgets\Alert;
+use frontend\helper\TransactionHelper;
 use yii\bootstrap\ButtonDropdown;
 use yii\bootstrap\Html;
 use yii\grid\ActionColumn;
 use yii\grid\CheckboxColumn;
 use yii\grid\GridView;
-use frontend\helper\TransactionHelper;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/** @var $activeIncome boolean */
+/** @var $activeExpense boolean */
+/** @var $filterEnable boolean */
 
 $this->title = 'Операции';
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
+
+<?= Alert::widget() ?>
 
 <div class="row">
 
     <div class="col-md-12 transaction">
         <div class="col-md-2">
-            <?php echo $this->render('_filter', [], true); ?>
+            <?php echo $this->render('_filter', [
+                'activeIncome'  => isset($activeIncome) ? $activeIncome : false,
+                'activeExpense' => isset($activeExpense) ? $activeExpense : false
+            ], true); ?>
         </div>
         <div class="col-md-10">
             <div>
@@ -51,13 +60,39 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]);
                 ?>
             </div>
+
+            <?php if(isset($filterEnable)) { ?>
             <div>
+                <?= Html::a(
+                    '<i class="glyphicon glyphicon-remove"></i>Отменить примененный фильтр',
+                    Yii::$app->urlManager->createUrl(['transaction']),
+                    [
+                        'class' => 'clear-filter'
+                    ]
+                ); ?>
+            </div>
+            <?php } ?>
+
+            <div>
+
+                <?php Pjax::begin([
+                    'timeout' => 10000,
+                    'enablePushState' => false,
+                    'clientOptions' => [
+                        'container' => 'pjax-container'
+                    ]]);
+                ?>
+
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'showOnEmpty' => false,
                     'layout' => "{items}\n{pager}",
                     'tableOptions' => [
                         'class' => 'table'
+                    ],
+                    'pager' => [
+                        'prevPageLabel' => 'Предыдущая',
+                        'nextPageLabel' => 'Следующая'
                     ],
                     'columns' => [
                         [
@@ -129,6 +164,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ]
                 ]); ?>
+
+                <?php Pjax::end(); ?>
             </div>
         </div>
     </div>

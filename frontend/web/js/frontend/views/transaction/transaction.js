@@ -5,13 +5,13 @@
         el: '#transaction-new',
         amountLabel: '#amountLabel',
         events: {
-            'change .account_id': 'changeValuta'
+            //'change .account_id': 'changeValuta'
         },
 
         initialize: function() {
         },
 
-        changeValuta: function(event) {
+        /*changeValuta: function(event) {
             var currentEl = $(event.currentTarget);
             var parentBlock = currentEl.parent();
             var idAccount = currentEl.attr('id').split('_')[2];
@@ -26,7 +26,7 @@
             var amountLabel = el.find(this.amountLabel);
             var valueAmountLabel = amountLabel.text().split('(')[0];
             amountLabel.html(valueAmountLabel + '(' + valueForLabel + ')*');
-        }
+        }*/
     });
 
     BudgetFE.view = TransactionView;

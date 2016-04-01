@@ -182,8 +182,11 @@ class TransactionHelper extends BaseHelper
         if (!empty($accounts)) {
             $result = Html::a(
                 $accounts->name,
-                Yii::$app->urlManager->createUrl(['transaction']),
-                [ 'class' => 'tag' ]);
+                Yii::$app->urlManager->createUrl(['transaction/account', 'id' => $accounts->id]),
+                [
+                    'class' => 'tag',
+                    'data-pjax' => '0',
+                ]);
         }
 
         return $result;
@@ -207,8 +210,11 @@ class TransactionHelper extends BaseHelper
                 if (isset($category)) {
                     $result[] = Html::a(
                         $category->title,
-                        Yii::$app->urlManager->createUrl(['transaction']),
-                        [ 'class' => 'tag tag-blue' ]);
+                        Yii::$app->urlManager->createUrl(['transaction/category', 'id' => $category->id]),
+                        [
+                            'class' => 'tag tag-blue',
+                            'data-pjax' => '0',
+                        ]);
                 }
             }
         }
