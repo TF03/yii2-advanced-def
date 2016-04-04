@@ -2,8 +2,10 @@
 
 namespace common\models;
 
+use common\behaviors\DeleteTransaction2CategoryBehavior;
 use common\models\gii\CategoryGii;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * @inheritdoc
@@ -13,6 +15,16 @@ use Yii;
  */
 class Category extends CategoryGii
 {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            DeleteTransaction2CategoryBehavior::className(),
+        ]);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
