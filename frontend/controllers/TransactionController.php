@@ -5,20 +5,18 @@ namespace frontend\controllers;
 use frontend\models\forms\TransferForm;
 use frontend\models\search\TransactionSearch;
 use frontend\helper\TransactionHelper;
-use frontend\models\Accounts;
 use frontend\models\Transaction;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 
 /**
  * TransactionController implements the CRUD actions for Category model.
  */
-class TransactionController extends Controller
+class TransactionController extends FrontendController
 {
     public function behaviors()
     {

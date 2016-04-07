@@ -104,7 +104,7 @@ header .intro-text .skills {
 
 @media (min-width: 768px) {
     header .container {
-        padding-top: 200px;
+        padding-top: 140px;
         padding-bottom: 100px;
     }
 
@@ -775,4 +775,22 @@ form .form-actions a {
 .clear-filter:hover {
     color: #666;
     text-decoration: none;
+}
+
+.footer-menu {
+    text-align: left;
+}
+
+.footer-menu > div {
+    font-size: 17px;
+    padding: 4px 0;
+}
+
+.main-info-block p {
+    font-size: 18px;
+    padding-right: 20%;
+}
+
+.project-label {
+    text-transform: none;
 }

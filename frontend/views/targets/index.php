@@ -2,42 +2,40 @@
 
 use common\widgets\Alert;
 use yii\helpers\Html;
-use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\search\AccountsSearch */
+/* @var $searchModel frontend\models\search\TargetsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Счета';
+$this->title = 'Цели';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?= Alert::widget() ?>
 
-<div class="accounts-index">
+<div class="targets-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Новый счет', ['new'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Новая цель', ['new'], ['class' => 'btn btn-success']) ?>
     </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'showOnEmpty' => false,
-        'layout' => "{items}\n{pager}",
         'filterModel' => $searchModel,
         'columns' => [
             'name',
-            'amount',
-            'valuta',
+            'value',
+            'balance',
+            //'accounts',
+            'date',
+            'order',
+            'status',
             [
-                'class' => ActionColumn::className(),
-                'template' => '{update}',
-                //'template' => '{update} {delete}',
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update} {remove}',
             ],
         ],
     ]); ?>
-
 </div>

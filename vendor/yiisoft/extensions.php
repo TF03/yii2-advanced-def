@@ -139,4 +139,22 @@ return array (
       '@kartik/date' => $vendorDir . '/kartik-v/yii2-widget-datepicker',
     ),
   ),
+  'samdark/yii2-webshell' => 
+  array (
+    'name' => 'samdark/yii2-webshell',
+    'version' => '2.0.0.0',
+    'alias' => 
+    array (
+      '@samdark/webshell' => $vendorDir . '/samdark/yii2-webshell',
+    ),
+  ),
+  'kartik-v/yii2-widget-colorinput' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-colorinput',
+    'version' => '1.0.3.0',
+    'alias' => 
+    array (
+      '@kartik/color' => $vendorDir . '/kartik-v/yii2-widget-colorinput',
+    ),
+  ),
 );

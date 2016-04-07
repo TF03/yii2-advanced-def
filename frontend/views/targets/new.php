@@ -2,14 +2,15 @@
 
 use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var $model common\models\Accounts */
 
-$this->title = 'Редактирование счета: ' . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Счета', 'url' => ['/accounts']];
+/* @var $this yii\web\View */
+/* @var $model frontend\models\Targets */
+
+$this->title = 'Новая цель';
+$this->params['breadcrumbs'][] = ['label' => 'Цели', 'url' => ['/targets']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="accounts-update">
+<div class="targets-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

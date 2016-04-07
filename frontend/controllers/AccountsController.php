@@ -6,13 +6,13 @@ use frontend\models\Accounts;
 use common\models\search\AccountsSearch;
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
- * AccountController implements the CRUD actions for Category model.
+ * AccountController implements the CRUD actions for Accounts model.
  */
-class AccountsController extends Controller
+class AccountsController extends FrontendController
 {
     public function behaviors()
     {
@@ -22,7 +22,7 @@ class AccountsController extends Controller
                 'only' => ['index', 'new'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'new', 'remove', 'edit'],
+                        'actions' => ['index', 'new', 'remove', 'update'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -70,4 +70,42 @@ class AccountsController extends Controller
         }
     }
 
+    /**
+     * Update a Accounts model.
+     * If updating is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+        /** @var Accounts $model */
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->save()) {
+                Yii::$app->getSession()->setFlash('success', 'Счет был обновлен.');
+                return $this->redirect(['/accounts']);
+            }
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Finds the Account  model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Accounts the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function findModel($id)
+    {
+        if (($model = Accounts::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 }

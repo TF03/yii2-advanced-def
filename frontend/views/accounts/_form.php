@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\color\ColorInput;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Accounts */
@@ -20,9 +21,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'valuta')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'color')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'amount')->hiddenInput(['value' => 0.00])->label('')->error(false) ?>
+    <?= $form->field($model, 'color')->widget(ColorInput::classname(), [
+        'options' => ['placeholder' => 'Выберите цвет ...'],
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

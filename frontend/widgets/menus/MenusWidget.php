@@ -30,9 +30,8 @@ class MenusWidget extends Widget
     {
         $menuItems = [];
         if (Yii::$app->user->isGuest) {
-            $menuItems[] = ['label' => 'Contact', 'url' => ['#contact']];
-            $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-            $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+            $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
+            $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
         } else {
             $menuItems[] = [
                 'label' => 'Счета',
@@ -42,6 +41,10 @@ class MenusWidget extends Widget
                 'label' => 'Операции',
                 'url' => ['/transaction'],
                 'active' => $this->controller->id === 'transaction'];
+            $menuItems[] = [
+                'label' => 'Цели',
+                'url' => ['/targets'],
+                'active' => $this->controller->id === 'targets'];
             $menuItems[] = [
                 'label' => 'Категории',
                 'url' => ['/category'],

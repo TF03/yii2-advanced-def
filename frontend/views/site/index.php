@@ -1,8 +1,10 @@
 <?php
 
+use yii\helpers\Html;
+
 /* @var $this yii\web\View */
 
-$this->title = 'Real MyBudget';
+$this->title = 'EasyBudget';
 ?>
 
 <!-- Header -->
@@ -10,12 +12,12 @@ $this->title = 'Real MyBudget';
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <img class="img-responsive" src="img/profile.png" alt="">
+                <img class="img-responsive" src="./img/homepage-icon.png" alt="">
 
                 <div class="intro-text">
-                    <span class="name">MyBudget</span>
+                    <!--span class="name">EasyBudget</span-->
                     <hr class="star-light">
-                    <span class="skills">The best project about Budget</span>
+                    <span class="skills">Лучший проект для ведения семейного бюджета.</span>
                 </div>
             </div>
         </div>
@@ -26,16 +28,26 @@ $this->title = 'Real MyBudget';
 <section id="info">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2>Info</h2>
-                <hr class="star-primary">
+            <div class="col-lg-12 text-left main-info-block">
+                <div class="col-lg-6">
+                    <h3>Несколько валют</h3>
+                    <p>
+                        Для каждого из ваших счетов можно указать свою валюту. В отчетах есть возможность анализа расходов как в разрезе счетов, так и валют.
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <h3>Разные счета</h3>
+                    <p>
+                        Создание отдельного счета для ваших наличных денег, банковского счета, кредитных карт, инвестиций, активов и кредитов, чтобы изящно сбалансировать свой учет.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- About Section -->
-<section class="success" id="about">
+<!--section class="success" id="about">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -59,10 +71,10 @@ $this->title = 'Real MyBudget';
             </div>
         </div>
     </div>
-</section>
+</section-->
 
 <!-- Contact Section -->
-<section id="contact">
+<!--section id="contact">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -72,8 +84,6 @@ $this->title = 'Real MyBudget';
         </div>
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
                 <form name="sentMessage" id="contactForm" novalidate>
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
@@ -123,25 +133,56 @@ $this->title = 'Real MyBudget';
             </div>
         </div>
     </div>
-</section>
+</section-->
 
 <!-- Footer -->
 <footer class="text-center">
     <div class="footer-above">
         <div class="container">
             <div class="row">
-                <div class="footer-col col-md-4">
-                    <h3>Location</h3>
-                    <p>Ukraine</p>
+                <div class="footer-col col-md-3 footer-menu">
+                    <div class="row">
+                        <?= Html::a('Обновления', ['news'])?>
+                    </div>
+                    <div class="row">
+                        <?= Html::a('Контакты', ['contact'])?>
+                    </div>
+                    <div class="row">
+                        <?= Html::a('Политика конфиденциальности', ['privacy'])?>
+                    </div>
                 </div>
-                <div class="footer-col col-md-4">
-                    <h3>Around the Web</h3>
+                <div class="footer-col col-md-6">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        /**
+                         * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                         * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                         */
+                        /*
+                         var disqus_config = function () {
+                         this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                         this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                         };
+                         */
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                            var d = document, s = d.createElement('script');
+
+                            s.src = '//easybudget.disqus.com/embed.js';
+
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                </div>
+                <div class="footer-col col-md-3">
+                    <h4>Следите за новостями</h4>
                     <ul class="list-inline">
                         <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-vk"></i></a>
                         </li>
                         <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
                         </li>
                         <li>
                             <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
@@ -149,14 +190,7 @@ $this->title = 'Real MyBudget';
                         <li>
                             <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
                         </li>
-                        <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
-                        </li>
                     </ul>
-                </div>
-                <div class="footer-col col-md-4">
-                    <h3>About MyBudget</h3>
-                    <p>Ho-ho-ho.</p>
                 </div>
             </div>
         </div>
@@ -165,7 +199,7 @@ $this->title = 'Real MyBudget';
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    Budget Corporation <?= date('Y'); ?>
+                    EasyBudget Corporation <?= date('Y'); ?>
                 </div>
             </div>
         </div>
