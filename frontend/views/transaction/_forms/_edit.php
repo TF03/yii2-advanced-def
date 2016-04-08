@@ -74,7 +74,8 @@ $this->registerJsFile('/js/frontend/views/transaction/transaction.js', ['depends
                 'pluginEvents' => [
                     "select2:select" => 'function(e, object) {
                         var label = $("#select2-transaction-accounts-container").text();
-                        var valuta = label.split("(")[1].split(")")[0];
+                        var valuta = label.split("(");
+                        valuta = valuta[valuta.length - 1].split(")")[0];
                         $("#amountLabel").text("Величина (" + valuta + ")*");
                     }',
                 ]

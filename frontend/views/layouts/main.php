@@ -56,7 +56,7 @@ $controller = $this->context;
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo (Yii::$app->request->url == Yii::$app->homeUrl) ? '#page-top' : '/'; ?>">EasyBudget</a>
+            <a class="navbar-brand project-label" href="<?php echo (Yii::$app->request->url == Yii::$app->homeUrl) ? '#page-top' : '/'; ?>">EasyBudget</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

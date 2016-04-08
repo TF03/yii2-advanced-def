@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Новый счет', ['new'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Новый перевод', Yii::$app->urlManager->createUrl(['transaction/transfer']), ['class' => 'btn btn-info']) ?>
     </p>
 
     <?= GridView::widget([

@@ -83,7 +83,7 @@ class TransactionSearch extends Transaction
     /**
      * @param Query $query
      * @param array $params
-     * @return mixed
+     * @return Query
      */
     protected function additionalFilter($query, $params)
     {
@@ -110,10 +110,46 @@ class TransactionSearch extends Transaction
             }
         }
 
+        $period = Yii::$app->request->get('period');
+        if (isset($period)) {
+            switch($period) {
+                case 'today':
+                    $today = Yii::$app->getFormatter()->asDate('now', "php:Y-m-d");
+                    $query->andFilterWhere(['like', 'date', $today]);
+                    break;
+                case 'yesterday':
+                    $yesterday = date('Y-m-d', strtotime(date('Y-m-d') . " - 1 day"));
+                    $query->andFilterWhere(['like', 'date', $yesterday]);
+                    break;
+                case 'current_month':
+                    $query = $this->setDefaultPeriod($query);
+                    break;
+                case 'all':
+                    break;
+                default:
+                    $query = $this->setDefaultPeriod($query);
+                    break;
+            }
+        } else {
+            $query = $this->setDefaultPeriod($query);
+        }
+
         if (isset($params['category'])) {
             $query->leftJoin(Transaction2Category::tableName(),'transaction_id = id');
             $query->andWhere(['transaction2category.category_id' => $params['category']]);
         }
+        return $query;
+    }
+
+    /**
+     * @param Query $query
+     * @return Query
+     */
+    protected function setDefaultPeriod($query)
+    {
+        $currentMonth = Yii::$app->getFormatter()->asDate('now', "php:Y-m");
+        $query->andFilterWhere(['like', 'date', $currentMonth]);
+
         return $query;
     }
 }

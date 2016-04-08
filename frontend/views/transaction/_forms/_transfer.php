@@ -36,7 +36,8 @@ $model->toAccountId = $model->fromAccountId = AccountsHelper::getFirstAccountId(
                 'pluginEvents' => [
                     "select2:select" => 'function(e, object) {
                         var label = $("#select2-transferform-fromaccountid-container").text();
-                        var valuta = label.split("(")[1].split(")")[0];
+                        var valuta = label.split("(");
+                        valuta = valuta[valuta.length - 1].split(")")[0];
                         $("#fromAmountLabel").text("Величина (" + valuta + ")*");
                         $("#commissionLabel").text("Комиссия (" + valuta + ")");
                     }',
@@ -66,7 +67,8 @@ $model->toAccountId = $model->fromAccountId = AccountsHelper::getFirstAccountId(
                 'pluginEvents' => [
                     "select2:select" => 'function(e, object) {
                         var label = $("#select2-transferform-toaccountid-container").text();
-                        var valuta = label.split("(")[1].split(")")[0];
+                        var valuta = label.split("(");
+                        valuta = valuta[valuta.length - 1].split(")")[0];
                         $("#toAmountLabel").text("Величина (" + valuta + ")*");
                     }',
                 ]

@@ -2,11 +2,13 @@
 
 use common\widgets\Alert;
 use frontend\helper\TransactionHelper;
+use kartik\nav\NavX;
 use yii\bootstrap\ButtonDropdown;
 use yii\bootstrap\Html;
 use yii\grid\ActionColumn;
 use yii\grid\CheckboxColumn;
 use yii\grid\GridView;
+use yii\helpers\Url;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -17,6 +19,8 @@ use yii\widgets\Pjax;
 
 $this->title = 'Операции';
 $this->params['breadcrumbs'][] = $this->title;
+
+$period = Yii::$app->request->get('period');
 ?>
 
 <?= Alert::widget() ?>
@@ -31,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ], true); ?>
         </div>
         <div class="col-md-10">
-            <div>
+            <div class="col-md-4">
                 <?=
                 ButtonDropdown::widget([
                     'label' => 'Новый расход',
@@ -59,6 +63,36 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ]);
                 ?>
+            </div>
+            <div class="col-md-8 periods-transactions">
+
+                <label class="pills">Период</label>
+                <?=  NavX::widget([
+                    'options' => ['class' => 'nav nav-pills small'],
+                    'items' => [
+                        [
+                            'label' => 'Сегодня',
+                            'url' => Yii::$app->urlManager->createUrl([Yii::$app->request->pathInfo, 'period' => 'today']),
+                            'active' => $period == 'today' ? true : false
+                        ],
+                        [
+                            'label' => 'Вчера',
+                            'url' => Yii::$app->urlManager->createUrl([Yii::$app->request->pathInfo, 'period' => 'yesterday']),
+                            'active' => $period == 'yesterday' ? true : false
+                        ],
+                        [
+                            'label' => 'В этом месяце',
+                            'url' => Yii::$app->urlManager->createUrl([Yii::$app->request->pathInfo, 'period' => 'current_month']),
+                            'active' => ($period == 'current_month' || empty($period)) ? true : false
+                        ],
+                        [
+                            'label' => 'За все время',
+                            'url' => Yii::$app->urlManager->createUrl([Yii::$app->request->pathInfo, 'period' => 'all']),
+                            'active' => $period == 'all' ? true : false
+                        ],
+                    ]
+                ]); ?>
+
             </div>
 
             <?php if(isset($filterEnable)) { ?>
