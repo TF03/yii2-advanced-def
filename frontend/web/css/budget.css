@@ -836,9 +836,15 @@ form .form-actions a {
     background-color: #08c;
 }
 
+@media (min-width: 1200px) {
+    .periods-transactions {
+        width: 550px;
+    }
+}
+
 @media (min-width: 800px) {
     .periods-transactions {
-        width: 420px;
+        width: 460px;
     }
 }
 
