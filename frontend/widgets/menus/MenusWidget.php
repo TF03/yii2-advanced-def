@@ -70,9 +70,7 @@ class MenusWidget extends Widget
             'items' => $menuItems,
         ]);
         return $HTML = <<< HTML
-            <div class="collapse navbar-collapse" id="menus-header">
                 {$menus}
-            </div>
 HTML;
     }
 }
