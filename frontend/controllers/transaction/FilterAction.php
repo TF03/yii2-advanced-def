@@ -27,24 +27,22 @@ class FilterAction extends Action
                         'type_id' => TransactionHelper::TYPE_INCOME
                     ]
                 ];
-                $dataProvider = $this->controller->getDataProviderForIndex($param);
+                $extraOptions = [
+                    'activeIncome' => true
+                ];
 
-                return $this->controller->render('index', [
-                    'dataProvider' => $dataProvider,
-                    'activeIncome' => true,
-                ]);
+                return $this->controller->renderIndex($param, $extraOptions);
             case 'expense':
                 $param = [
                     'TransactionSearch' => [
                         'type_id' => TransactionHelper::TYPE_EXPENSE
                     ]
                 ];
-                $dataProvider = $this->controller->getDataProviderForIndex($param);
+                $extraOptions = [
+                    'activeExpense' => true
+                ];
 
-                return $this->controller->render('index', [
-                    'dataProvider' => $dataProvider,
-                    'activeExpense' => true,
-                ]);
+                return $this->controller->renderIndex($param, $extraOptions);
             default:
                 $this->controller->redirect(['/transaction']);
         }

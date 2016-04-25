@@ -254,4 +254,24 @@ class TransactionHelper extends BaseHelper
 
         return $amount . $currency;
     }
+
+    public static function getTotalAmountsByPeriod($models)
+    {
+        $totalAmounts = [];
+
+        foreach ($models as $model) {
+            /** @var Transaction $model */
+            if (isset($totalAmounts[$model->type_id][$model->accounts])) {
+                $totalAmounts[$model->type_id][$model->accounts] = number_format(($totalAmounts[$model->type_id][$model->accounts] + $model->total),
+                    2, '.', ' ');
+            } else {
+                $totalAmounts[$model->type_id][$model->accounts] = number_format($model->total, 2, '.', ' ');
+            }
+            if ($totalAmounts[$model->type_id][$model->accounts] == 0) {
+                unset($totalAmounts[$model->type_id][$model->accounts]);
+            }
+        }
+
+        return $totalAmounts;
+    }
 }

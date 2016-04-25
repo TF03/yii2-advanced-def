@@ -667,11 +667,13 @@ form .form-actions a {
     text-decoration: none;
 }
 
-.transaction-currency-type-income:before {
+.transaction-currency-type-income:before,
+ul.total-transactions > li.type-income > ul > li:before {
     content: "+ ";
 }
 
-.transaction-currency-type-expense:before {
+.transaction-currency-type-expense:before,
+ul.total-transactions > li.type-expense > ul > li:before {
     content: "- ";
 }
 
@@ -852,4 +854,40 @@ form .form-actions a {
 .periods-transactions .nav > li > a:focus {
     text-decoration: none;
     background-color: #eee;
+}
+
+ul.total-transactions {
+    padding: 8px 15px;
+    margin-top: 15px;
+    list-style: none;
+    border-radius: 4px;
+}
+
+ul.total-transactions, ul.total-transactions ul {
+    list-style: none;
+}
+
+ul.total-transactions > li {
+    border: 1px solid #000000;
+    border-bottom: none;
+}
+
+ul.total-transactions > li.type-income {
+    color: #468847;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    margin-bottom: 5px;
+}
+
+ul.total-transactions > li.type-expense {
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    margin-bottom: 5px;
+}
+
+ul.total-transactions > li .label-type-transaction {
+    font-weight: bold;
+    color: #616161;
+    margin-left: 10px;
 }

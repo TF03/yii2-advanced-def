@@ -78,25 +78,7 @@ class TransactionController extends FrontendController
      */
     public function actionIndex()
     {
-        $dataProvider = $this->getDataProviderForIndex();
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * @param array $params
-     * @return ActiveDataProvider
-     */
-    public function getDataProviderForIndex($params = [])
-    {
-        $searchModel = new TransactionSearch();
-        $params = ArrayHelper::merge(Yii::$app->request->queryParams, $params);
-        $dataProvider = $searchModel->search($params);
-        $dataProvider->pagination->pageSize = 15;
-
-        return $dataProvider;
+        return $this->renderIndex();
     }
 
     /**
@@ -192,4 +174,28 @@ class TransactionController extends FrontendController
         }
     }
 
+    public function renderIndex($param = [], $extraOptions = [])
+    {
+        $dataProvider = $this->getDataProviderForIndex($param);
+
+        return $this->render('index', ArrayHelper::merge([
+                'dataProvider' => $dataProvider,
+                'totalAmounts' => TransactionHelper::getTotalAmountsByPeriod($dataProvider->models)
+            ], $extraOptions)
+        );
+    }
+
+    /**
+     * @param array $params
+     * @return ActiveDataProvider
+     */
+    public function getDataProviderForIndex($params = [])
+    {
+        $searchModel = new TransactionSearch();
+        $params = ArrayHelper::merge(Yii::$app->request->queryParams, $params);
+        $dataProvider = $searchModel->search($params);
+        $dataProvider->pagination->pageSize = 15;
+
+        return $dataProvider;
+    }
 }

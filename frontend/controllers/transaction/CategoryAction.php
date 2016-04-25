@@ -27,12 +27,11 @@ class CategoryAction extends Action
             $param = [
                 'category' => $id
             ];
-            $dataProvider = $this->controller->getDataProviderForIndex($param);
+            $extraOptions = [
+                'filterEnable' => true
+            ];
 
-            return $this->controller->render('index', [
-                'dataProvider' => $dataProvider,
-                'filterEnable' => true,
-            ]);
+            return $this->controller->renderIndex($param, $extraOptions);
         } else {
             $this->controller->redirect(['/transaction']);
         }

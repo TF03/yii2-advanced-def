@@ -2,7 +2,7 @@
 
 use common\widgets\Alert;
 use frontend\helper\TransactionHelper;
-use frontend\widgets\grid\TotalColumn;
+use frontend\models\Accounts;
 use kartik\nav\NavX;
 use yii\bootstrap\ButtonDropdown;
 use yii\bootstrap\Html;
@@ -11,11 +11,14 @@ use yii\grid\CheckboxColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 
-/* @var $this yii\web\View */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-/** @var $activeIncome boolean */
-/** @var $activeExpense boolean */
-/** @var $filterEnable boolean */
+/**
+ * @var $this yii\web\View
+ * @var $dataProvider yii\data\ActiveDataProvider
+ * @var $totalAmounts array
+ * @var $activeIncome boolean
+ * @var $activeExpense boolean
+ * @var $filterEnable boolean
+ */
 
 $this->title = 'Операции';
 $this->params['breadcrumbs'][] = $this->title;
@@ -33,6 +36,24 @@ $period = Yii::$app->request->get('period');
                 'activeIncome' => isset($activeIncome) ? $activeIncome : false,
                 'activeExpense' => isset($activeExpense) ? $activeExpense : false
             ], true); ?>
+            <div class="row">
+                <ul class="total-transactions">
+                <?php
+                    foreach($totalAmounts as $typeId => $totalAmount) {
+                        ?>
+                        <li class="<?= TransactionHelper::getClassesForType($typeId) ?>">
+                            <span class="label-type-transaction"><?= TransactionHelper::getValue($typeId) ?></span>
+                            <ul><?php
+                            foreach($totalAmount as $accountId => $total) {
+                                echo Html::tag('li', $total . ' ' . Accounts::findOne(['id' => $accountId])->valuta);
+                            }
+                            ?>
+                            </ul>
+                        </li><?php
+                    }
+                ?>
+                </ul>
+            </div>
         </div>
         <div class="col-md-10">
             <div class="col-md-4">
@@ -119,10 +140,6 @@ $period = Yii::$app->request->get('period');
 
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
-                    /*'showFooter' => true,
-                    'footerRowOptions' => [
-                        'style' => 'font-weight:bold;'
-                    ],*/
                     'showOnEmpty' => false,
                     'layout' => "{items}\n{pager}",
                     'tableOptions' => [
@@ -158,10 +175,6 @@ $period = Yii::$app->request->get('period');
                                 /** @var $data \frontend\models\Transaction */
                                 return TransactionHelper::getFullAmount($data);
                             },
-                            /*'footer' => TotalColumn::pageTotal($dataProvider->models, 'total'),
-                            'footerOptions' => [
-                                'style' => 'text-align:right'
-                            ]*/
                         ],
                         [
                             'attribute' => '',
