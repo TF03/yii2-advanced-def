@@ -10,11 +10,11 @@ use Yii;
  * @property integer $id
  * @property string $name
  * @property integer $user_id
- * @property string $valuta
  * @property string $color
  * @property integer $sort
  * @property string $amount
  * @property integer $status
+ * @property integer $currencyId
  */
 class AccountsGii extends \yii\db\ActiveRecord
 {
@@ -32,11 +32,11 @@ class AccountsGii extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'user_id', 'valuta', 'color'], 'required'],
-            [['user_id', 'sort', 'status'], 'integer'],
+            [['name', 'user_id', 'color'], 'required'],
+            [['user_id', 'sort', 'status', 'currencyId'], 'integer'],
             [['amount'], 'number'],
             [['name'], 'string', 'max' => 255],
-            [['valuta', 'color'], 'string', 'max' => 64],
+            [['color'], 'string', 'max' => 64],
             [['name', 'user_id'], 'unique', 'targetAttribute' => ['name', 'user_id'], 'message' => 'The combination of Name and User ID has already been taken.']
         ];
     }
@@ -50,11 +50,11 @@ class AccountsGii extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Название',
             'user_id' => 'User ID',
-            'valuta' => 'Валюта',
             'color' => 'Цвет',
             'sort' => 'Сортировка',
             'amount' => 'Баланс',
             'status' => 'Статус',
+            'currencyId' => 'Валюта',
         ];
     }
 }

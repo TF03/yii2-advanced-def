@@ -2,13 +2,13 @@
 
 use common\widgets\Alert;
 use frontend\helper\TransactionHelper;
+use frontend\widgets\grid\TotalColumn;
 use kartik\nav\NavX;
 use yii\bootstrap\ButtonDropdown;
 use yii\bootstrap\Html;
 use yii\grid\ActionColumn;
 use yii\grid\CheckboxColumn;
 use yii\grid\GridView;
-use yii\helpers\Url;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -30,7 +30,7 @@ $period = Yii::$app->request->get('period');
     <div class="col-md-12 transaction">
         <div class="col-md-2">
             <?php echo $this->render('_filter', [
-                'activeIncome'  => isset($activeIncome) ? $activeIncome : false,
+                'activeIncome' => isset($activeIncome) ? $activeIncome : false,
                 'activeExpense' => isset($activeExpense) ? $activeExpense : false
             ], true); ?>
         </div>
@@ -67,7 +67,7 @@ $period = Yii::$app->request->get('period');
             <div class="col-md-8 periods-transactions">
 
                 <label class="pills">Период</label>
-                <?=  NavX::widget([
+                <?= NavX::widget([
                     'options' => ['class' => 'nav nav-pills small'],
                     'items' => [
                         [
@@ -95,16 +95,16 @@ $period = Yii::$app->request->get('period');
 
             </div>
 
-            <?php if(isset($filterEnable)) { ?>
-            <div>
-                <?= Html::a(
-                    '<i class="glyphicon glyphicon-remove"></i>Отменить примененный фильтр',
-                    Yii::$app->urlManager->createUrl(['transaction']),
-                    [
-                        'class' => 'clear-filter'
-                    ]
-                ); ?>
-            </div>
+            <?php if (isset($filterEnable)) { ?>
+                <div>
+                    <?= Html::a(
+                        '<i class="glyphicon glyphicon-remove"></i>Отменить примененный фильтр',
+                        Yii::$app->urlManager->createUrl(['transaction']),
+                        [
+                            'class' => 'clear-filter'
+                        ]
+                    ); ?>
+                </div>
             <?php } ?>
 
             <div>
@@ -119,6 +119,10 @@ $period = Yii::$app->request->get('period');
 
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
+                    /*'showFooter' => true,
+                    'footerRowOptions' => [
+                        'style' => 'font-weight:bold;'
+                    ],*/
                     'showOnEmpty' => false,
                     'layout' => "{items}\n{pager}",
                     'tableOptions' => [
@@ -153,7 +157,11 @@ $period = Yii::$app->request->get('period');
                             'content' => function ($data) {
                                 /** @var $data \frontend\models\Transaction */
                                 return TransactionHelper::getFullAmount($data);
-                            }
+                            },
+                            /*'footer' => TotalColumn::pageTotal($dataProvider->models, 'total'),
+                            'footerOptions' => [
+                                'style' => 'text-align:right'
+                            ]*/
                         ],
                         [
                             'attribute' => '',
@@ -161,7 +169,7 @@ $period = Yii::$app->request->get('period');
                             'content' => function ($data) {
                                 /** @var $data \frontend\models\Transaction */
                                 return TransactionHelper::getAmountValueForGrid($data);
-                            }
+                            },
                         ],
                         [
                             'attribute' => 'created_at',

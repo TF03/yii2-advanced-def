@@ -32,7 +32,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'name',
             'amount',
-            'valuta',
+            [
+                'attribute' => 'currencyId',
+                'headerOptions' => ['width' => '100'],
+                'filter' => false,
+                'content' => function ($data) {
+                    /** @var $data \frontend\models\Accounts */
+                    if ($data->currency) {
+                        return $data->currency->title;
+                    }
+
+                    return false;
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
                 'template' => '{update}',

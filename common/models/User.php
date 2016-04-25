@@ -2,6 +2,7 @@
 namespace common\models;
 
 use common\behaviors\CreateBaseCategoryBehavior;
+use common\behaviors\CreateBaseCurrencyBehavior;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -43,6 +44,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             TimestampBehavior::className(),
             CreateBaseCategoryBehavior::className(),
+            CreateBaseCurrencyBehavior::className(),
         ];
     }
 

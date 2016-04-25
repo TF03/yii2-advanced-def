@@ -2,11 +2,11 @@
 
 namespace frontend\helper;
 
+use common\models\Currency;
 use frontend\models\User;
 
 class UserHelper
 {
-
     /**
      * @param integer $id
      *
@@ -37,5 +37,24 @@ class UserHelper
         }
 
         return false;
+    }
+
+    /**
+     * Get List Currency for Current User
+     *
+     * @return array
+     */
+    public static function getCurrentListCurrency()
+    {
+        $result = [];
+        $currencies = Currency::findActual()->all();
+        if (isset($currencies)) {
+            foreach ($currencies as $currency) {
+                /** @var $currency Currency */
+                $result[$currency->id] = $currency->title;
+            }
+        }
+
+        return $result;
     }
 }

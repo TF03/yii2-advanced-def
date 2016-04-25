@@ -19,7 +19,7 @@ class AccountsSearch extends Accounts
     {
         return [
             [['id', 'user_id', 'sort', 'status'], 'integer'],
-            [['name', 'valuta', 'color'], 'safe'],
+            [['name', 'currencyId', 'color'], 'safe'],
             [['amount'], 'number'],
         ];
     }
@@ -65,7 +65,7 @@ class AccountsSearch extends Accounts
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'valuta', $this->valuta])
+            //->andFilterWhere(['currencyId', $this->currencyId])
             ->andFilterWhere(['like', 'color', $this->color]);
 
         return $dataProvider;

@@ -9,7 +9,6 @@ class m151030_151643_fill_table_category_test_data extends Migration
 
     public function up()
     {
-
         $this->insert(self::TABLE, [
             'name' => 'Автомобиль',
             'basic' => 1,
