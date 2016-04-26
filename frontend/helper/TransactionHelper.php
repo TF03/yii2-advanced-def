@@ -13,6 +13,7 @@ class TransactionHelper extends BaseHelper
 {
     const TYPE_INCOME = 1;
     const TYPE_EXPENSE = 2;
+    const TYPE_TRANSFER = 3;
 
     const FOR_DATE_NOW = 'now';
     const FOR_DATE_YESTERDAY = 'yesterday';
@@ -29,7 +30,8 @@ class TransactionHelper extends BaseHelper
 
     protected static $listClasses = [
         self::TYPE_INCOME => 'type-income',
-        self::TYPE_EXPENSE => 'type-expense'
+        self::TYPE_EXPENSE => 'type-expense',
+        self::TYPE_TRANSFER => 'type-transfer '
     ];
 
     /**
@@ -164,20 +166,28 @@ class TransactionHelper extends BaseHelper
             'category' => self::getCategoryForBlockString($model),
             'comment' => $model->comment
         ];
+        if ($model->type_id == self::TYPE_TRANSFER) {
+            $accounts = 'С ' . self::getAccountsForBlockString($model)
+                        . ' на ' . self::getAccountsForBlockString($model, 'accountTransfer');
+            $blockString = [
+                'accounts' => $accounts,
+            ];
+        }
 
         return implode(' ', $blockString);
     }
 
     /**
      * @param \frontend\models\Transaction $model
+     * @param string $field
      *
      * @return string
      */
-    public static function getAccountsForBlockString(Transaction $model)
+    public static function getAccountsForBlockString(Transaction $model, $field = 'accounts')
     {
         $result = '';
         /** @var Accounts $accounts */
-        $accounts = Accounts::find()->andWhere(['id' => $model->accounts])->one();
+        $accounts = Accounts::find()->andWhere(['id' => $model->{$field}])->one();
 
         if (!empty($accounts)) {
             $result = Html::a(
@@ -255,20 +265,48 @@ class TransactionHelper extends BaseHelper
         return $amount . $currency;
     }
 
+    /**
+     * @param $model Transaction
+     *
+     * @return string
+     */
+    public static function getFullAmountForTransfer(Transaction $model)
+    {
+        $amount = explode('.', $model->total);
+        $rest = Html::tag(
+            'div',
+            $amount[1],
+            [
+                'class' => 'transaction-currency-rest'
+            ]);
+        $amount = $amount[0] . '.' . $rest;
+
+        $amountTransfer = explode('.', $model->totalTransfer);
+        $rest = Html::tag(
+            'div',
+            $amountTransfer[1],
+            [
+                'class' => 'transaction-currency-rest'
+            ]);
+        $amountTransfer = $amountTransfer[0] . '.' . $rest;
+
+        return '<div class="transaction-transfer-line">' . $amount
+                . ' <i class="glyphicon glyphicon-transfer"></i> '
+                . $amountTransfer . '</div>';
+    }
+
     public static function getTotalAmountsByPeriod($models)
     {
         $totalAmounts = [];
 
         foreach ($models as $model) {
             /** @var Transaction $model */
-            if (isset($totalAmounts[$model->type_id][$model->accounts])) {
-                $totalAmounts[$model->type_id][$model->accounts] = number_format(($totalAmounts[$model->type_id][$model->accounts] + $model->total),
-                    2, '.', ' ');
-            } else {
-                $totalAmounts[$model->type_id][$model->accounts] = number_format($model->total, 2, '.', ' ');
-            }
-            if ($totalAmounts[$model->type_id][$model->accounts] == 0) {
-                unset($totalAmounts[$model->type_id][$model->accounts]);
+            if ($model->type_id != self::TYPE_TRANSFER) {
+                if (isset($totalAmounts[$model->type_id][$model->account->currencyId])) {
+                    $totalAmounts[$model->type_id][$model->account->currencyId] = $totalAmounts[$model->type_id][$model->account->currencyId] + $model->total;
+                } else {
+                    $totalAmounts[$model->type_id][$model->account->currencyId] = $model->total;
+                }
             }
         }
 

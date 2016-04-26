@@ -17,6 +17,8 @@ use Yii;
  * @property string $created_at
  * @property string $date
  * @property string $total
+ * @property integer $accountTransfer
+ * @property string $totalTransfer
  */
 class TransactionGii extends \yii\db\ActiveRecord
 {
@@ -35,7 +37,7 @@ class TransactionGii extends \yii\db\ActiveRecord
     {
         return [
             [['amount', 'accounts', 'user_id', 'type_id', 'date'], 'required'],
-            [['accounts', 'user_id', 'type_id', 'status'], 'integer'],
+            [['accounts', 'accountTransfer', 'user_id', 'type_id', 'status'], 'integer'],
             [['created_at'], 'safe'],
             [['comment', 'amount'], 'string', 'max' => 255],
             [['date'], 'string', 'max' => 16]
@@ -58,6 +60,8 @@ class TransactionGii extends \yii\db\ActiveRecord
             'created_at' => 'Создана',
             'date' => 'Дата',
             'total' => 'Операция',
+            'accountTransfer' => 'Account Transfer',
+            'totalTransfer' => 'Total Transfer',
         ];
     }
 }

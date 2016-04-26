@@ -2,7 +2,7 @@
 
 use common\widgets\Alert;
 use frontend\helper\TransactionHelper;
-use frontend\models\Accounts;
+use frontend\models\Currency;
 use kartik\nav\NavX;
 use yii\bootstrap\ButtonDropdown;
 use yii\bootstrap\Html;
@@ -44,8 +44,8 @@ $period = Yii::$app->request->get('period');
                         <li class="<?= TransactionHelper::getClassesForType($typeId) ?>">
                             <span class="label-type-transaction"><?= TransactionHelper::getValue($typeId) ?></span>
                             <ul><?php
-                            foreach($totalAmount as $accountId => $total) {
-                                echo Html::tag('li', $total . ' ' . Accounts::findOne(['id' => $accountId])->valuta);
+                            foreach($totalAmount as $currencyId => $total) {
+                                echo Html::tag('li', number_format($total, 2, '.', ' ') . ' ' . Currency::findOne(['id' => $currencyId])->title);
                             }
                             ?>
                             </ul>
@@ -166,14 +166,18 @@ $period = Yii::$app->request->get('period');
                             'attribute' => 'total',
                             'headerOptions' => [
                                 'class' => 'transaction-amount',
-                                'min-width' => '100'
+                                'min-width' => '200'
                             ],
                             'contentOptions' => [
                                 'class' => 'transaction-amount'
                             ],
                             'content' => function ($data) {
                                 /** @var $data \frontend\models\Transaction */
-                                return TransactionHelper::getFullAmount($data);
+                                if ($data->type_id == TransactionHelper::TYPE_TRANSFER) {
+                                    return TransactionHelper::getFullAmountForTransfer($data);
+                                } else {
+                                    return TransactionHelper::getFullAmount($data);
+                                }
                             },
                         ],
                         [
@@ -200,10 +204,13 @@ $period = Yii::$app->request->get('period');
                             ],
                             'template' => '{edit} {remove}',
                             'buttons' => [
-                                'edit' => function ($url) {
-                                    return Html::a(
-                                        '<span class="glyphicon glyphicon-pencil"></span>',
-                                        $url);
+                                'edit' => function ($url, $model) {
+                                    /** @var $model \frontend\models\Transaction */
+                                    if ($model->type_id != TransactionHelper::TYPE_TRANSFER) {
+                                        return Html::a(
+                                            '<span class="glyphicon glyphicon-pencil"></span>',
+                                            $url);
+                                    }
                                 },
                                 'remove' => function ($url) {
                                     return Html::a('', $url, [

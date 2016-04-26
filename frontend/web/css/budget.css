@@ -677,6 +677,19 @@ ul.total-transactions > li.type-expense > ul > li:before {
     content: "- ";
 }
 
+.transaction-currency-type-transfer {
+    font-family: 'Glyphicons Halflings';
+    display: inline-block;
+    color: #228C1B;
+}
+
+.transaction-currency-type-transfer:before {
+    content: "\e178";
+    top: 4px;
+    position: relative;
+    right: 5px;
+}
+
 .transaction-currency-rest {
     font-size: 13px;
     margin-left: 2px;
@@ -890,4 +903,8 @@ ul.total-transactions > li .label-type-transaction {
     font-weight: bold;
     color: #616161;
     margin-left: 10px;
+}
+
+.transaction-transfer-line {
+    color: #6D6D0C;
 }

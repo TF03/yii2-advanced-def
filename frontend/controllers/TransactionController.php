@@ -177,10 +177,12 @@ class TransactionController extends FrontendController
     public function renderIndex($param = [], $extraOptions = [])
     {
         $dataProvider = $this->getDataProviderForIndex($param);
+        $dataProviderForTotal = $this->getDataProviderForIndex($param);
+        $dataProviderForTotal->pagination->pageSize = false;
 
         return $this->render('index', ArrayHelper::merge([
                 'dataProvider' => $dataProvider,
-                'totalAmounts' => TransactionHelper::getTotalAmountsByPeriod($dataProvider->models)
+                'totalAmounts' => TransactionHelper::getTotalAmountsByPeriod($dataProviderForTotal->models)
             ], $extraOptions)
         );
     }

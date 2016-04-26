@@ -54,13 +54,32 @@ class ChangeTransactionBehavior extends Behavior
         $account = Accounts::find()->andWhere(['id' => $model->accounts])->one();
 
         if ($account) {
-            $params = new stdClass();
-            $params->type_id = $model->type_id;
-            $params->accountAmount = $account->amount;
-            $params->transactionAmount = $model->total;
+            if ($model->type_id == TransactionHelper::TYPE_TRANSFER) {
+                $params = new stdClass();
+                $params->type_id = TransactionHelper::TYPE_EXPENSE;
+                $params->accountAmount = $account->amount;
+                $params->transactionAmount = $model->total;
 
-            $account->amount = $this->_getAccountAmount($params);
-            $account->save();
+                $account->amount = $this->_getAccountAmount($params);
+                $account->save();
+
+                /** @var Accounts $accountTransfer */
+                $accountTransfer = Accounts::find()->andWhere(['id' => $model->accountTransfer])->one();
+                $params->type_id = TransactionHelper::TYPE_INCOME;
+                $params->accountAmount = $accountTransfer->amount;
+                $params->transactionAmount = $model->totalTransfer;
+
+                $accountTransfer->amount = $this->_getAccountAmount($params);
+                $accountTransfer->save();
+            } else {
+                $params = new stdClass();
+                $params->type_id = $model->type_id;
+                $params->accountAmount = $account->amount;
+                $params->transactionAmount = $model->total;
+
+                $account->amount = $this->_getAccountAmount($params);
+                $account->save();
+            }
         }
     }
 
@@ -115,13 +134,32 @@ class ChangeTransactionBehavior extends Behavior
         $account = Accounts::find()->andWhere(['id' => $model->accounts])->one();
 
         if ($account) {
-            $params = new stdClass();
-            $params->type_id = $model->type_id;
-            $params->accountAmount = $account->amount;
-            $params->transactionAmount = $model->total;
+            if ($model->type_id == TransactionHelper::TYPE_TRANSFER) {
+                $params = new stdClass();
+                $params->type_id = TransactionHelper::TYPE_EXPENSE;
+                $params->accountAmount = $account->amount;
+                $params->transactionAmount = $model->total;
 
-            $account->amount = $this->_getAccountAmount($params, true);
-            $account->save();
+                $account->amount = $this->_getAccountAmount($params, true);
+                $account->save();
+
+                /** @var Accounts $accountTransfer */
+                $accountTransfer = Accounts::find()->andWhere(['id' => $model->accountTransfer])->one();
+                $params->type_id = TransactionHelper::TYPE_INCOME;
+                $params->accountAmount = $accountTransfer->amount;
+                $params->transactionAmount = $model->totalTransfer;
+
+                $accountTransfer->amount = $this->_getAccountAmount($params, true);
+                $accountTransfer->save();
+            } else {
+                $params = new stdClass();
+                $params->type_id = $model->type_id;
+                $params->accountAmount = $account->amount;
+                $params->transactionAmount = $model->total;
+
+                $account->amount = $this->_getAccountAmount($params, true);
+                $account->save();
+            }
         }
     }
 

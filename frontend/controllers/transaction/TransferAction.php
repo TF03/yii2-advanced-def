@@ -44,52 +44,70 @@ class TransferAction extends Action
 
     protected function saveTransfer($modelTransfer)
     {
-        $transaction = Yii::$app->getDb()->beginTransaction();
-        try {
-            $saveTransfer = $this->saveFromTransaction($modelTransfer) && $this->saveToTransaction($modelTransfer);
-            if ($saveTransfer) {
-                $transaction->commit();
-            } else {
-                $transaction->rollback();
-            }
-        } catch (\Exception $e) {
-            $transaction->rollback();
-            return false;
-        }
-
-        return $saveTransfer;
-    }
-
-    protected function saveFromTransaction($model)
-    {
-        $model->commission = (float)$model->commission;
+        $modelTransfer->commission = (float)$modelTransfer->commission;
         $fromTransaction = new Transaction();
-        $fromTransaction->setAttributes($model->attributes);
-        $fromTransaction->accounts = $model->fromAccountId;
-        $fromTransaction->amount = "$model->fromAmount + $model->commission";
-        $fromTransaction->total = $model->fromTotal + $model->commission;
-        $fromTransaction->type_id = TransactionHelper::TYPE_EXPENSE;
+        $fromTransaction->setAttributes($modelTransfer->attributes);
+        $fromTransaction->accounts = $modelTransfer->fromAccountId;
+        $fromTransaction->amount = "$modelTransfer->fromAmount + $modelTransfer->commission";
+        $fromTransaction->accountTransfer = $modelTransfer->toAccountId;
+        $fromTransaction->totalTransfer = $modelTransfer->toTotal;
+        $fromTransaction->total = $modelTransfer->fromTotal + $modelTransfer->commission;
+        $fromTransaction->type_id = TransactionHelper::TYPE_TRANSFER;
 
         if ($fromTransaction->save()) {
             return true;
         } else {
             return false;
         }
+
+
+
+//        $transaction = Yii::$app->getDb()->beginTransaction();
+//        try {
+//            $saveTransfer = $this->saveFromTransaction($modelTransfer) && $this->saveToTransaction($modelTransfer);
+//            if ($saveTransfer) {
+//                $transaction->commit();
+//            } else {
+//                $transaction->rollback();
+//            }
+//        } catch (\Exception $e) {
+//            $transaction->rollback();
+//            return false;
+//        }
+//
+//        return $saveTransfer;
     }
 
-    protected function saveToTransaction($model)
-    {
-        $toTransaction = new Transaction();
-        $toTransaction->setAttributes($model->attributes);
-        $toTransaction->accounts = $model->toAccountId;
-        $toTransaction->amount = $model->toAmount;
-        $toTransaction->total = $model->toTotal;
-        $toTransaction->type_id = TransactionHelper::TYPE_INCOME;
-
-        if ($toTransaction->save()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    protected function saveFromTransaction($model)
+//    {
+//        $model->commission = (float)$model->commission;
+//        $fromTransaction = new Transaction();
+//        $fromTransaction->setAttributes($model->attributes);
+//        $fromTransaction->accounts = $model->fromAccountId;
+//        $fromTransaction->amount = "$model->fromAmount + $model->commission";
+//        $fromTransaction->total = $model->fromTotal + $model->commission;
+//        $fromTransaction->type_id = TransactionHelper::TYPE_EXPENSE;
+//
+//        if ($fromTransaction->save()) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//
+//    protected function saveToTransaction($model)
+//    {
+//        $toTransaction = new Transaction();
+//        $toTransaction->setAttributes($model->attributes);
+//        $toTransaction->accounts = $model->toAccountId;
+//        $toTransaction->amount = $model->toAmount;
+//        $toTransaction->total = $model->toTotal;
+//        $toTransaction->type_id = TransactionHelper::TYPE_INCOME;
+//
+//        if ($toTransaction->save()) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 }
