@@ -3,6 +3,7 @@
 use common\widgets\Alert;
 use frontend\helper\AccountsHelper;
 use kartik\tabs\TabsX;
+use yii\helpers\Url;
 
 /** @var $this yii\web\View */
 /** @var $model \frontend\models\Transaction */
@@ -26,6 +27,7 @@ $tabTransfer = isset($tabTransfer) ? $tabTransfer : false;
             'content' => $this->render('_forms/_edit', [
                 'model' => $model
             ]),
+            'url' => $tabTransfer ? Url::to(['/transaction/new']) : null,
             'active' => !$tabTransfer
         ],
         [
@@ -33,6 +35,7 @@ $tabTransfer = isset($tabTransfer) ? $tabTransfer : false;
             'content' => $this->render('_forms/_transfer', [
                 'model' => $modelTransfer
             ]),
+            'url' => !$tabTransfer ? Url::to(['/transaction/transfer']) : null,
             'active' => $tabTransfer
         ]
     ];

@@ -908,3 +908,12 @@ ul.total-transactions > li .label-type-transaction {
 .transaction-transfer-line {
     color: #6D6D0C;
 }
+
+.additionally-date {
+    margin: -15px 0 15px 0;
+}
+
+.additionally-date > a {
+    text-decoration: underline;
+    margin-right: 10px;
+}

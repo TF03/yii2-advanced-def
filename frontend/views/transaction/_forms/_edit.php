@@ -64,6 +64,17 @@ $this->registerJsFile('/js/frontend/views/transaction/transaction.js', ['depends
                 ]
             ); ?>
 
+            <div class="row additionally-date">
+                <?= Html::a('Вчера', 'javascript:void(0);', [
+                    'class' => 'additionally-date-link',
+                    'data-value' => Yii::$app->getFormatter()->asDate('yesterday', "php:d-m-Y")
+                ])?>
+                <?= Html::a('Сегодня', 'javascript:void(0);', [
+                    'class' => 'additionally-date-link',
+                    'data-value' => Yii::$app->getFormatter()->asDate('now', "php:d-m-Y")
+                ])?>
+            </div>
+
             <?= $form->field($model, 'comment')->textInput([]); ?>
 
             <?= $form->field($model, 'accounts')->widget(Select2::classname(), [

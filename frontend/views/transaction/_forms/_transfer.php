@@ -16,7 +16,7 @@ $model->date = Yii::$app->getFormatter()->asDate('now', "php:d-m-Y");
 $firstValuta = AccountsHelper::getFirstValuta();
 $model->toAccountId = $model->fromAccountId = AccountsHelper::getFirstAccountId();
 
-//$this->registerJsFile('/js/frontend/views/transaction/transfer.js', ['depends' => 'frontend\assets\BackboneAsset']);
+$this->registerJsFile('/js/frontend/views/transaction/transfer.js', ['depends' => 'frontend\assets\BackboneAsset']);
 ?>
 
 <?php $form = ActiveForm::begin([
@@ -96,6 +96,17 @@ $model->toAccountId = $model->fromAccountId = AccountsHelper::getFirstAccountId(
                 ]
             ]
         ); ?>
+
+        <div class="row additionally-date">
+            <?= Html::a('Вчера', 'javascript:void(0);', [
+                'class' => 'additionally-date-link',
+                'data-value' => Yii::$app->getFormatter()->asDate('yesterday', "php:d-m-Y")
+            ])?>
+            <?= Html::a('Сегодня', 'javascript:void(0);', [
+                'class' => 'additionally-date-link',
+                'data-value' => Yii::$app->getFormatter()->asDate('now', "php:d-m-Y")
+            ])?>
+        </div>
 
         <?= $form->field($model, 'comment')->textInput([]); ?>
 

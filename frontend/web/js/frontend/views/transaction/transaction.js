@@ -4,12 +4,23 @@
 
         el: '#transaction-new',
         amountLabel: '#amountLabel',
+        transactionDate: '#transaction-date',
         events: {
+            'click .additionally-date-link': 'changeDate'
             //'change .account_id': 'changeValuta'
         },
 
         initialize: function() {
         },
+
+        changeDate: function(event) {
+            var currentEl = $(event.currentTarget);
+            var dateValue = currentEl.data('value');
+
+            if (dateValue) {
+                $(this.transactionDate).val(dateValue);
+            }
+        }
 
         /*changeValuta: function(event) {
             var currentEl = $(event.currentTarget);
