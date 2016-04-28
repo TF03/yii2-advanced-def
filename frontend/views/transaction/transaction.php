@@ -24,17 +24,17 @@ $tabTransfer = isset($tabTransfer) ? $tabTransfer : false;
     $items = [
         [
             'label' => 'Новая операция',
-            'content' => $this->render('_forms/_edit', [
+            'content' => !$tabTransfer ? $this->render('_forms/_edit', [
                 'model' => $model
-            ]),
+            ]) : null,
             'url' => $tabTransfer ? Url::to(['/transaction/new']) : null,
             'active' => !$tabTransfer
         ],
         [
             'label' => '<i class="glyphicon glyphicon-transfer"></i> Перевод',
-            'content' => $this->render('_forms/_transfer', [
+            'content' => $tabTransfer ? $this->render('_forms/_transfer', [
                 'model' => $modelTransfer
-            ]),
+            ]) : null,
             'url' => !$tabTransfer ? Url::to(['/transaction/transfer']) : null,
             'active' => $tabTransfer
         ]
