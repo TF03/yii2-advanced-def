@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Accounts;
+use frontend\models\forms\SaveOnTargetForm;
 use Yii;
 use frontend\models\Targets;
 use frontend\models\search\TargetsSearch;
@@ -26,7 +28,7 @@ class TargetsController extends Controller
                 'only' => ['index', 'new'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'new', 'remove', 'update'],
+                        'actions' => ['index', 'new', 'remove', 'update', 'save-on-target'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -107,6 +109,39 @@ class TargetsController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionSaveOnTarget()
+    {
+        $model = new SaveOnTargetForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            /** @var Targets $target */
+            $target = Targets::findOne(['id' => $model->toTargetId]);
+            /** @var Accounts $account */
+            $account = Accounts::findOne(['id' => $model->fromAccountId]);
+            if ($target && $account) {
+                $target->balance = str_replace(' ', '', $target->balance);
+                $target->balance = bcadd($target->balance, $model->toAmount, 2);
+                $account->amount = bcsub($account->amount, $model->fromTotal, 2);
+                $transaction = Yii::$app->getDb()->beginTransaction();
+                try {
+                    if ($account->save() && $target->save()) {
+                        $transaction->commit();
+                        Yii::$app->getSession()->setFlash('success', 'Средства были отложены.');
+                        return $this->redirect(['/targets']);
+                    } else {
+                        $transaction->rollback();
+                    }
+                } catch (\Exception $e) {
+                    $transaction->rollback();
+                }
+            }
+        }
+
+        return $this->render('save-on-target', [
+            'model' => $model,
+        ]);
     }
 
     /**

@@ -701,6 +701,7 @@ ul.total-transactions > li.type-expense > ul > li:before {
     display: inline-block;
 }
 
+#save-on-target .well,
 #transaction-transfer .well {
     min-height: 20px;
     padding: 19px;
