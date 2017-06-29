@@ -627,6 +627,11 @@ form .form-actions a {
     background-color: rgba(112, 162, 235, 0.11765);
 }
 
+.transaction .transaction-buttons,
+.transaction .transaction-periods {
+    padding: 0;
+}
+
 .table th,
 .table td {
     padding: 8px;
@@ -843,6 +848,7 @@ ul.total-transactions > li.type-expense > ul > li:before {
     margin-right: 2px;
     line-height: 5px;
     font-size: 10px;
+    cursor: pointer;
 }
 
 .periods-transactions .nav-pills > .active > a,
@@ -851,16 +857,31 @@ ul.total-transactions > li.type-expense > ul > li:before {
     color: #fff;
     background-color: #08c;
 }
+.periods-transactions .nav-pills > li > a > div.input-daterange input {
+    float: left;
+    height: 28px;
+    width: 90px;
+    padding: 10px 2px;
+}
+.periods-transactions .nav-pills > li > a > div.input-daterange span {
+    height: 20px;
+    margin: 0;
+    line-height: 1px;
+}
+.periods-transactions .nav-pills > li > a.range-period {
+    padding: 0 12px;
+    vertical-align: middle;
+}
 
 @media (min-width: 1200px) {
     .periods-transactions {
-        width: 550px;
+        width: 850px;
     }
 }
 
 @media (min-width: 800px) {
     .periods-transactions {
-        width: 460px;
+        width: 740px;
     }
 }
 

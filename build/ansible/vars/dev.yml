@@ -17,6 +17,7 @@ ssl_certs_files: [
 nginx_run_user: 'www-data'
 nginx_vhosts: [
     { server_name: '_', root: '/var/www/yii2-advanced/frontend/web', template: 'catch_all_yii'},
+    { server_name: 'oil.191.0.10.10.xip.io', root: '/var/www/yii2-advanced/oil', template: 'yii'},
     { server_name: 'frontend.191.0.10.10.xip.io', root: '/var/www/yii2-advanced/frontend/web', template: 'yii'},
     #{ server_name: 'backend.191.0.10.10.xip.io', root: '/var/www/yii2-advanced/backend/web', template: 'yii'},
     { server_name: 'adminer.191.0.10.10.xip.io', root: '/usr/share/adminer', template: 'php'},

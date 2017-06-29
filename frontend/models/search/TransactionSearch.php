@@ -124,6 +124,27 @@ class TransactionSearch extends Transaction
                 case 'current_month':
                     $query = $this->setDefaultPeriod($query);
                     break;
+                case 'custom':
+                    $periodFrom = Yii::$app->request->get('periodFrom');
+                    if (empty($periodFrom)) {
+                        $periodFrom = Yii::$app->getFormatter()->asDate('now', "php:Y-m-d");
+                    } else {
+                        $periodFrom = date('Y-m-d', strtotime($periodFrom));
+                    }
+                    $periodTo = Yii::$app->request->get('periodTo');
+                    if (empty($periodTo)) {
+                        $periodTo = Yii::$app->getFormatter()->asDate('now', "php:Y-m-d");
+                    } else {
+                        $periodTo = date('Y-m-d', strtotime($periodTo));
+                    }
+                    if ($periodFrom > $periodTo) {
+                        $query->andFilterWhere(['like', 'date', $periodFrom]);
+                    } else {
+                        $query->andFilterWhere(['>=', 'date', $periodFrom]);
+                        $query->andFilterWhere(['<=', 'date', $periodTo]);
+                    }
+
+                    break;
                 case 'all':
                     break;
                 default:

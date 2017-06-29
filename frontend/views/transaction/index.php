@@ -2,7 +2,9 @@
 
 use common\widgets\Alert;
 use frontend\helper\TransactionHelper;
+use frontend\helper\DateHelper;
 use frontend\models\Currency;
+use kartik\date\DatePicker;
 use kartik\nav\NavX;
 use yii\bootstrap\ButtonDropdown;
 use yii\bootstrap\Html;
@@ -24,6 +26,13 @@ $this->title = 'Операции';
 $this->params['breadcrumbs'][] = $this->title;
 
 $period = Yii::$app->request->get('period');
+
+$periodFromDate = Yii::$app->request->get('periodFrom');
+$periodToDate = Yii::$app->request->get('periodTo');
+$defaultPeriodFromDate = !isset($periodFromDate) ? DateHelper::getDateByPeriod($period, true) : $periodFromDate;
+$defaultPeriodToDate = !isset($periodToDate) ? DateHelper::getDateByPeriod($period, false) : $periodToDate;
+
+$this->registerJsFile('/js/frontend/views/transaction/transaction-index.js', ['depends' => 'frontend\assets\BackboneAsset']);
 ?>
 
 <?= Alert::widget() ?>
@@ -56,7 +65,7 @@ $period = Yii::$app->request->get('period');
             </div>
         </div>
         <div class="col-md-10">
-            <div class="col-md-4">
+            <div class="col-md-2 transaction-buttons">
                 <?=
                 ButtonDropdown::widget([
                     'label' => 'Новый расход',
@@ -85,10 +94,11 @@ $period = Yii::$app->request->get('period');
                 ]);
                 ?>
             </div>
-            <div class="col-md-8 periods-transactions">
+            <div class="col-md-10 periods-transactions">
 
                 <label class="pills">Период</label>
                 <?= NavX::widget([
+                    'encodeLabels' => false,
                     'options' => ['class' => 'nav nav-pills small'],
                     'items' => [
                         [
@@ -110,6 +120,33 @@ $period = Yii::$app->request->get('period');
                             'label' => 'За все время',
                             'url' => Yii::$app->urlManager->createUrl([Yii::$app->request->pathInfo, 'period' => 'all']),
                             'active' => $period == 'all' ? true : false
+                        ],
+                        [
+                            'label' => DatePicker::widget([
+                                'name' => 'period_from_date',
+                                'name2' => 'period_to_date',
+                                'value' => $defaultPeriodFromDate,
+                                'value2' => $defaultPeriodToDate,
+                                'type' => DatePicker::TYPE_RANGE,
+                                'pluginOptions' => [
+                                    'autoclose' => true,
+                                    'format' => 'dd-mm-yyyy'
+                                ]
+                            ]),
+                            'linkOptions'=>[
+                                'class'=>'range-period'
+                            ],
+                            'url' => null,
+                            'active' => false
+                        ],
+                        [
+                            'label' => 'Показать',
+                            'linkOptions'=>[
+                                'class' => 'show-range-period',
+                                'data-url' => Yii::$app->urlManager->createUrl([Yii::$app->request->pathInfo, 'period' => 'custom'])
+                            ],
+                            'url' => null,
+                            'active' => true
                         ],
                     ]
                 ]); ?>
