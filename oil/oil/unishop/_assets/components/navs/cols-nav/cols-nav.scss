@@ -1,0 +1,50 @@
+/*
+--------------------------------------------------
+Navigation table-navs styles
+--------------------------------------------------
+*/
+.cols-nav{	
+	border: 1px solid $cols-nav-border-color;
+	text-align: left;
+	background: $cols-nav-bg-color;
+	box-shadow: 0 3px 4px $cols-nav-shadow-color;
+	font-size: 1rem;
+
+	padding: 20px 30px 20px 0;
+	
+	&__items{
+		display: table;
+	}
+
+	&__col{
+		display: table-cell;
+		padding-left: 30px;
+	}
+
+	&__item{
+		width: $cols-subnav-col-width;
+		padding: 10px 0;
+		line-height: 1;
+		border: 1px solid red;
+	}
+
+	&__link{
+		@include link-second;
+		font-size: 1.1em;
+		font-weight: bold;
+	}
+
+}
+
+.cols-subnav{
+	margin-top: 3px;
+
+	&__item{
+		padding-top: 5px;
+	}
+
+	&__link{
+		@include link-main;
+		line-height: 1;
+	}
+}

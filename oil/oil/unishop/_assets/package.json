@@ -1,0 +1,21 @@
+{
+  "name": "multishop",
+  "version": "1.0.0",
+  "devDependencies": {
+    "gulp": "latest",
+    "gulp-add-src": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-changed": "latest",
+    "gulp-combine-mq": "latest",
+    "gulp-concat": "latest",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-minify-css": "latest",
+    "gulp-modify-css-urls": "latest",
+    "gulp-rename": "latest",
+    "gulp-sass": "latest",
+    "gulp-uglify": "latest",
+    "gulp.spritesmith": "latest",
+    "main-bower-files": "latest",
+    "node-bourbon": "latest"
+  }
+}

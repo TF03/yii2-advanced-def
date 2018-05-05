@@ -861,7 +861,7 @@ ul.total-transactions > li.type-expense > ul > li:before {
     float: left;
     height: 28px;
     width: 90px;
-    padding: 10px 2px;
+    padding: 2px 2px;
 }
 .periods-transactions .nav-pills > li > a > div.input-daterange span {
     height: 20px;

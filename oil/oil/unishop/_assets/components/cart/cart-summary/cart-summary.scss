@@ -1,0 +1,118 @@
+.cart-summary {
+
+  &__items {
+    font-size: 0.9rem;
+    display: table;
+    width: 100%;
+  }
+
+  &__row {
+    display: table-row;
+
+    &:first-child {
+      .cart-summary__cell {
+        border-top: 0;
+        padding-top: 0;
+      }
+    }
+  }
+
+  &__cell {
+    @include clearfix;
+    display: table-cell;
+    vertical-align: top;
+    border-top: 1px dashed $base-border-color;
+    padding: 20px 0;
+  }
+
+  &__delete {
+    margin-right: 10px;
+  }
+
+  &__product {
+    padding-right: 30px;
+
+    &--kit {
+      &:not(:last-child):after {
+        content: '+';
+        display: block;
+        font-size: 20px;
+        color: #000;
+        margin-left: 25px;
+      }
+    }
+  }
+
+  &__quantity {
+    width: 110px;
+  }
+
+  &__price {
+    width: 80px;
+    text-align: right;
+    float: right;
+  }
+
+  &__subtotal {
+
+    &-item {
+      display: table;
+      width: 100%;
+      border-top: 1px dashed $base-border-color;
+      padding: 10px 0;
+
+      &:first-child {
+        border-top: 1px solid $base-border-color;
+      }
+
+      &:last-child {
+        border-bottom: 1px dashed $base-border-color;
+      }
+
+    }
+
+    &-title {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    &-value {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: right;
+    }
+
+  }
+
+  &__total{
+
+  }
+  &__total-coupon{
+    max-width: 400px;
+    padding-top: 20px;
+  }
+  &__total-price {
+    text-align: right;
+    margin-top: 20px;
+
+    &--order{
+      padding: 20px;
+      background: $product-price-bg-color;
+    }
+  }
+  &__total-label{
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 15px;
+  }
+  &__total-price--order &__total-label{
+    float: left;
+    margin-top: 8px;
+    font-size: 1.3rem;
+  }
+  &__total-value{
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+}

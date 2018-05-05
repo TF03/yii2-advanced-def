@@ -1,0 +1,32 @@
+Options All -Indexes
+RewriteEngine On
+RewriteBase /
+ 
+#RewriteCond %{HTTP_HOST} ^don-nasos\.com\.ua$ [NC]
+#RewriteRule ^(.*)$ http://www.don-nasos.com.ua/$1 [R=301,L]
+
+AddDefaultCharset utf-8
+php_value default_charset "utf-8"
+
+RewriteRule ^index.html  / [R=301,L]
+RewriteRule ^index.htm  / [R=301,L] 
+
+## админка
+RewriteRule ^admin/$    admin/index.php [L]
+
+## перенаправляем все на index.php кроме css, js, count, admin, img, images и ajax - запровсов 
+RewriteCond %{REQUEST_URI} !(_css|_js|_img|_font|admin)
+RewriteCond %{REQUEST_URI} !modul/[-_a-zA-Z0-9]+/ajax
+RewriteCond %{REQUEST_URI} !modul/myroom/ajax
+RewriteCond %{REQUEST_URI} !upload
+RewriteCond %{REQUEST_URI} !robots.txt
+RewriteCond %{REQUEST_URI} !test.php
+RewriteCond %{REQUEST_URI} !favicon.ico
+RewriteCond %{REQUEST_URI} !sitemap.*\.xml
+RewriteRule ^.*$ index.php [L]
+ 
+ErrorDocument 404 /index.php?error=404
+
+php_flag display_errors off 
+php_flag display_startup_errors off
+php_flag magic_quotes_gpc Off

@@ -1,0 +1,64 @@
+{
+  "name": "multishop",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap-sass": "~3.3.6",
+    "font-awesome": "~4.4.0",
+    "jquery": "latest",
+    "magnific-popup": "~1.0.0",
+    "slick-carousel": "1.5.8",
+    "jquery-ui": "^1.11.4",
+    "doubletaptogo": "^0.4.1",
+    "jquery-zoom": "^1.7.15"
+  },
+  "overrides": {
+    "jquery": {
+      "main": [
+        "dist/jquery.js"
+      ],
+      "ignore": false
+    },
+    "bootstrap-sass": {
+      "main": [
+        "assets/javascripts/bootstrap.js"
+      ],
+      "ignore": true
+    },
+    "font-awesome": {
+      "main": [
+        "fonts/fontawesome-webfont.eot",
+        "fonts/fontawesome-webfont.svg",
+        "fonts/fontawesome-webfont.ttf",
+        "fonts/fontawesome-webfont.woff",
+        "fonts/fontawesome-webfont.woff2",
+        "fonts/fontawesome-webfont.otf"
+      ],
+      "ignore": false
+    },
+    "slick-carousel": {
+      "main": [
+        "slick/slick.js",
+        "slick/slick.css"
+      ],
+      "ignore": false
+    },
+    "magnific-popup": {
+      "main": [
+        "dist/jquery.magnific-popup.js"
+      ],
+      "ignore": false
+    },
+    "jquery-ui": {
+      "main": [
+        "jquery-ui.js"
+      ],
+      "ignore": false
+    },
+    "doubletaptogo": {
+      "main": [
+        "jquery.doubletaptogo.js"
+      ],
+      "ignore": false
+    }
+  }
+}

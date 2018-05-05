@@ -1,0 +1,139 @@
+.filter{
+  $header-title-color:    $theme-main-color;
+  $header-handle-color:   $theme-main-color;
+  $chechbox-label-color:  #000;
+  $item-bg-color:         $theme-secondary-color;
+
+  font-size: 0.9rem;
+  
+  & .disabled{
+    color: $base-font-color-secondary;
+  }
+
+
+
+  &__item{
+    //border: 1px solid $base-border-color;
+    background: $item-bg-color;
+    border-top: 0;
+    padding: 14px 20px;
+    margin-bottom: 3px;
+
+  }
+
+
+
+  /* Header BEGIN */
+  &__header{
+    display: table;
+    width: 100%;
+
+    //make whole header clickable. Using if property has dropDown type
+    &[data-filter-drop-handle]{
+      cursor: pointer;
+    }
+  }
+  &__title{
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: bold;
+    color: $header-title-color;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+  &__handle{
+    position: relative;
+    display: table-cell;
+    width: 20px;
+    text-align: right;
+    vertical-align: middle;
+
+    cursor: pointer;
+
+    &-ico{
+      @extend .fa;
+      display: block;
+      font-size: 25px;
+      color: $header-handle-color;
+      /* to prevent mismatch in title sizes between properties with dropdown and without*/
+      @include position(absolute, -4px 0 null null);               
+
+      &--plus{
+        @extend .fa-angle-right;
+      }
+
+      &--minus{
+        @extend .fa-angle-down;
+      }
+    }
+  }
+  /* END Header */
+
+
+  &__inner{
+    margin-top: .8em;
+
+    &--js-hidden{
+      display: none;
+    }
+    
+    &--scroll{
+      height: 180px;
+      overflow: auto;
+      padding-right: 5px;
+    }
+  }
+
+
+
+  &__checkgroup{
+    display: table;
+
+    &:not(:first-child){
+      padding-top: 3px;
+    }
+
+    &-control{
+      display: table-cell;
+      vertical-align: top;
+      position: relative;
+      top: -2px;      
+    }
+
+    &-title{
+      display: table-cell;
+      vertical-align: top;
+      padding-right: 4px;
+      padding-left: 4px;
+      color: $chechbox-label-color;
+    }
+
+    &-count{
+      display: table-cell;
+      vertical-align: top;
+      color: $base-font-color-secondary;
+      font-size: 0.9em;
+    }
+
+  }
+
+
+
+  &__range{
+
+    &-field{
+      padding-bottom: 15px;
+    }
+
+    &-control{
+      @extend .form-control;
+      @extend .input-sm;
+    }
+
+    &-slider{
+      margin-bottom: 5px;
+    }
+
+  }
+
+}

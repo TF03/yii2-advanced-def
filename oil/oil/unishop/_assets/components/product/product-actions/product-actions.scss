@@ -1,0 +1,65 @@
+.product-actions{
+
+  &__item {
+    @include clearfix;
+    white-space: nowrap;
+    display: inline-block;
+    font-size: 0.9rem;
+
+    &:not(:last-child){
+      padding-right: 25px;
+    }
+  }
+
+  &__ico{
+    float: left;
+    margin-right: 5px;
+
+    &--available{
+      fill: #75b24d;
+      width: 15px;
+      height: 14px;
+    }
+
+    &--unavailable{
+      fill: $product-unavailable-color;
+      width: 10px;
+      height: 10px;
+    }
+
+    &--wishlist{
+      fill: $theme-third-color;
+      width: 16px;
+      height: 15px;
+    }
+
+    &--compare{
+      fill: $theme-third-color;
+      width: 13px;
+      height: 15px;
+    }
+  }
+
+  &__text{
+    float: left;
+
+    &--available{
+      color: $product-available-color;
+    }
+
+    &--unavailable{
+      color: $product-unavailable-color;
+    }
+  }
+
+  &__link {
+    @include link-main;
+    @include link-js;
+    float: left;
+
+    &--open{
+      color: $theme-third-color;
+      border-color: transparent;
+    }
+  }
+}

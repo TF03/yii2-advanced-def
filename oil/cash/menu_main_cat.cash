@@ -1,0 +1,25 @@
+<!-- Main Navigation -->
+<div class="page__mainnav-hor hidden-xs hidden-sm">
+    <div class="page__container">
+        <!-- condition getOpenLevels() == all allows to output mega menu in case of appropriate admin settings -->
+        <nav class="table-nav table-nav--equal">
+            <ul class="table-nav__items">
+
+                
+                <li class="table-nav__item" data-global-doubletap="">
+                    <a class="table-nav__link" href="aromatizatori">
+                        <span class="table-nav__link-helper">Ароматизаторы</span>
+                    </a><nav class="table-nav__drop">
+                        <ul class="tree-nav">
+                        <li class="tree-nav__item">
+                            <a class="tree-nav__link" href="http://oil.191.0.10.10.xip.io/temp-aromatizator/">Ароматизаторы вложенные</a>
+                        </li></ul>
+				</nav></li>
+                <li class="table-nav__item" data-global-doubletap="">
+                    <a class="table-nav__link" href="gotovie-basy">
+                        <span class="table-nav__link-helper">Готовые базы</span>
+                    </a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

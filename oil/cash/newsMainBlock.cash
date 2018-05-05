@@ -1,0 +1,18 @@
+
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						<article class="post post--small">
+							<a class="post__image" href="./news/test-1.html">
+								<img src="http://oil.191.0.10.10.xip.io/uploaded/img/news/1/pp5-2.jpg" alt="test Me" title="test Me"/>
+							</a>
+							<div class="post__inner">
+								<time class="post__date" datetime="2015-04-01">01 Апреля 2015</time>
+								<h3 class="post__title">
+									<a class="post__title-link" href="/news/test-1.html">test Me</a>
+								</h3>
+								<div class="post__desc">
+									<div class="typo typo--sub-color">test Me test Me test Me test Me test Me test Me test Me test Me test Me test Me</div>
+								</div>
+								<a class="post__readmore" href="/news/test-1.html">Подробнее</a>
+							</div>
+						</article>
+					</div>

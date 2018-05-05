@@ -1,0 +1,32 @@
+.star-rating {
+  @include clearfix;
+  display: inline-block;
+  font-size: 1rem;
+
+  &__stars {
+    float: left;
+  }
+
+  &__star {
+    float: left;
+    margin-left: 1px;
+    color: $star-rating-color;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &__votes {
+    float: left;
+    font-size: 0.9em;
+    margin-left: 5px;
+    color: $base-font-color-secondary;
+  }
+
+  &__votes-link{
+    @include link-js;
+    color: $base-font-color-secondary;
+  }
+
+}

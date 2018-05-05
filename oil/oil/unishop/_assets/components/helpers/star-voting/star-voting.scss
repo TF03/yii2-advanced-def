@@ -1,0 +1,35 @@
+.star-voting{
+
+	&__wrap{
+		display: inline-block;
+		font-size: 1rem;
+	}
+
+	&__wrap:after{
+		content: "";
+		display: table;
+		clear: both;
+	}
+	&__ico{
+		float: right;
+		padding-left: 2px;
+		cursor: pointer;
+		color: $star-voting-color;
+	}
+
+	&__ico:last-child{
+		padding-left: 0;
+	}
+
+	&__input{
+		display: none;
+	}
+
+	&__ico:hover:before,
+	&__ico:hover ~ &__ico:before,
+	&__input:checked ~ &__ico:before
+	{
+		content: "\f005";
+	}
+
+}

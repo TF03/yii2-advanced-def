@@ -1,0 +1,149 @@
+.product-photo{
+
+  &__item{
+    display: block;
+    width: 100%;
+    position: relative;
+
+    height: $product-photo-size;
+    max-height: $product-photo-size;
+    text-align: center;
+
+    &--no-photo{
+      @include link-empty;
+    }
+
+    &--main{
+      border: 1px solid $product-photo-border-color;
+    }
+
+    &--xs{
+      width: $product-photo-size-xs;
+      height: $product-photo-size-xs;
+      max-height: $product-photo-size-xs;
+    }
+
+    &--sm{
+      height: $product-photo-size-sm;
+      max-height: $product-photo-size-sm;
+    }
+
+    &--md{
+      height: $product-photo-size-md;
+      max-height: $product-photo-size-md;
+    }
+
+    &--lg{
+      height: $product-photo-size-lg;
+      max-height: $product-photo-size-lg;
+    }
+    
+  }
+
+  &__img{
+    /* use important to override slick slide img display:block rule */
+    display: inline-block !important;
+    max-height: inherit;
+    margin: auto;
+  }
+
+  &__item--main &__img{
+    padding: 10px;
+  }
+
+
+  &__labels{
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &__label{
+    display: block;
+    background-color: $product-label-bg-default;
+    width: 4.3em;
+    height: 2.2em;
+    line-height: 2.3em;
+    font-size: 0.8em;
+    text-align: center;
+    color: #fff;
+    white-space: nowrap;
+
+    &:not(:first-child){
+      margin-top: 1px;
+    }
+
+    &--hit{
+      background-color: $product-label-bg-hit;
+    }
+
+    &--hot{
+      background-color: $product-label-bg-hot;
+    }
+
+    &--action{
+      background-color: $product-label-bg-action;
+    }
+
+    &--discount{
+      background-color: $product-label-bg-discount;
+    }
+  }
+
+  &__thumbs{
+    font-size: 0;
+    margin-top: 5px;
+    margin-left: -10px;
+  }
+
+  &__thumb{
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 10px;
+    padding-top: 10px;
+    width: percentage(1/$product-photo-thumbs-number);
+
+    &-item{
+      position: relative;
+      border: 1px solid $product-photo-border-color;
+      display: block;
+      height: $product-photo-thumb-height;
+      opacity: .5;
+
+      &[data-product-photo-thumb-active]{
+        opacity: 1;
+      }
+    }
+
+    &-img{
+      @include center-absolute;
+      display: block;
+      padding: 5px;
+      max-height: $product-photo-thumb-height;
+    }
+  }
+  
+  &__wrapper{
+    position: relative;
+  }
+  
+  &__zoom{
+    position: absolute;
+    background: #fff;
+    border: 1px solid $product-photo-border-color;
+    top: -1px;
+    bottom: -1px;
+    left: 100%;
+    display: block;
+    z-index: $z-index-m;
+
+    width: 400px;
+    overflow: hidden;
+    
+    &:hover{
+      display: none;
+    }
+  }
+
+
+}

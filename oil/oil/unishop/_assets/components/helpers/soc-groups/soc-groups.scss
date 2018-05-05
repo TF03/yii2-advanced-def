@@ -1,0 +1,44 @@
+.soc-groups{
+	margin-left: -10px;
+	@include clearfix;
+	
+	&__ico{
+		float: left;
+		width: 30px;
+		height: 30px;
+		line-height: 30px;
+		margin-left: 10px;
+		text-align: center;
+		color: #fff;
+		background: #000;
+		text-decoration: none;
+
+		&:hover{
+			color: #fff;			
+		}
+
+		&--vk{
+			background-color: #4c89b8;
+
+			&:hover{
+				background: lighten(#4c89b8, 10%);
+			}
+		}
+		
+		&--fb{
+			background-color: #3b5998;
+
+			&:hover{
+				background: lighten(#3b5998, 10%);
+			}
+		}
+		
+		&--gp{
+			background-color: #dd4b39;
+
+			&:hover{
+				background: lighten(#dd4b39, 10%);
+			}
+		}
+	}
+}

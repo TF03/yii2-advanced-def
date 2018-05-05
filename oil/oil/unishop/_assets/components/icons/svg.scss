@@ -1,0 +1,23 @@
+.svg {
+  display: inline-block;
+
+  &--delete {
+    width: 20px;
+    height: 20px;
+    fill: #c5cdd8;
+
+    &:hover {
+      fill: #9aa1ab;
+    }
+  }
+
+  &--hamburger {
+    fill: #000;
+  }
+  &--hamburger-open{
+    width: 22px;
+  }
+  &--hamburger-close{
+    width: 22px;
+  }
+}
