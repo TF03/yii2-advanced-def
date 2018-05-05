@@ -1,5 +1,7 @@
 <?php
 
+use common\enums\TargetStatusEnum;
+use frontend\models\Targets;
 use common\widgets\Alert;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -32,7 +34,16 @@ $this->params['breadcrumbs'][] = $this->title;
             //'accounts',
             'date',
             'order',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => function ($model) {
+                    /** @var $model Targets */
+                    return TargetStatusEnum::getStatusValue($model->status);
+
+                },
+                'format' => 'html',
+                'filter' => TargetStatusEnum::getStatusList()
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update} {remove}',

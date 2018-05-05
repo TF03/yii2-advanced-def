@@ -3,8 +3,8 @@
 namespace common\models;
 
 use common\behaviors\SetPropertyForTargetsBehavior;
+use common\enums\TargetStatusEnum;
 use common\models\gii\TargetsGii;
-use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
@@ -22,7 +22,7 @@ class Targets extends TargetsGii
     public function rules()
     {
         return ArrayHelper::merge(parent::rules(), [
-
+            ['status', 'in', 'range' => TargetStatusEnum::getStatuses()],
         ]);
     }
 

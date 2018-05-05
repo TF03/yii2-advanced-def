@@ -1,8 +1,10 @@
 <?php
 
+use common\enums\TargetStatusEnum;
 use kartik\date\DatePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Targets */
@@ -41,6 +43,14 @@ $model->date = empty($model->date) ? date('d-m-Y', strtotime(date('d-m-Y') . " +
                 ]
             ]
         ); ?>
+
+    <?php
+    if (!$model->isNewRecord) {
+        echo $form->field($model, 'status')->widget(Select2::classname(), [
+            'data' => TargetStatusEnum::getStatusList()
+        ]);
+    }
+    ?>
 
     <?= $form->field($model, 'order')->textInput([
         'placeholder' => '1, 2.... влияет на сортировку'

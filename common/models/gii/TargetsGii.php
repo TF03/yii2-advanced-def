@@ -55,7 +55,7 @@ class TargetsGii extends \yii\db\ActiveRecord
             'user_id' => 'User',
             'date' => 'К дате',
             'order' => 'Приоритет',
-            'status' => 'Status',
+            'status' => 'Статус',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

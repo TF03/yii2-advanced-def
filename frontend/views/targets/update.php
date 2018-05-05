@@ -6,9 +6,8 @@ use yii\helpers\Html;
 /* @var $model frontend\models\Targets */
 
 $this->title = 'Update Targets: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Targets', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => 'Цели', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Редактирование - ' . $model->name;
 ?>
 <div class="targets-update">
 
