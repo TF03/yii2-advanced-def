@@ -1,0 +1,38 @@
+.banner-group{
+  $group-width:             1440;
+  $left-banner-width:       240;
+  $main-banner-width:       740;
+  $right-banner-width:      460;
+  $banners-height:          250px;
+  $border:                  1px solid $base-border-color;
+
+
+  &__left{
+    border: $border;
+    @media (min-width: $screen-md-min) {
+      border-right: 0;
+    }
+  }
+
+  &__main{
+    border: $border;
+    border-bottom: 0;
+    @media (min-width: $screen-md-min) {
+      border-bottom: $border;
+    }
+  }
+
+  &__right-top{
+    border: $border;
+    border-left: 0;
+    border-bottom: 0;
+  }
+
+  &__right-bot{
+    border: $border;
+    border-left: 0;
+    position: relative;
+    top: -1px;
+  }
+
+}

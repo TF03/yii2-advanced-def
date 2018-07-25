@@ -1,0 +1,78 @@
+.modal {
+  position: relative;
+  margin: 0 auto;
+  width: 90%;
+  max-width: $modal-size;
+  background: #fff;
+
+  /* Modal elements */
+  &__header {
+    position: relative;
+    padding: 15px $modal-hor-padding;
+    background: $modal-bg;
+    border-bottom: 1px solid $modal-border;
+
+    &-title {
+      font-size: 21px;
+      line-height: 1;
+      color: $modal-color;
+      padding-right: 20px;
+    }
+
+    &-close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 62px;
+      cursor: pointer;
+      border-left: 1px solid $modal-border;
+    }
+    &-close-ico{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -8px 0 0 -8px;
+      fill: $base-font-color-secondary;
+      width: 16px;
+      height: 16px;
+    }
+
+  }
+
+  &__content {
+    padding: 15px $modal-hor-padding;
+
+    &-cell {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__footer {
+    text-align: right;
+    padding: 15px $modal-hor-padding;
+    background: $modal-bg;
+    border-top: 1px solid $modal-border;
+
+    &-row {
+      &:not(:first-child) {
+        margin-top: 20px;
+      }
+    }
+
+    &-btn {
+      display: inline-block;
+      margin-left: 15px;
+    }
+  }
+
+  /* Modal modifiers */
+  &--sm {
+    max-width: $modal-size-sm;
+  }
+
+  &--lg {
+    max-width: $modal-size-lg;
+  }
+
+}

@@ -1,7 +1,0 @@
-AuthType Basic
-AuthName "/www/kosmetos.vash-malysh.com/webstat"
-AuthUserFile /var/www/p137356/data/etc/19008780.passwd
-DirectoryIndex index.html
-<Limit GET POST>
-	require valid-user
-</Limit>
