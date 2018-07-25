@@ -52,7 +52,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 		#share synced_folder via nfs for Mac nd Linux
         if host_os =~ /linux/ or host_os =~ /darwin/
-			yii2advanced.vm.synced_folder "/var/www/yii2-advanced", "/var/www/yii2-advanced", type: "nfs", version: 3, nfs_udp: 1
+			yii2advanced.vm.synced_folder "/var/www/yii2-advanced", "/var/www/yii2-advanced", type: "nfs", version: 3, nfs_udp: 0
         else
 			yii2advanced.vm.synced_folder "/var/www/yii2-advanced", "/var/www/yii2-advanced", owner: "www-data", group: "www-data"
         end
