@@ -199,7 +199,7 @@ $this->title = 'EasyBudget';
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    EasyBudget Corporation <?= date('Y'); ?>
+                    EasyBudget Corporation 2016-<?= date('Y'); ?>
                 </div>
             </div>
         </div>
