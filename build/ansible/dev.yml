@@ -6,15 +6,15 @@
   roles:
     - initial
     - common
-    - ntpd
-    - php-ubuntu
+#    - ntpd
+#    - php-ubuntu
     - nginx
-    - phpredis
-    - redis
-    - memcached
-    - mysql
-    - phpmyadmin
-    - adminer
+#    - phpredis
+#    - redis
+#    - memcached
+#    - mysql
+#    - phpmyadmin
+#    - adminer
     #- update_config
     #- migrate
     - after_update
