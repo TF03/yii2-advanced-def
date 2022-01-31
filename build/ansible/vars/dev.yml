@@ -105,7 +105,7 @@ nginx_ssl_vhosts: []
 frontendDomain: frontend.191.0.10.10.xip.io
 #backendDomain: backend.191.0.10.10.xip.io
 
-mysql_bind_address: 127.0.0.1
+mysql_bind_address: localhost
 mysql_root_pass: yii2
 
 mysql_app_user: yii2advanced

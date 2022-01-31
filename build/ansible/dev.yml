@@ -4,16 +4,16 @@
   vars_files:
     - "vars/dev.yml"
   roles:
-#    - initial
-#    - ntpd
+    - initial
+    - ntpd
     - php-ubuntu
-#    - nginx
-#    - redis
-#    - phpredis
+    - nginx
+    - redis
+    - phpredis
 ##    - memcached
-#    - mysql
-#    - phpmyadmin
-#    - adminer
+    - mysql
+    - phpmyadmin
+    - adminer
     - composer
 #    - update_config
 #    - migrate

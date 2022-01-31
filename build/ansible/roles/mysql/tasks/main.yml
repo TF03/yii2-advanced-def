@@ -6,8 +6,6 @@
   with_items:
       - mysql-client
       - mysql-server
-      - python-psycopg2
-      - libpq-dev
       - python-mysqldb
 
 - name: ensure MySQL is installed
@@ -34,9 +32,6 @@
   command: mysql -u root --execute="ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '"{{ mysql_root_pass }}"';"
   when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "18.04"
   ignore_errors: yes
-
-- name: remove the MySQL test database
-  mysql_db: name=test state=absent login_user=root login_password={{ mysql_root_pass }}
 
 - name: add mysql app user
   mysql_user: name="{{ mysql_app_user }}" password="{{ mysql_app_pass }}" priv=*.*:ALL state=present login_user=root login_password="{{ mysql_root_pass }}"

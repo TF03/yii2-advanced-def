@@ -12,6 +12,12 @@
     "irc": "irc://irc.freenode.net/yii",
     "source": "https://github.com/yiisoft/yii2"
   },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
   "minimum-stability": "stable",
   "require": {
     "ext-json": "*",
@@ -43,11 +49,17 @@
       "enabled": false,
       "installer-paths": {
         "npm-asset-library": "vendor/npm",
-        "bower-asset-library": "vendor/bower"
+        "bower-asset-library": "vendor/yidas/yii2-bower-asset/bower"
       }
     },
     "allow-plugins": {
       "yiisoft/yii2-composer": true
+    }
+  },
+  "extra": {
+    "asset-installer-paths": {
+      "npm-asset-library": "vendor/npm",
+      "bower-asset-library": "vendor/yidas/yii2-bower-asset/bower"
     }
   }
 }

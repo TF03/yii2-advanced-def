@@ -7,7 +7,7 @@ use Yii;
 
 class ConfirmAlertAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/bower/bootbox';
+//    public $sourcePath = '@vendor/bower/bootbox';
     public $js = [
         'bootbox.js',
     ];

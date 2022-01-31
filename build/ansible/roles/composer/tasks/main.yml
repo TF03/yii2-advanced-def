@@ -23,6 +23,10 @@
   shell: chmod a+x /usr/local/bin/composer
   when: composer_installed == '0'
 
+- name: require global fxp/composer-asset-plugin
+  shell: composer global require "{{ composer_global_require }}"
+  when: composer_installed == '0' and composer_global_require != ""
+
 - name: make composer self-update
   shell: composer self-update
   when: composer_installed == '1'
