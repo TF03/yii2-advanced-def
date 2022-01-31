@@ -1,6 +1,29 @@
 ---
+- set_fact: adminer_installed=0
+- set_fact: installed_correct_adminer_version=0
+
+- name: determine current adminer version
+  shell: cat "{{ adminer_path }}"/index.php | grep @version | awk -F '@version' '{print$2}' |  tr -d '[:space:]'
+  register: current_adminer_version
+
+- set_fact: adminer_installed=1
+  when: not current_adminer_version.stderr
+
+- set_fact: installed_correct_adminer_version=1
+  when: current_adminer_version.stdout == adminer_ver
+
+- stat: path="{{ adminer_path }}"
+  register: adminer_dir_exists
+
 - name: prepare dir for Adminer
-  shell: mkdir /usr/share/adminer -p
+  file: path="{{ adminer_path }}" state=directory
+  when: not adminer_dir_exists.stat.exists
 
 - name: download Adminer
-  get_url: dest=/usr/share/adminer/index.php mode=0644 url=http://downloads.sourceforge.net/project/adminer/Adminer/Adminer%204.1.0/adminer-4.1.0.php?r=http%3A%2F%2Fwww.adminer.org%2F&ts=1401954975&use_mirror=garr
+  get_url: dest="{{ adminer_path }}/index.php" mode=0644 url="https://github.com/vrana/adminer/releases/download/v{{ adminer_ver }}/adminer-{{ adminer_ver }}.php" force=yes
+  when: installed_correct_adminer_version == '0'
+
+- name: download Adminer css theme
+  get_url: dest="{{ adminer_path }}/adminer.css" mode=0644 url="{{ adminer_css_theme_url }}"
+  when: (adminer_css_theme_url is defined)
+  ignore_errors: true

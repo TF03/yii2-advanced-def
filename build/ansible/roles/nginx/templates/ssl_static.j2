@@ -13,11 +13,29 @@ server
 server
 {
     server_name www.{{ item.server_name }};
+    {% if (item.basic_auth is defined) and (item.basic_auth is sameas true) %}
+        auth_basic "Restricted";
+        auth_basic_user_file {{ nginx_http_basic_auth_file }};
+    {% endif %}
 
-	ssl_certificate    {{ ssl_certs_folder }}{{ ssl_certificate_file }};
-	ssl_certificate_key {{ ssl_certs_folder }}{{ ssl_certificate_key_file }};
-	ssl_protocols       SSLv3 TLSv1 TLSv1.1 TLSv1.2;
-	ssl_ciphers         HIGH:!aNULL:!MD5;
+    include enable/ssl.conf;
+    {% if (item.path_to_ssl_certificate_file is defined) %}
+        ssl_certificate    {{ item.path_to_ssl_certificate_file }};
+	{% else %}
+        ssl_certificate    {{ nginx_certs_folder }}{{ item.ssl_certificate_file }};
+    {% endif %}
+
+    {% if (item.path_to_ssl_certificate_key_file is defined) %}
+        ssl_certificate_key    {{ item.path_to_ssl_certificate_key_file }};
+    {% else %}
+        ssl_certificate_key {{ nginx_certs_folder }}{{ item.ssl_certificate_key_file }};
+    {% endif %}
+
+    {% if (item.path_to_ssl_dhparam_file is defined) %}
+        ssl_dhparam    {{ item.path_to_ssl_dhparam_file }};
+	{% else %}
+        ssl_dhparam    {{ nginx_certs_folder }}{{ item.ssl_dhparam_file }};
+    {% endif %}
 
     include     ports/ssl.conf;
     return      301 https://{{ item.server_name }}$request_uri;
@@ -27,10 +45,27 @@ server
     server_name {{ item.server_name }};
     root        {{ item.root }};
 
-	ssl_certificate    {{ ssl_certs_folder }}{{ ssl_certificate_file }};
-	ssl_certificate_key {{ ssl_certs_folder }}{{ ssl_certificate_key_file }};
-    ssl_protocols       SSLv3 TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers         HIGH:!aNULL:!MD5;
+    include enable/ssl.conf;
+    {% if (item.path_to_ssl_certificate_file is defined) %}
+        ssl_certificate    {{ item.path_to_ssl_certificate_file }};
+	{% else %}
+        ssl_certificate    {{ nginx_certs_folder }}{{ item.ssl_certificate_file }};
+    {% endif %}
+
+    {% if (item.path_to_ssl_certificate_key_file is defined) %}
+        ssl_certificate_key    {{ item.path_to_ssl_certificate_key_file }};
+    {% else %}
+        ssl_certificate_key {{ nginx_certs_folder }}{{ item.ssl_certificate_key_file }};
+    {% endif %}
+
+    {% if (item.path_to_ssl_dhparam_file is defined) %}
+        ssl_dhparam    {{ item.path_to_ssl_dhparam_file }};
+	{% else %}
+        ssl_dhparam    {{ nginx_certs_folder }}{{ item.ssl_dhparam_file }};
+    {% endif %}
+
+    error_log  /var/log/nginx/{{ item.server_name }}/error.log;
+    access_log /var/log/nginx/{{ item.server_name }}/access.log;
 
     include         ports/ssl.conf;
 	include         limits/methods_static.conf;

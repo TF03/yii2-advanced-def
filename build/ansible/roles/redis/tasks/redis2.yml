@@ -1,0 +1,19 @@
+- name: create Redis2 working directory
+  file:
+    path: /var/lib/redis2
+    state: directory
+    owner: "{{redis_user}}"
+    group: "{{redis_user}}"
+
+- name: copy Redis2 config
+  template: src="redis2.conf.j2" dest=/etc/redis/redis2.conf owner={{redis_user}} group={{redis_user}} mode=0644
+
+- name: configure systemd for Redis 2
+  template: src="systemd_redis2.j2" dest=/etc/systemd/system/redis2.service
+
+- name: be sure Redis 2 is running
+  systemd:
+    name: redis2.service
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

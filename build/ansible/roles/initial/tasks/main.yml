@@ -1,12 +1,14 @@
+---
+# tasks file for initial
+
 - name: set hostname
-  shell: hostname {{ hostname }}
+  shell: hostname "{{ hostname }}"
+  ignore_errors: yes
 
 - name: Update apt cache
-  sudo: yes
+  become: yes
   apt: update_cache=yes
 
-- name: a bit of locale magic
-  shell: "{{ item }}"
-  with_items:
-    - locale-gen en_US.UTF-8
-    - export LANG=en_US.UTF-8
+- name: be sure system packages are installed
+  apt: pkg="{{ item }}" state=present
+  with_items: "{{ packages }}"

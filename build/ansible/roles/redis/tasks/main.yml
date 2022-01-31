@@ -2,7 +2,7 @@
 - set_fact: installed_correct_redis_version=0
 
 - name: be sure required packages are installed
-  apt: pkg={{ item }} state=present
+  apt: pkg="{{ item }}" state=present
   with_items:
     - make
     - gcc
@@ -19,30 +19,46 @@
   when: current_redis_version.stdout == redis_version
 
 - name: download Redis
-  shell: creates=/tmp/redis-{{ redis_version }}.tar.gz wget -O - http://download.redis.io/releases/redis-{{ redis_version }}.tar.gz | tar -xz -C /tmp
+  shell: creates="/tmp/redis-{{ redis_version }}.tar.gz" wget -O - "http://download.redis.io/releases/redis-{{ redis_version }}.tar.gz" | tar -xz -C /tmp
   when: installed_correct_redis_version == '0'
 
 - name: install Redis
-  shell: cd /tmp/redis-{{ redis_version }} && make install
+  shell: cd "/tmp/redis-{{ redis_version }}" && make install
   when: installed_correct_redis_version == '0'
 
 - name: create user redis
-  user: name=redis system=yes home=/var/lib/redis shell=/bin/false
+  user: name={{redis_user}} system=yes home={{redis_dir}} shell=/bin/false
 
 - name: create Redis pid file directory
-  shell: creates=/var/run/redis/ mkdir /var/run/redis/ -p && chown redis:redis /var/run/redis/
+  shell: creates={{redis_pid_dir}} mkdir {{redis_pid_dir}} -p && chown {{redis_user}}:{{redis_user}} {{redis_pid_dir}}
 
 - name: create Redis config directory
-  shell: creates=/etc/redis mkdir /etc/redis && chown redis:redis /etc/redis -Rf
+  shell: creates=/etc/redis mkdir /etc/redis && chown {{redis_user}}:{{redis_user}} /etc/redis -Rf
 
 - name: create Redis logs directory
-  shell: creates=/var/log/redis/ mkdir /var/log/redis/ -p && chown redis:redis /var/log/redis/ -Rf
+  shell: creates={{redis_logdir}} mkdir {{redis_logdir}} -p && chown {{redis_user}}:{{redis_user}} {{redis_logdir}} -Rf
 
 - name: copy Redis config
-  template: src=redis.conf.j2 dest=/etc/redis/redis.conf owner=redis group=redis mode=0644
+  template: src="{{ redis_conf_src_file }}" dest=/etc/redis/redis.conf owner={{redis_user}} group={{redis_user}} mode=0644
 
 - name: configure Upstart for Redis
-  template: src=upstart_redis.conf.j2 dest=/etc/init/redis.conf
+  template: src="{{ redis_upstart_src_file }}" dest=/etc/init/redis.conf
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "14.04"
 
 - name: be sure redis is running and enabled
   service: name=redis state=restarted enabled=yes
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "14.04"
+
+- name: configure systemd for Redis
+  template: src="{{ redis_systemd_src_file }}" dest=/etc/systemd/system/redis.service
+  when: ansible_distribution == "Ubuntu" and (ansible_distribution_version == "16.04" or ansible_distribution_version == "18.04")
+
+- name: be sure redis is running
+  systemd:
+    name: redis.service
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  when: ansible_distribution == "Ubuntu" and (ansible_distribution_version == "16.04" or ansible_distribution_version == "18.04")
+
+- include: redis2.yml

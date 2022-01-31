@@ -1,1 +1,32 @@
-redis_version: 2.8.19
+---
+# defaults file for redis
+
+redis_conf_src_file: redis.conf.j2 # Path of a Jinja2 formatted template on the local server. This can be a relative or absolute path.
+redis_upstart_src_file: upstart_redis.conf.j2 # Path of a Jinja2 formatted template on the local server. This can be a relative or absolute path.
+redis_systemd_src_file: systemd_redis.j2
+redis_version: 5.0.4
+redis_bind: "127.0.0.1"
+redis_port: 6379
+redis_user: redis
+redis_tcp_backlog: 511
+redis_daemonize: "yes"
+redis_supervised: "no"
+redis_pid_dir: "/var/run/redis"
+redis_pid_file: "{{redis_pid_dir}}/redis_6379.pid"
+redis_loglevel: "notice"
+redis_logdir: "/var/log/redis"
+redis_logfile: "{{redis_logdir}}/redis.log"
+redis_databases: 16
+redis_rdbcompression: "yes"
+redis_rdbchecksum: "yes"
+redis_dbfilename: "dump.rdb"
+redis_dir: "/var/lib/redis"
+redis_maxclients: 10000
+redis_maxmemory: 536870912 #512Mb
+redis_maxmemory_policy: "noeviction"
+redis_maxmemory_samples: 5
+
+redis2_port: 6380
+redis2_pid_file: "{{redis_pid_dir}}/redis_6380.pid"
+redis2_logfile: "{{redis_logdir}}/redis2.log"
+redis2_dir: "/var/lib/redis2"

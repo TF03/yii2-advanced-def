@@ -1,6 +1,6 @@
 server
 {
-    server_name _;
+    server_name "";
     root        {{ item.root }};
     set $yii_bootstrap "index.php";
 
@@ -11,6 +11,12 @@ server
 	include         locations/static.conf;
     include         locations/php.conf;
 
+
+    {% if (item.basic_auth is defined) and (item.basic_auth is sameas true) %}
+    auth_basic "Restricted";
+    auth_basic_user_file {{ nginx_http_basic_auth_file }};
+    {% endif %}
+
     ########## Your custom locations & settings ##########
 	location / {
 		index  index.html $yii_bootstrap;
@@ -19,6 +25,8 @@ server
 
 	location ~ ^/(protected|framework|themes/\w+/views) {
 		deny  all;
+        access_log off;
+        log_not_found off;
 	}
 
 	#avoid processing of calls to unexisting static files by yii

@@ -1,0 +1,15 @@
+[Unit]
+Description=Redis 2 Server
+After=network.target
+
+[Service]
+Type=forking
+User=redis
+Group=redis
+ExecStart=/usr/local/bin/redis-server /etc/redis/redis2.conf
+ExecReload=/bin/kill -USR2 $MAINPID
+ExecStop=/bin/kill -9 $MAINPID
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,29 @@
+vm:
+  boot_timeout: 300
+  box: "ubuntu/bionic64"
+  box_url: "https://vagrantcloud.com/ubuntu/boxes/bionic64/versions/20190514.0.0/providers/virtualbox.box"
+  #box_url: "https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64-vagrant.box"
+  check_update: false
+  cpus: "auto"
+  memory: "1024"  # "auto" For autodetect (1/4 system memory)
+  cpuexecutioncap: "50"
+  name: "yii2MyBudget"
+sync:
+  synced_folder: "." # or "/var/www/<project-name>"
+  vagrant_folder: "/var/www/yii2-advanced" # or "/var/www/<project-name>"
+  second_synced_folder: ""
+  second_vagrant_folder: ""
+network:
+  private_ip: "191.0.10.10"
+  http_port: 8008
+host:
+  name: "191.0.10.10.xip.io"
+  aliases: [
+    "frontend.191.0.10.10.xip.io",
+    "backend.191.0.10.10.xip.io",
+    "adminer.191.0.10.10.xip.io",
+    "db.191.0.10.10.xip.io",
+  ]
+ansible:
+  playbook: "build/ansible/dev.yml"
+  inventory_path: "build/ansible/dev"

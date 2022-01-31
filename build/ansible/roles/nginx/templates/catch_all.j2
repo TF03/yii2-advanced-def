@@ -1,4 +1,9 @@
 server {
+
+    if ($bad_client) {
+      return 403;
+    }
+
 	include         ports/http_default.conf;
 	include         limits/methods.conf;
 	include         locations/favicon.conf;
@@ -6,6 +11,10 @@ server {
 	include         locations/static.conf;
 	include         locations/php.conf;
 
-	server_name _;
+	server_name "";
 	root {{ item.root }};
+    {% if (item.basic_auth is defined) and (item.basic_auth is sameas true) %}
+        auth_basic "Restricted";
+        auth_basic_user_file {{ nginx_http_basic_auth_file }};
+    {% endif %}
 }

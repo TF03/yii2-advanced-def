@@ -1,5 +1,5 @@
-- name: service php5-fpm restart
-  service: name=php5-fpm state=restarted
+- name: restart php-fpm
+  service: name="php{{ php_v }}-fpm" state=restarted
 
 - name: service nginx restart
   service: name=nginx state=restarted
@@ -10,3 +10,4 @@
 - name: Clear redis cache
   sudo: yes
   shell: redis-cli flushall
+

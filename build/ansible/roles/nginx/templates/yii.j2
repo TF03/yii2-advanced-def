@@ -1,23 +1,25 @@
 server
 {
+    if ($bad_client) {
+      return 403;
+    }
+
     include     ports/http.conf;
     server_name www.{{ item.server_name }};
     return      301 http://{{ item.server_name }}$request_uri;
 }
 server
 {
+    if ($bad_client) {
+      return 403;
+    }
+
     server_name {{ item.server_name }};
     root        {{ item.root }};
     set $yii_bootstrap "index.php";
 
-    error_page 404 = /;
-
-    location ~ ^/(resources) {
-        root   {{ git_clone_folder }};
-        fastcgi_param  SCRIPT_FILENAME  {{ git_clone_folder }}/$fastcgi_script_name;
-        include fastcgi_params;
-        break;
-    }
+    error_log  /var/log/nginx/{{ item.server_name }}/error.log;
+    access_log /var/log/nginx/{{ item.server_name }}/access.log;
 
     include         ports/http.conf;
     include         limits/methods.conf;
@@ -25,6 +27,11 @@ server
     include         locations/favicon_apple.conf;
 	include         locations/static.conf;
     include         locations/php.conf;
+
+    {% if (item.basic_auth is defined) and (item.basic_auth is sameas true) %}
+    auth_basic "Restricted";
+    auth_basic_user_file {{ nginx_http_basic_auth_file }};
+    {% endif %}
 
     ########## Your custom locations & settings ##########
 	location / {
@@ -34,6 +41,8 @@ server
 
 	location ~ ^/(protected|framework|themes/\w+/views) {
 		deny  all;
+		access_log off;
+        log_not_found off;
 	}
 
 	#avoid processing of calls to unexisting static files by yii
@@ -42,7 +51,7 @@ server
 	}
 
 	# prevent nginx from serving dotfiles (.htaccess, .svn, .git, etc.)
-	location ~ /\.(htaccess|svn|git|main.testhtaccess) {
+	location ~ /\. {
 		deny all;
 		access_log off;
 		log_not_found off;
