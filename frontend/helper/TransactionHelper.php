@@ -295,15 +295,18 @@ class TransactionHelper extends BaseHelper
                 . $amountTransfer . '</div>';
     }
 
+    /**
+     * @param Transaction[] $models
+     * @return array
+     */
     public static function getTotalAmountsByPeriod($models)
     {
         $totalAmounts = [];
 
         foreach ($models as $model) {
-            /** @var Transaction $model */
             if ($model->type_id != self::TYPE_TRANSFER) {
                 if (isset($totalAmounts[$model->type_id][$model->account->currencyId])) {
-                    $totalAmounts[$model->type_id][$model->account->currencyId] = $totalAmounts[$model->type_id][$model->account->currencyId] + $model->total;
+                    $totalAmounts[$model->type_id][$model->account->currencyId] += $model->total;
                 } else {
                     $totalAmounts[$model->type_id][$model->account->currencyId] = $model->total;
                 }

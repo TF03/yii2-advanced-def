@@ -14,6 +14,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'month_limit')->textInput([
+        'maxlength' => true,
+        'placeholder' => 'Не больше какой суммы хотите тратить?'
+    ]) ?>
+
     <?= $form->field($model, 'user_id', [
         'template' => "{input}",
     ])->hiddenInput(['value' => Yii::$app->getUser()->id])->label('')->error(false) ?>

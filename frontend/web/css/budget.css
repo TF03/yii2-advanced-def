@@ -939,3 +939,58 @@ ul.total-transactions > li .label-type-transaction {
     text-decoration: underline;
     margin-right: 10px;
 }
+
+label.label-category-limits {
+    font-weight: bold;
+    color: #616161;
+    margin-left: 15px;
+    padding-top: 12px;
+}
+
+ul.total-category-limits {
+    left: 25px;
+    list-style: none;
+}
+
+ul.total-category-limits > li {
+    margin: 0 3px 0 -35px;
+    padding: 2px 2px 2px 5px;
+    font-size: 12px;
+}
+
+ul.total-category-limits > li.no-debt {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    margin-bottom: 5px;
+}
+
+ul.total-category-limits > li.no-debt span.info-category-limits {
+    color: #468847;
+    margin-bottom: 5px;
+}
+
+ul.total-category-limits > li.debt {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    margin-bottom: 5px;
+}
+
+ul.total-category-limits > li.debt span.info-category-limits {
+    color: #b94a48;
+}
+
+ul.total-category-limits > li > span.title-category-limits {
+    display: flex;
+}
+
+ul.total-category-limits > li > span.info-category-limits {
+    display: flow-root;
+}
+
+ul.total-category-limits > li span.info-category-limits-title {
+    float: left;
+}
+
+ul.total-category-limits > li span.info-category-limits-limit {
+    float: right;
+}

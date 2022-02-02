@@ -20,6 +20,7 @@ use yii\widgets\Pjax;
  * @var $activeIncome boolean
  * @var $activeExpense boolean
  * @var $filterEnable boolean
+ * @var $categoryLimits array
  */
 
 $this->title = 'Операции';
@@ -63,6 +64,31 @@ $this->registerJsFile('/js/frontend/views/transaction/transaction-index.js', ['d
                 ?>
                 </ul>
             </div>
+
+            <?php if($categoryLimits) { ?>
+            <div class="row category-limits">
+                <label class="label-category-limits">Лимиты по категориям</label>
+                <ul class="total-category-limits">
+                <?php
+                foreach($categoryLimits as $categoryLimit) {
+                    $totalCategory = $categoryLimit['total'];
+                    $monthLimit = $categoryLimit['month_limit'];
+                ?>
+                    <li class="<?= ($totalCategory > $monthLimit) ? 'debt' : 'no-debt'?>">
+                        <span class="title-category-limits"><?= $categoryLimit['title'] ?></span>
+                        <span class="info-category-limits">
+                            <span class="info-category-limits-title">
+                                <?= number_format($totalCategory, 2, '.', ' ') . ' ' . $categoryLimit['currency']?>
+                            </span>
+                            <span class="info-category-limits-limit">
+                                <?= number_format($monthLimit, 0, '.', ' ') . ' ' . $categoryLimit['currency']?>
+                            </span>
+                        </span>
+                    </li>
+                <?php } ?>
+                </ul>
+            </div>
+            <?php } ?>
         </div>
         <div class="col-md-10">
             <div class="col-md-2 transaction-buttons">

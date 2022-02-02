@@ -2,6 +2,7 @@
 
 namespace frontend\models\search;
 
+use common\enums\PeriodFilterEnum;
 use common\models\Transaction2Category;
 use frontend\helper\TransactionHelper;
 use Yii;
@@ -113,18 +114,15 @@ class TransactionSearch extends Transaction
         $period = Yii::$app->request->get('period');
         if (isset($period)) {
             switch($period) {
-                case 'today':
+                case PeriodFilterEnum::TODAY:
                     $today = Yii::$app->getFormatter()->asDate('now', "php:Y-m-d");
                     $query->andFilterWhere(['like', 'date', $today]);
                     break;
-                case 'yesterday':
+                case PeriodFilterEnum::YESTERDAY:
                     $yesterday = date('Y-m-d', strtotime(date('Y-m-d') . " - 1 day"));
                     $query->andFilterWhere(['like', 'date', $yesterday]);
                     break;
-                case 'current_month':
-                    $query = $this->setDefaultPeriod($query);
-                    break;
-                case 'custom':
+                case PeriodFilterEnum::CUSTOM:
                     $periodFrom = Yii::$app->request->get('periodFrom');
                     if (empty($periodFrom)) {
                         $periodFrom = Yii::$app->getFormatter()->asDate('now', "php:Y-m-d");
@@ -145,8 +143,9 @@ class TransactionSearch extends Transaction
                     }
 
                     break;
-                case 'all':
+                case PeriodFilterEnum::ALL:
                     break;
+                case PeriodFilterEnum::CURRENT_MONTH:
                 default:
                     $query = $this->setDefaultPeriod($query);
                     break;

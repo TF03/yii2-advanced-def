@@ -31,14 +31,14 @@ foreach ($modelAll as $model) {
           ],
           'pluginEvents' => [
               "switchChange.bootstrapSwitch" => 'function(event, state) {
-                                                    $.ajax({
-                                                            url: "' . Yii::$app->urlManager->createUrl(["category/hidden-category", 'id' => $model->id]) . '",
-                                                            type: "post",
-                                                            data: {"value": +state},
-                                                            cache: false,
-                                                            success: function(data) {}
-                                                    });
-                                                }',
+                    $.ajax({
+                            url: "' . Yii::$app->urlManager->createUrl(["category/hidden-category", 'id' => $model->id]) . '",
+                            type: "post",
+                            data: {"value": +state},
+                            cache: false,
+                            success: function(data) {}
+                    });
+                }',
           ]
     ]);
 
@@ -54,9 +54,13 @@ foreach ($modelAll as $model) {
         ]);
     }
 
+    $monthLimit = $model->month_limit != 0
+        ? ' <b><i>(Месячный лимит: ' . number_format($model->month_limit, 2, '.', ' ') . ')</i></b>'
+        : '';
+
     $list[] = [
         'content' => '
-                        <div class="col-md-8">' . $model->title . '</div>
+                        <div class="col-md-8">' . $model->title . $monthLimit . '</div>
                         <div class="col-md-2">' . $switch . '</div>
                         <div class="col-md-2">' .
                                 Html::a('', Yii::$app->urlManager->createUrl(['category/edit', 'id' => $model->id]), [

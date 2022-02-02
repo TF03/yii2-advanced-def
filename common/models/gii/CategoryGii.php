@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
  * @property integer $base_category_id
  * @property integer $status
  * @property integer $position
+ * @property integer $month_limit
  */
 class CategoryGii extends ActiveRecord
 {
@@ -32,7 +33,7 @@ class CategoryGii extends ActiveRecord
     {
         return [
             [['title', 'user_id'], 'required'],
-            [['user_id', 'base_category_id', 'status', 'position'], 'integer'],
+            [['user_id', 'base_category_id', 'status', 'position', 'month_limit'], 'integer'],
             ['status', 'in', 'range' => [1, 2, 3]],
             [['title'], 'string', 'max' => 255],
             [['title', 'user_id'], 'unique', 'targetAttribute' => ['title', 'user_id'], 'message' => 'Категория с таким название уже есть.']
@@ -51,6 +52,7 @@ class CategoryGii extends ActiveRecord
             'base_category_id' => 'Base Category ID',
             'status' => 'Status',
             'position' => 'Position',
+            'month_limit' => 'Месячный лимит',
         ];
     }
 }

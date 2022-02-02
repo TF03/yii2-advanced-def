@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\helper\CategoryHelper;
 use frontend\models\forms\TransferForm;
 use frontend\models\search\TransactionSearch;
 use frontend\helper\TransactionHelper;
@@ -182,7 +183,8 @@ class TransactionController extends FrontendController
 
         return $this->render('index', ArrayHelper::merge([
                 'dataProvider' => $dataProvider,
-                'totalAmounts' => TransactionHelper::getTotalAmountsByPeriod($dataProviderForTotal->models)
+                'totalAmounts' => TransactionHelper::getTotalAmountsByPeriod($dataProviderForTotal->models),
+                'categoryLimits' => CategoryHelper::getCategoryLimitsByPeriod()
             ], $extraOptions)
         );
     }

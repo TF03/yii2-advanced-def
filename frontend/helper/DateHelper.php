@@ -8,30 +8,31 @@ class DateHelper
 {
     public static function getDateByPeriod($period, $startPeriod = false)
     {
-        $date = Yii::$app->getFormatter()->asDate('now', "php:d-m-Y");
-
+        $date = self::getNowDate("php:d-m-Y");
         if (isset($period)) {
             switch($period) {
-                case 'today':
-                    $date = Yii::$app->getFormatter()->asDate('now', "php:d-m-Y");
-                    break;
                 case 'yesterday':
                     $date = date('d-m-Y', strtotime(date('d-m-Y') . " - 1 day"));
                     break;
                 case 'current_month':
                     if ($startPeriod) {
-                        $date = Yii::$app->getFormatter()->asDate('now', "php:01-m-Y");
+                        $date = self::getNowDate("php:01-m-Y");
                     } else {
-                        $date = Yii::$app->getFormatter()->asDate('now', "php:t-m-Y");
+                        $date = self::getNowDate("php:t-m-Y");
                     }
                     break;
+                case 'today':
                 case 'all':
-                    break;
                 default:
                     break;
             }
         }
 
         return $date;
+    }
+
+    public static function getNowDate(string $format = "php:Y-m-d"): string
+    {
+        return Yii::$app->getFormatter()->asDate('now', $format);
     }
 }
