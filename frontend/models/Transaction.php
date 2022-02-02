@@ -16,7 +16,7 @@ class Transaction extends \common\models\Transaction
     {
         return parent::find()
             ->andWhere([
-                           'user_id' => Yii::$app->getUser()->id
+                           'transaction.user_id' => Yii::$app->getUser()->id
                        ]);
     }
 

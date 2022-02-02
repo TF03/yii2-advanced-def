@@ -16,13 +16,10 @@ class StatusHelper extends BaseHelper
 
     public static function getValueForHtml($key)
     {
-        if (self::STATUS_AVAILABLE == $key)
-            return 1;
-        else
-            return 0;
+        return (int) (self::STATUS_AVAILABLE == $key);
     }
 
-    public static function getChangeStatus($key)
+    public static function swapStatus($key)
     {
         switch ($key) {
             case self::STATUS_AVAILABLE:

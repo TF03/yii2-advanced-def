@@ -2,20 +2,20 @@
 
 namespace common\behaviors;
 
+use common\models\Transaction;
 use frontend\helper\TransactionHelper;
 use frontend\models\Accounts;
-use yii;
+use stdClass;
 use yii\base\Behavior;
 use yii\db\AfterSaveEvent;
 use yii\db\BaseActiveRecord;
-use stdClass;
 
 /**
  * Class ChangeTransactionBehavior
  *
  * @package common\behaviors
  *
- * @property \common\models\Transaction $owner
+ * @property Transaction $owner
  */
 class ChangeTransactionBehavior extends Behavior
 {
@@ -36,7 +36,7 @@ class ChangeTransactionBehavior extends Behavior
      */
     public function calculateAccountAndDeleteTransaction2CategoryAmount()
     {
-        /** @var \common\models\Transaction $model */
+        /** @var Transaction $model */
         $model = $this->owner;
         $this->_deleteTransaction2Category($model);
         $this->_calculateAccountAmount($model);
@@ -47,7 +47,7 @@ class ChangeTransactionBehavior extends Behavior
      */
     public function recalculateAmountForAccountAfterInsert(AfterSaveEvent $event)
     {
-        /** @var \common\models\Transaction $model */
+        /** @var Transaction $model */
         $model = $this->owner;
 
         /** @var Accounts $account */
@@ -88,7 +88,7 @@ class ChangeTransactionBehavior extends Behavior
      */
     public function recalculateAmountForAccountAfterUpdate(AfterSaveEvent $event)
     {
-        /** @var \common\models\Transaction $model */
+        /** @var Transaction $model */
         $model = $this->owner;
 
         $oldTransactionAmount = isset($event->changedAttributes['total']) ? $event->changedAttributes['total'] : $model->total;
@@ -126,7 +126,7 @@ class ChangeTransactionBehavior extends Behavior
     }
 
     /**
-     * @param $model \common\models\Transaction
+     * @param $model Transaction
      */
     private function _calculateAccountAmount($model)
     {
@@ -219,7 +219,7 @@ class ChangeTransactionBehavior extends Behavior
     }
 
     /**
-     * @param $model \common\models\Transaction
+     * @param $model Transaction
      */
     private function _deleteTransaction2Category($model)
     {

@@ -122,7 +122,7 @@ class CategoryController extends FrontendController
     public function actionHiddenCategory($id)
     {
         $model = $this->findModel($id);
-        $model->status = StatusHelper::getChangeStatus($model->status);
+        $model->status = StatusHelper::swapStatus($model->status);
 
         if ($model->save()) {
             return true;
