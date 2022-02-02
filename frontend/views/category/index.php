@@ -55,7 +55,7 @@ foreach ($modelAll as $model) {
     }
 
     $monthLimit = $model->month_limit != 0
-        ? ' <b><i>(Месячный лимит: ' . number_format($model->month_limit, 2, '.', ' ') . ')</i></b>'
+        ? ' <b><i>(Месячный лимит: ' . number_format($model->month_limit, 0, '.', ' ') . ')</i></b>'
         : '';
 
     $list[] = [

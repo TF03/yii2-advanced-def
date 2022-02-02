@@ -966,7 +966,7 @@ ul.total-category-limits > li.no-debt {
 
 ul.total-category-limits > li.no-debt span.info-category-limits {
     color: #468847;
-    margin-bottom: 5px;
+    padding: 5px 2px 2px 5px;
 }
 
 ul.total-category-limits > li.debt {
@@ -977,10 +977,12 @@ ul.total-category-limits > li.debt {
 
 ul.total-category-limits > li.debt span.info-category-limits {
     color: #b94a48;
+    padding: 5px 2px 2px 5px;
 }
 
 ul.total-category-limits > li > span.title-category-limits {
     display: flex;
+    padding: 5px 0 0 5px;
 }
 
 ul.total-category-limits > li > span.info-category-limits {
