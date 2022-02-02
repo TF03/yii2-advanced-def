@@ -31,4 +31,5 @@ php_fpm_emergency_restart_interval: '1m'
 php_fpm_process_control_timeout: '30s'
 php_fpm_log_level: 'error'
 php_fpm_process_max: '128'
+php_opcache_enable: 1
 php_opcache_revalidate_freq: 2

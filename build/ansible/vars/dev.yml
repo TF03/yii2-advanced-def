@@ -33,6 +33,7 @@ php_max_execution_time: 30
 php_memory_limit: 256M
 php_file_uploads: On
 php_max_file_uploads: 21
+php_opcache_enable: 0
 php_opcache_revalidate_freq: 3600
 php_packages: [
     "php{{ php_v }}-fpm", # for Nginx
@@ -53,7 +54,8 @@ php_packages: [
     "php{{ php_v }}-opcache",
     "php{{ php_v }}-apcu",
     "php{{ php_v }}-imagick",
-    "php{{ php_v }}-amqp"
+    "php{{ php_v }}-amqp",
+    "php{{ php_v }}-bcmath"
 ]
 
 # phpredis
