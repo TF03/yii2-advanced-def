@@ -40,7 +40,7 @@ class AccountsHelper
     {
         $result = [];
 
-        $accounts = Accounts::find()->all();
+        $accounts = Accounts::find()->orderBy('sort')->all();
         if (isset($accounts)) {
             foreach ($accounts as $account) {
                 /** @var $account Accounts */
